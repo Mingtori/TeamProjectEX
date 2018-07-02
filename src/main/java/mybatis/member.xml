@@ -30,8 +30,14 @@
 		WHERE memid=#{memid}
 	</update>
 	
+<<<<<<< HEAD
 	<select id="getMemberID" resultType="MyMember">
 		SELECT * FROM members
 		WHERE memname=#{memname} and mememail=#{mememail}
+=======
+	<select id="getMemberByPw" resultType="string" parameterType="MyMember">
+		SELECT mempw FROM members
+		WHERE mememail=#{mememail} and memid=#{memid} and memname=#{memname}
+>>>>>>> branch 'master' of https://github.com/Mingtori/TeamProject.git
 	</select>
 </mapper>

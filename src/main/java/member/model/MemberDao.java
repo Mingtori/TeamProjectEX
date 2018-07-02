@@ -41,10 +41,17 @@ public class MemberDao {
 		return cnt;
 	}
 
+<<<<<<< HEAD
 	public Member getMemberID(Member member) {
 		// TODO Auto-generated method stub
 		Member bean = null;
 		bean = sqlSessionTemplate.selectOne(namespace+".getMemberID",member);
 		return bean;
+=======
+	public String getMemberByPw(Member member) {
+		String pw = null;
+		pw = sqlSessionTemplate.selectOne(namespace+".getMemberByPw", member);
+		return pw;
+>>>>>>> branch 'master' of https://github.com/Mingtori/TeamProject.git
 	}
 }

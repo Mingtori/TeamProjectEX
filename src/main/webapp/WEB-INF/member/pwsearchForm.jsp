@@ -17,7 +17,7 @@
 	<h1>비밀번호 찾기</h1>
 	<form:form commandName="pwsearch" action="pwsearch.me" method="post">
 		<label for="memid">아이디</label>
-		<input type="text" name="memname" placeholder="hong"><p>
+		<input type="text" name="memid" placeholder="hong"><p>
 		<label for="memname">이름</label>
 		<input type="text" name="memname" placeholder="홍길동"><p>
 		<label for="mememail">이메일</label>
