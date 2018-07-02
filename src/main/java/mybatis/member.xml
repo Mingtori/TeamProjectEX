@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ 	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member.model.Member">
+	<insert id="insertMember" parameterType="MyMember">
+		INSERT INTO members(memid,mempw,memname,memaddr,memphone,mememail,mempermit,gradeid,comid)
+		VALUES(#{memid},#{mempw},#{memname},#{memaddr},#{memphone},#{mememail},#{mempermit},#{gradeid},
+		(select comid from company where comname=#{comname}))
+	</insert>
+	
+	<select id="getMember" resultType="MyMember">
+		SELECT * FROM members
+		WHERE memid = #{memid}
+	</select>
+	
+	<select id="getMemberJoinCG" resultType="MyMember">
+		select memid,mempw,memname,memaddr,memphone,mememail,gradename,c.comid,c.comname,c.comaddr
+		from members m inner join memgrade g
+			on m.gradeid = g.gradeid
+			left outer join company c
+			on m.comid = c.comid
+		where memid = #{memid}	
+	</select>
+	
+	<update id="updateMember" parameterType="MyMember">
+		UPDATE members
+		SET mempw=#{mempw},memname=#{memname},memaddr=#{memaddr},memphone=#{memphone},mememail=#{mememail}
+		WHERE memid=#{memid}
+	</update>
+</mapper>

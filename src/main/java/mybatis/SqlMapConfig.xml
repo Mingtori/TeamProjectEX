@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+	  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ 	 "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ 	 
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="useGeneratedKeys" value="false" />
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+	
+	<typeAliases>
+		<typeAlias alias="MyMember" type="member.model.Member" />
+		<typeAlias alias="MyProduct" type="product.model.Product" />
+		<typeAlias alias="MyOrder" type="order.model.Order" />
+		<typeAlias alias="MyCart" type="cart.model.Cart" />
+		<typeAlias alias="MyBoard" type="board.model.Board" />
+	</typeAliases>
+	
+	<!-- mapper 여러개인 경우 여기서 설정 -->
+	<mappers>
+		<mapper resource="mybatis/product.xml"/>
+		<mapper resource="mybatis/member.xml"/>
+		<mapper resource="mybatis/order.xml"/>
+		<mapper resource="mybatis/cart.xml"/>
+		<mapper resource="mybatis/board.xml"/>
+		<mapper resource="mybatis/composite.xml"/>
+	</mappers>
+</configuration>

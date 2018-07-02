@@ -1,0 +1,322 @@
+/* members */
+DROP TABLE members 
+	CASCADE CONSTRAINTS;
+
+/* memgrade */
+DROP TABLE memgrade 
+	CASCADE CONSTRAINTS;
+
+/* products */
+DROP TABLE products 
+	CASCADE CONSTRAINTS;
+
+/* productscategory */
+DROP TABLE prodcategory 
+	CASCADE CONSTRAINTS;
+
+/* sellproductslist */
+DROP TABLE selllist 
+	CASCADE CONSTRAINTS;
+
+/* boards */
+DROP TABLE boards 
+	CASCADE CONSTRAINTS;
+
+/* boardscategory */
+DROP TABLE boardscategory 
+	CASCADE CONSTRAINTS;
+
+/* orders */
+DROP TABLE orders 
+	CASCADE CONSTRAINTS;
+
+/* company */
+DROP TABLE company 
+	CASCADE CONSTRAINTS;
+
+/* cart */
+DROP TABLE cart 
+	CASCADE CONSTRAINTS;
+
+drop sequence boardseq;
+  
+create sequence boardseq
+  increment by 1
+  start with 0
+  minvalue 0
+  maxvalue 10000
+  nocache;
+  
+drop sequence productseq;
+  
+create sequence productseq
+  increment by 1
+  start with 0
+  minvalue 0
+  maxvalue 10000
+  nocache;
+  
+drop sequence companyseq;
+  
+create sequence companyseq
+  increment by 1
+  start with 0
+  minvalue 0
+  maxvalue 10000
+  nocache;
+
+
+
+/* members */
+CREATE TABLE members (
+	memid VARCHAR2(15) NOT NULL, /* 회원ID */
+	mempw VARCHAR2(10) NOT NULL, /* 비밀번호 */
+	memname VARCHAR2(10) NOT NULL, /* 이름 */
+	memaddr VARCHAR2(40), /* 주소 */
+	memphone VARCHAR2(13), /* 전화번호 */
+	mememail VARCHAR2(20) NOT NULL, /* 이메일 */
+	mempermit VARCHAR2(10) DEFAULT '승인', /* 가입승인 */
+	gradeid NUMBER default 1, /* 회원등급ID */
+	comid NUMBER /* 회사ID */
+);
+
+ALTER TABLE members
+	ADD
+		CONSTRAINT PKmembers
+		PRIMARY KEY (
+			memid
+		);
+
+/* memgrade */
+CREATE TABLE memgrade (
+	gradeid NUMBER NOT NULL, /* 회원등급ID */
+	gradename VARCHAR2(10) NOT NULL /* 등급이름 */
+);
+
+INSERT INTO memgrade VALUES(0, '관리자');
+INSERT INTO memgrade VALUES(1, '일반회원');
+INSERT INTO memgrade VALUES(2, '판매자');
+
+ALTER TABLE memgrade
+	ADD
+		CONSTRAINT PKmemgrade
+		PRIMARY KEY (
+			gradeid
+		);
+
+/* products */
+CREATE TABLE products (
+	prodid NUMBER NOT NULL, /* 상품ID */
+	prodname VARCHAR2(15) NOT NULL, /* 상품명 */
+	prodcateid NUMBER NOT NULL, /* 카테고리ID */
+	prodimage VARCHAR2(20) NOT NULL, /* 이미지 */
+	prodprice NUMBER NOT NULL, /* 가격 */
+	prodstock NUMBER NOT NULL, /* 재고수량 */
+	prodinputdate DATE DEFAULT SYSDATE, /* 등록일자 */
+	prodstartdate DATE NOT NULL, /* 시작일자 */
+	prodenddate DATE NOT NULL, /* 종료일자 */
+	prodcontent VARCHAR2(50) NOT NULL /* 내용 */
+);
+
+ALTER TABLE products
+	ADD
+		CONSTRAINT PKproducts
+		PRIMARY KEY (
+			prodid
+		);
+
+/* productscategory */
+CREATE TABLE prodcategory (
+	prodcateid NUMBER NOT NULL, /* 카테고리ID */
+	prodcatename VARCHAR(10) NOT NULL /* 카테고리명 */
+);
+
+INSERT INTO prodcategory VALUES(0, '전시');
+INSERT INTO prodcategory VALUES(1, '행사');
+
+
+ALTER TABLE prodcategory
+	ADD
+		CONSTRAINT PKprodcategory
+		PRIMARY KEY (
+			prodcateid
+		);
+
+/* selllist */
+CREATE TABLE selllist (
+	memid VARCHAR2(15) NOT NULL, /* 회원ID */
+	prodid NUMBER NOT NULL /* 상품ID */
+);
+
+ALTER TABLE selllist
+	ADD
+		CONSTRAINT PKselllist
+		PRIMARY KEY (
+			memid,
+			prodid
+		);
+
+/* boards */
+CREATE TABLE boards (
+	boardid NUMBER NOT NULL, /* 게시글ID */
+	boardsubject VARCHAR2(20) NOT NULL, /* 제목 */
+	memid VARCHAR2(15) NOT NULL, /* 회원ID */
+	boardcateid VARCHAR2(5) NOT NULL, /* 카테고리ID */
+	prodid NUMBER, /* 상품ID */
+	boardcontent VARCHAR2(50) NOT NULL, /* 내용 */
+	ref NUMBER DEFAULT 0, /* ref */
+	restep NUMBER DEFAULT 0, /* restep */
+	relevel NUMBER DEFAULT 0, /* relevel */
+	boardip VARCHAR2(15) NOT NULL, /* IP */
+	boardimage VARCHAR2(20), /* 이미지 */
+	boardinputdate DATE DEFAULT SYSDATE, /* 게시일자 */
+	boardreadcount NUMBER DEFAULT 0 /* 조회수 */
+);
+
+ALTER TABLE boards
+	ADD
+		CONSTRAINT PKboards
+		PRIMARY KEY (
+			boardid
+		);
+
+/* boardscategory */
+CREATE TABLE boardscategory (
+	boardcateid VARCHAR2(5) NOT NULL, /* 카테고리ID */
+	boardcatename VARCHAR2(15) NOT NULL /* 카테고리명 */
+);
+
+INSERT INTO boardscategory VALUES('a01', '전체공지사항');
+INSERT INTO boardscategory VALUES('a02', '전체문의사항');
+INSERT INTO boardscategory VALUES('p01', '상품공지사항');
+INSERT INTO boardscategory VALUES('p02', '상품문의사항');
+INSERT INTO boardscategory VALUES('p03', '상품후기');
+
+
+ALTER TABLE boardscategory
+	ADD
+		CONSTRAINT PKboardscategory
+		PRIMARY KEY (
+			boardcateid
+		);
+
+/* orders */
+CREATE TABLE orders (
+	orderid VARCHAR2(20) NOT NULL, /* 주문ID */
+	orderqty NUMBER NOT NULL, /* 수량 */
+	orderuse VARCHAR2(5) DEFAULT 'NO' /* 사용여부 */
+);
+
+ALTER TABLE orders
+	ADD
+		CONSTRAINT PKorders
+		PRIMARY KEY (
+			orderid
+		);
+
+/* company */
+CREATE TABLE company (
+	comid NUMBER NOT NULL, /* 회사ID */
+	comname VARCHAR2(15) NOT NULL UNIQUE, /* 회사이름 */
+	comaddr VARCHAR2(40) NOT NULL /* 회사주소 */
+);
+
+ALTER TABLE company
+	ADD
+		CONSTRAINT PKcompany
+		PRIMARY KEY (
+			comid
+		);
+
+/* cart */
+CREATE TABLE cart (
+	cartid VARCHAR2(30) NOT NULL, /* 장바구니ID */
+	cartqty NUMBER NOT NULL /* 수량 */
+);
+
+ALTER TABLE cart
+	ADD
+		CONSTRAINT PKcart
+		PRIMARY KEY (
+			cartid
+		);
+
+ALTER TABLE members
+	ADD
+		CONSTRAINT FKmemgradeTOmembers
+		FOREIGN KEY (
+			gradeid
+		)
+		REFERENCES memgrade (
+			gradeid
+		);
+
+ALTER TABLE members
+	ADD
+		CONSTRAINT FKcompanyTOmembers
+		FOREIGN KEY (
+			comid
+		)
+		REFERENCES company (
+			comid
+		);
+
+ALTER TABLE products
+	ADD
+		CONSTRAINT FKprodcategoryTOproducts
+		FOREIGN KEY (
+			prodcateid
+		)
+		REFERENCES prodcategory (
+			prodcateid
+		);
+
+ALTER TABLE selllist
+	ADD
+		CONSTRAINT FKmembersTOselllist
+		FOREIGN KEY (
+			memid
+		)
+		REFERENCES members (
+			memid
+		);
+
+ALTER TABLE sellproductslist
+	ADD
+		CONSTRAINT FKproductsTOselllist
+		FOREIGN KEY (
+			prodid
+		)
+		REFERENCES products (
+			prodid
+		);
+
+ALTER TABLE boards
+	ADD
+		CONSTRAINT FKmembersTOboards
+		FOREIGN KEY (
+			memid
+		)
+		REFERENCES members (
+			memid
+		);
+
+ALTER TABLE boards
+	ADD
+		CONSTRAINT FKboardscategoryTOboards
+		FOREIGN KEY (
+			boardcateid
+		)
+		REFERENCES boardscategory (
+			boardcateid
+		);
+
+ALTER TABLE boards
+	ADD
+		CONSTRAINT FKproductsTOboards
+		FOREIGN KEY (
+			prodid
+		)
+		REFERENCES products (
+			prodid
+		);
