@@ -40,4 +40,11 @@ public class MemberDao {
 		cnt = sqlSessionTemplate.update(namespace+".updateMember", member);
 		return cnt;
 	}
+
+	public Member getMemberID(Member member) {
+		// TODO Auto-generated method stub
+		Member bean = null;
+		bean = sqlSessionTemplate.selectOne(namespace+".getMemberID",member);
+		return bean;
+	}
 }

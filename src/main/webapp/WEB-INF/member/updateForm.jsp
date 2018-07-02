@@ -52,8 +52,8 @@
 		@
 		<select name="mememail2">
 			<option value="">선택하세요
-			<option value="@naver.com" <c:if test="${email[1] == 'naver.com' }">selected</c:if>>naver.com
-			<option value="@daum.net" <c:if test="${email[1] == 'daum.net' }">selected</c:if>>daum.net
+			<option value="naver.com" <c:if test="${email[1] == 'naver.com' }">selected</c:if>>naver.com
+			<option value="daum.net" <c:if test="${email[1] == 'daum.net' }">selected</c:if>>daum.net
 		</select>
 		<form:errors cssClass="err" path="mememail1"/>
 		<form:errors cssClass="err" path="mememail2"/><p>
