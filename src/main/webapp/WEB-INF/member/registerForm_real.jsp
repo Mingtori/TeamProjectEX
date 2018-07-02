@@ -53,8 +53,8 @@
 		@
 		<select name="mememail2">
 			<option value="">선택하세요
-			<option value="@naver.com">naver.com
-			<option value="@daum.net">daum.net
+			<option value="naver.com">naver.com
+			<option value="daum.net">daum.net
 		</select>
 		<form:errors cssClass="err" path="mememail1"/>
 		<form:errors cssClass="err" path="mememail2"/><p>

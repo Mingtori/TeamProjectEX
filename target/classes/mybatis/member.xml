@@ -29,4 +29,9 @@
 		SET mempw=#{mempw},memname=#{memname},memaddr=#{memaddr},memphone=#{memphone},mememail=#{mememail}
 		WHERE memid=#{memid}
 	</update>
+	
+	<select id="getMemberByPw" resultType="string" parameterType="MyMember">
+		SELECT mempw FROM members
+		WHERE mememail=#{mememail} and memid=#{memid} and memname=#{memname}
+	</select>
 </mapper>

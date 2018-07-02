@@ -40,4 +40,10 @@ public class MemberDao {
 		cnt = sqlSessionTemplate.update(namespace+".updateMember", member);
 		return cnt;
 	}
+
+	public String getMemberByPw(Member member) {
+		String pw = null;
+		pw = sqlSessionTemplate.selectOne(namespace+".getMemberByPw", member);
+		return pw;
+	}
 }
