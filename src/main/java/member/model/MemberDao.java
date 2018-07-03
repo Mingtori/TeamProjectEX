@@ -1,7 +1,7 @@
 package member.model;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,8 @@ public class MemberDao {
 		cnt = sqlSessionTemplate.insert(namespace+".insertMember", member);
 		return cnt;
 	}
-
+	
+	// 회원정보 가져오기
 	public Member getMember(String mem_id) {
 		// TODO Auto-generated method stub
 		System.out.println("mem_id : " + mem_id);
@@ -28,30 +29,36 @@ public class MemberDao {
 		return bean;
 	}
 
-	// members inner join mem_grade left outer join company
+	// 회원정보 가져오기 members inner join mem_grade left outer join company 
 	public Member getMemberJoinCG(String mem_id) {
 		System.out.println("mem_id : " + mem_id);
 		Member bean = sqlSessionTemplate.selectOne(namespace+".getMemberJoinCG", mem_id);
 		return bean;
 	}
-
+	// 회원정보 수정
 	public int updateMember(Member member) {
 		int cnt = -1;
 		cnt = sqlSessionTemplate.update(namespace+".updateMember", member);
 		return cnt;
 	}
-
-<<<<<<< HEAD
+	// 아이디 찾기
 	public Member getMemberID(Member member) {
 		// TODO Auto-generated method stub
 		Member bean = null;
 		bean = sqlSessionTemplate.selectOne(namespace+".getMemberID",member);
 		return bean;
-=======
+	}
+	// 비밀번호 찾기
 	public String getMemberByPw(Member member) {
 		String pw = null;
 		pw = sqlSessionTemplate.selectOne(namespace+".getMemberByPw", member);
 		return pw;
->>>>>>> branch 'master' of https://github.com/Mingtori/TeamProject.git
+	}
+	
+	// 회원목록
+	public List<Member> getMemberList() {
+		List<Member> list = null;
+		list = sqlSessionTemplate.selectList(namespace+".getMemberList");
+		return list;
 	}
 }

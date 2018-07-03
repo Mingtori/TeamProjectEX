@@ -9,9 +9,6 @@
 </head>
 <body>
 <% 
-	Member member = new Member();
-	member.setMemid("ming1234");
-	session.setAttribute("loginfo", member);
 	String viewPage = "/";
 	response.sendRedirect(request.getContextPath() + viewPage);
 %>

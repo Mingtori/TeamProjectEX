@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import composite.model.CompositeDao;
 import member.model.Member;
@@ -25,11 +26,16 @@ public class MemberUpdateController {
 	
 	@RequestMapping(value=command, method=RequestMethod.GET)
 	public String doActionGet(HttpSession session,
-			Model model){
+			Model model,
+			@RequestParam(value="memid", required=false) String memid){
 		System.out.println(this.getClass() + " get");
-		Member loginfo = (Member) session.getAttribute("loginfo");
-		Member member = memberDao.getMemberJoinCG(loginfo.getMemid());
-
+		Member loginfo, member; 
+		if(memid == null){	// 본인 회원수정
+			loginfo = (Member) session.getAttribute("loginfo");
+			member = memberDao.getMemberJoinCG(loginfo.getMemid());
+		}else{		// 관리자가 회원수정
+			member = memberDao.getMemberJoinCG(memid);
+		}
 		System.out.println(member.getMemid());
 		model.addAttribute("member", member);
 		return getPage;
