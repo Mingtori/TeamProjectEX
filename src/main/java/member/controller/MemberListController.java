@@ -1,11 +1,15 @@
 package member.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import member.model.Member;
 import member.model.MemberDao;
@@ -18,12 +22,31 @@ public class MemberListController {
 	@Autowired
 	private MemberDao memberDao;
 	
-	@RequestMapping(command)
-	public String doActionGet(Model model){
+	@RequestMapping(value=command, method=RequestMethod.GET)
+	public String doActionGet(Model model,
+			@RequestParam(value="flag", required=false) String flag,
+			@RequestParam(value="search", required=false) String search){
 		System.out.println(this.getClass()); 
-		List<Member> memberlist = memberDao.getMemberList();
-		model.addAttribute("memberlist", memberlist);
+		
+		getList(model,flag,search);
 		
 		return getPage;
+	}
+	
+	@RequestMapping(value=command, method=RequestMethod.POST)
+	public String doActionPost(Model model,
+			@RequestParam("memid") String memid){
+		memberDao.updatePermit(memid);
+		getList(model,null,null);
+		
+		return getPage;
+	}
+	
+	public void getList(Model model,String flag,String search){
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("flag", flag);
+		map.put("search", "%"+search+"%");
+		List<Member> memberlist = memberDao.getMemberList(map);
+		model.addAttribute("memberlist", memberlist);
 	}
 }

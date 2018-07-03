@@ -1,7 +1,7 @@
 package member.model;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,9 +56,21 @@ public class MemberDao {
 	}
 	
 	// 회원목록
-	public List<Member> getMemberList() {
+	public List<Member> getMemberList(Map<String,String> map) {
 		List<Member> list = null;
-		list = sqlSessionTemplate.selectList(namespace+".getMemberList");
+		list = sqlSessionTemplate.selectList(namespace+".getMemberList", map);
 		return list;
+	}
+
+	public int updatePermit(String memid) {
+		int cnt = -1;
+		cnt = sqlSessionTemplate.update(namespace+".updatePermit", memid);
+		return cnt;
+	}
+
+	public int deleteMember(String memid) {
+		int cnt = -1;
+		cnt = sqlSessionTemplate.delete(namespace+".deleteMember", memid);
+		return cnt;
 	}
 }

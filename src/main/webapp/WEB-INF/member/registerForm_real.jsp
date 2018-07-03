@@ -13,6 +13,7 @@
 	function duplicateID(){
 		
 	}
+
 </script>
 </head>
 <body>

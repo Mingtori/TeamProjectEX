@@ -7,12 +7,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>회원관리</title>
 <script type="text/javascript">
-	function permit(){
-		
-	}
 </script>
 </head>
 <body>
+	<form action="memberlist.me" method="get">
+		<select name="flag">
+			<option value="" selected>전체검색
+			<option value="memid">아이디
+			<option value="memname">이름
+		</select>
+		<input type="text" name="search" placeholder="검색" value="">
+		<input type="submit" value="검색">
+	</form>
 	<table border="1">
 		<tr>
 			<th>아이디</th>
@@ -21,11 +27,11 @@
 			<th>전화번호</th>
 			<th>이메일</th>
 			<th>회원등급</th>
-			<th>회사이름</th>
-			<th>회사주소</th>
+			<th>회사 이름</th>
+			<th>회사 주소</th>
 			<th>수정</th>
 			<th>삭제</th>
-			<th>승인</th>
+			<th>가입</th>
 		</tr>
 		<c:forEach var="member" items="${memberlist }">
 			<tr>
@@ -37,12 +43,26 @@
 				<td>${member.gradename }</td>
 				<td>${member.comname }</td>
 				<td>${member.comaddr }</td>
-				<td><a href="update.me?memid=${member.memid }">수정</a></td>
-				<td><a href="delete.me?memid=${member.memid }">삭제</a></td>
 				<td>
-				<c:if test="${member.mempermit == '승인대기' }">
-					<input type="button" value="승인" onclick="permit();">
-				</c:if>
+					<c:if test="${member.gradename != '관리자' }">
+						<a href="update.me?memid=${member.memid }">수정</a>
+					</c:if>
+				</td>
+				<td>
+					<c:if test="${member.gradename != '관리자' }">
+						<a href="delete.me?memid=${member.memid }">삭제</a>
+					</c:if>
+				</td>
+				<td>
+					<c:if test="${member.mempermit == '승인대기' }">
+						<form action="memberlist.me" method="post">
+							<input type="hidden" name="memid" value="${member.memid }">
+							<input type="submit" value="승인">
+						</form>
+					</c:if>
+					<c:if test="${member.mempermit == '승인' }">
+						<c:out value="승인"/>
+					</c:if>
 				</td>
 			</tr>
 		</c:forEach>
