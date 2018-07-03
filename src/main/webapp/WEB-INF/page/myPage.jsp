@@ -13,6 +13,7 @@
 		<li><a href="<%=request.getContextPath() %>/">Home</a></li>
 		<c:if test="${loginfo.gradeid == 0 }"><!-- 관리자일경우 -->
 			<li><a href="memberlist.me">회원관리목록</a></li>
+			<li><a href="#">상품관리목록</a></li>
 		</c:if>
 		<c:if test="${loginfo.gradeid == 1 }"><!-- 일반 사용자일경우 -->
 			<li><a href="#">구매내역</a></li>

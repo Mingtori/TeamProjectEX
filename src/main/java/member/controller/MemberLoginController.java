@@ -58,6 +58,13 @@ public class MemberLoginController {
 				writer.flush();
 				return getPage;
 			}else{	// 비밀번호가 맞을때
+				if("승인대기".equals(login.getMempermit())){
+					writer.println("<script>");
+					writer.println("alert('가입 승인대기 중 입니다.')");
+					writer.println("</script>");
+					writer.flush();
+					return getPage;
+				}
 				session.setAttribute("loginfo", login);
 				if(member.getGradeid() == 0){	// 관리자 아이디일때
 					return gotoAdminPage;
