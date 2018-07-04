@@ -20,7 +20,6 @@
 
 	<select id="getBoardLists" parameterType="hashMap" resultType="MyBoard">
 		select * from boards
-
 		<where>
 			<if test="boardcateid != null">
 				boardcateid = #{boardcateid}
@@ -33,11 +32,10 @@
 			<if test="whatColumn == 'boardcontent'">
 				and boardcontent like #{keyword}
 			</if>
-
 		</where>
-
 		order by boardid desc
 	</select>
+	
 	<insert id="insertBoard" parameterType="MyBoard">
 		insert into
 		boards
@@ -62,15 +60,26 @@
 		#{boardreadcount}
 		)
 	</insert>
+	
 	<select id="getArticle" resultType="MyBoard">
 		select * from boards where
 		boardid=#{boardid}
 	</select>
+	
 	<update id="readCountUpdate">
 		update boards set boardreadcount = boardreadcount+1
 		where boardid=#{boardid}
 	</update>
+<<<<<<< HEAD
 	<delete id="deleteArticle">
 		delete from boards where boardid=#{boardid}
 	</delete>
+=======
+	
+	<update id="updateArticle">
+		update boards
+		set boardsubject=#{boardsubject}, boardcontent=#{boardcontent}
+		where boardid=#{boardid}
+	</update>
+>>>>>>> branch 'master' of https://github.com/Mingtori/TeamProject.git
 </mapper>

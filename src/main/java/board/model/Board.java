@@ -94,13 +94,13 @@ public class Board {
    public void setBoardreadcount(int boardreadcount) {
       this.boardreadcount = boardreadcount;
    }
-@Override
-public String toString() {
-	return "Board [boardid=" + boardid + ", boardsubject=" + boardsubject + ", memid=" + memid + ", boardcateid="
-			+ boardcateid + ", prodid=" + prodid + ", boardcontent=" + boardcontent + ", ref=" + ref + ", restep="
-			+ restep + ", relevel=" + relevel + ", boardip=" + boardip + ", boardimage=" + boardimage
-			+ ", boardinputdate=" + boardinputdate + ", boardreadcount=" + boardreadcount + "]";
-}
+	@Override
+	public String toString() {
+		return "Board [boardid=" + boardid + ", boardsubject=" + boardsubject + ", memid=" + memid + ", boardcateid="
+				+ boardcateid + ", prodid=" + prodid + ", boardcontent=" + boardcontent + ", ref=" + ref + ", restep="
+				+ restep + ", relevel=" + relevel + ", boardip=" + boardip + ", boardimage=" + boardimage
+				+ ", boardinputdate=" + boardinputdate + ", boardreadcount=" + boardreadcount + "]";
+	}
    
    
 }
