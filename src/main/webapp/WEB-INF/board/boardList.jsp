@@ -11,11 +11,14 @@
 	boardList.jsp
 
 	<h3>공지사항</h3>
+	<c:set var="count" value="${pageInfo.totalCount - pageInfo.pageSize * (pageInfo.pageNumber-1)}"/>
 	<table border=1>
+		<c:if test="${loginfo.memid eq 'admin'}">
 		<tr>
 			<td colspan=5 align="right"><input type="button" value="글쓰기"
 				onclick="location.href='insert.bd?boardcateid=${boardcateid}'" /></td>
 		</tr>
+		</c:if>
 		<tr>
 			<th>글번호</th>
 			<th>제목</th>
@@ -23,9 +26,9 @@
 			<th>게시일자</th>
 			<th>조회수</th>
 		</tr>
-		<c:forEach items="${lists }" var="lists">
+		<c:forEach items="${lists }" var="lists" varStatus="status">
 			<tr>
-				<td>${lists.boardid }</td>
+				<td>${count-status.index}</td>
 				<td><a href="detail.bd?boardid=${lists.boardid}&pageNumber=${pageInfo.pageNumber}">${lists.boardsubject }</a></td>
 				<td>${lists.memid }</td>
 				<td>${lists.boardinputdate}</td>
@@ -38,8 +41,9 @@
 		<select name="whatColumn">
 			<option value="boardsubject">제목
 			<option value="boardcontent">내용
-		</select> <input type="text" name="keyword" placeholder="검색" value=""> <input
-			type="submit" value="검색">
+		</select>
+		<input type="text" name="keyword" placeholder="검색" value="">
+		<input type="submit" value="검색">
 	</form>
 </body>
 </html>

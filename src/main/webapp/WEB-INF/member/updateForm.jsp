@@ -38,18 +38,20 @@
 		<label for="memaddr">주소</label>
 		<input type="text" name="memaddr" placeholder="서울시 서대문구" value="${member.memaddr }">
 		<form:errors cssClass="err" path="memaddr"/><p>
-		<label for="memphone1">전화번호</label>
-		<select name="memphone1">
-			<option value="010" <c:if test="${phone[0] == '010' }">selected</c:if>>010
-			<option value="070" <c:if test="${phone[0] == '070' }">selected</c:if>>070
-		</select>
-		<c:forEach var="ph" items="${phone }" varStatus="status" begin="1">
-		-
-		<input type="text" name="memphone${status.count + 1 }" placeholder="1234" value="${ph }">
-		</c:forEach>
-		<form:errors cssClass="err" path="memphone1"/>
-		<form:errors cssClass="err" path="memphone2"/>
-		<form:errors cssClass="err" path="memphone3"/><p>
+		<c:if test="${member.memid!='admin'}">
+			<label for="memphone1">전화번호</label>
+			<select name="memphone1">
+				<option value="010" <c:if test="${phone[0] == '010' }">selected</c:if>>010
+				<option value="070" <c:if test="${phone[0] == '070' }">selected</c:if>>070
+			</select>
+			<c:forEach var="ph" items="${phone }" varStatus="status" begin="1">
+			-
+			<input type="text" name="memphone${status.count + 1 }" placeholder="1234" value="${ph }">
+			</c:forEach>
+			<form:errors cssClass="err" path="memphone1"/>
+			<form:errors cssClass="err" path="memphone2"/>
+			<form:errors cssClass="err" path="memphone3"/><p>
+		</c:if>
 		<label for="mememail1">이메일</label>
 		<input type="text" name="mememail1" placeholder="email" value="${email[0] }">
 		@

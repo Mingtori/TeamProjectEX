@@ -40,6 +40,6 @@ public class BoardInsertController {
 		boardDao.insertBoard(board);
 		
 		
-		return gotoPage;
+		return gotoPage+"?boardcateid="+board.getBoardcateid();
 	}
 }

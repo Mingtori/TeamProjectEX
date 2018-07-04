@@ -49,4 +49,10 @@ public class BoardDao {
 		return board;
 	}
 
+	public void deleteArticle(int boardid) {
+		// TODO Auto-generated method stub
+		System.out.println("deleteArticle");
+		sqlSessionTemplate.delete(namespace+".deleteArticle", boardid);
+	}
+
 }

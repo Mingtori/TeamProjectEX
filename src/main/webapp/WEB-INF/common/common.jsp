@@ -19,5 +19,7 @@
 </style>
 </head>
 <body>
+<input type="button" value="돌아가기" onclick="location.href='<%=request.getContextPath() %>/'"/><br>
+loginfo : ${loginfo.memid } <br>
 </body>
 </html>

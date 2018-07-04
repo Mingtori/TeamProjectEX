@@ -24,11 +24,11 @@ public class MemberListController {
 	
 	@RequestMapping(value=command, method=RequestMethod.GET)
 	public String doActionGet(Model model,
-			@RequestParam(value="flag", required=false) String flag,
-			@RequestParam(value="search", required=false) String search){
+			@RequestParam(value="whatColumn", required=false) String whatColumn,
+			@RequestParam(value="keyword", required=false) String keyword){
 		System.out.println(this.getClass()); 
 		
-		getList(model,flag,search);
+		getList(model,whatColumn,keyword);
 		
 		return getPage;
 	}
@@ -42,10 +42,10 @@ public class MemberListController {
 		return getPage;
 	}
 	
-	public void getList(Model model,String flag,String search){
+	public void getList(Model model,String whatColumn,String keyword){
 		Map<String,String> map = new HashMap<String, String>();
-		map.put("flag", flag);
-		map.put("search", "%"+search+"%");
+		map.put("whatColumn", whatColumn);
+		map.put("keyword", "%"+keyword+"%");
 		List<Member> memberlist = memberDao.getMemberList(map);
 		model.addAttribute("memberlist", memberlist);
 	}

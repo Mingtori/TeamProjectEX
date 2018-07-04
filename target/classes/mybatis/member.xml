@@ -55,11 +55,11 @@
 			on m.gradeid = g.gradeid
 			left outer join company c
 			on m.comid = c.comid
-		<if test="flag == 'memid'">
-			where memid like #{search}
+		<if test="whatColumn == 'memid'">
+			where memid like #{keyword}
 		</if>
-		<if test="flag == 'memname'">
-			where memname like #{search}
+		<if test="whatColumn == 'memname'">
+			where memname like #{keyword}
 		</if>
 	</select>
 	
