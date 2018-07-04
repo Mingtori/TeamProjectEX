@@ -65,6 +65,14 @@ create sequence companyseq
   maxvalue 10000
   nocache;
 
+drop sequence boardseq;
+  
+create sequence boardseq
+  increment by 1
+  start with 0
+  minvalue 0
+  maxvalue 10000
+  nocache;
 
 
 /* members */
