@@ -22,17 +22,17 @@ public class MemberDao {
 	}
 	
 	// 회원정보 가져오기
-	public Member getMember(String mem_id) {
+	public Member getMember(String memid) {
 		// TODO Auto-generated method stub
-		System.out.println("mem_id : " + mem_id);
-		Member bean = sqlSessionTemplate.selectOne(namespace+".getMember", mem_id);
+		System.out.println("memid : " + memid);
+		Member bean = sqlSessionTemplate.selectOne(namespace+".getMember", memid);
 		return bean;
 	}
 
 	// 회원정보 가져오기 members inner join mem_grade left outer join company 
-	public Member getMemberJoinCG(String mem_id) {
-		System.out.println("mem_id : " + mem_id);
-		Member bean = sqlSessionTemplate.selectOne(namespace+".getMemberJoinCG", mem_id);
+	public Member getMemberJoinCG(String memid) {
+		System.out.println("mem_id : " + memid);
+		Member bean = sqlSessionTemplate.selectOne(namespace+".getMemberJoinCG", memid);
 		return bean;
 	}
 	// 회원정보 수정

@@ -5,7 +5,7 @@
  	 
 <mapper namespace="mycomposite">
 	<insert id="insertCompany" parameterType="MyMember" >
-		INSERT INTO company VALUES(company_seq.nextval,#{comname},#{comaddr})
+		INSERT INTO company VALUES(companyseq.nextval,#{comname},#{comaddr})
 	</insert>
 	
 	<update id="updateCompany" parameterType="MyMember">
@@ -13,4 +13,9 @@
 		SET comname=#{comname},comaddr=#{comaddr}
 		WHERE comid=#{comid}
 	</update>
+	
+	<delete id="deleteCompany">
+		DELETE FROM company
+		WHERE comid=#{comid}
+	</delete>
 </mapper>

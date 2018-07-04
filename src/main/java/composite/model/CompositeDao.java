@@ -31,6 +31,13 @@ public class CompositeDao {
 		cnt = sqlSessionTemplate.update(namespace+".updateCompany", member);
 		return cnt;
 	}
+
+	// 회사 삭제
+	public int deleteCompany(int comid) {
+		int cnt = -1;
+		cnt = sqlSessionTemplate.delete(namespace+".deleteCompany", comid);
+		return cnt;
+	}
 	
 	
 }
