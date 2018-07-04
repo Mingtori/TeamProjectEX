@@ -49,17 +49,15 @@ public class BoardDao {
 		return board;
 	}
 
-<<<<<<< HEAD
 	public void deleteArticle(int boardid) {
 		// TODO Auto-generated method stub
 		System.out.println("deleteArticle");
 		sqlSessionTemplate.delete(namespace+".deleteArticle", boardid);
-=======
+	}
 	public int updateArticle(Board board) {
 		int cnt = -1;
 		cnt = sqlSessionTemplate.update(namespace+".updateArticle", board);
 		return cnt;
->>>>>>> branch 'master' of https://github.com/Mingtori/TeamProject.git
 	}
 
 }

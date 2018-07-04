@@ -26,7 +26,6 @@
 				<td align="center" width="125">작성자</td>
 				<td align="center" width="125">${board.memid }</td>
 				<td align="center" width="125">작성일</td>
-<<<<<<< HEAD
 				<td align="center" width="125">
 				<fmt:formatDate value="${board.boardinputdate }" type="date" pattern="yyyy-MM-dd" /></td>
 			</tr>
@@ -44,44 +43,12 @@
 			<tr height="30">
 				<td colspan="4" align="right">
 					<c:if test="${loginfo.memid eq 'admin'}">
-						<input type="button" value="글수정" onclick="update(${board.boardid});">
+						<input type="button" value="글수정" onclick="location.href='update.bd?boardid=${board.boardid}&pageNumber=${pageNumber }'">
 			  			 &nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="button" value="글삭제" onclick="document.location.href='delete.bd?boardid=${board.boardid}&boardcateid=${board.boardcateid}'">
 						 &nbsp;&nbsp;&nbsp;&nbsp;
 				   </c:if> 
 				   <input type="button" value="글목록" onclick="document.location.href='notice.bd?pageNumber=${pageNumber}&boardcateid=${board.boardcateid }'">
-=======
-				<td align="center" width="125"><fmt:formatDate
-						value="${board.boardinputdate }" type="date" pattern="yyyy-MM-dd" /></td>
-			</tr>
-
-			<tr height="30">
-				<td align="center" width="125">글제목</td>
-				<td align="center" width="375" colspan="3">${board.boardsubject}</td>
-			</tr>
-
-			<tr>
-				<td align="center" width="125">글내용</td>
-				<td align="left" width="375" colspan="3"><pre>${board.boardcontent}</pre></td>
-			</tr>
-
-			<tr height="30">
-				<td colspan="4" align="right">
-					<c:if test="${loginfo.memid == 'admin' }">
-						<input type="button" value="글수정"
-							onclick="document.location.href=
-						       'update.bd?boardid=${board.boardid}&pageNumber=${pageNumber }'">
-							   &nbsp;&nbsp;&nbsp;&nbsp;
-	  
-						<input type="button" value="글삭제"
-							onclick="document.location.href=
-						       'delete.bd?num=${board.boardid}'">
-							   &nbsp;&nbsp;&nbsp;&nbsp;
-					</c:if> 
-						<input type="button" value="글목록"
-							onclick="document.location.href=
-							'notice.bd?pageNumber=${pageNumber}'">
->>>>>>> branch 'master' of https://github.com/Mingtori/TeamProject.git
 				</td>
 			</tr>
 		</table>

@@ -19,6 +19,7 @@
 		<% }else{ %>
 		<li><a href="logout.me">로그아웃</a></li>
 		<% } %>
+		<li><a href="list.prd">상품</a></li>
 	</ul>
 </body>
 </html>
