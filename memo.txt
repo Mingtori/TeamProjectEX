@@ -80,6 +80,9 @@ CREATE TABLE members (
 	comid NUMBER /* 회사ID */
 );
 
+insert into members(memid,mempw,memname,mememail,mempermit,gradeid)
+values('admin','1234','관리자','admin@gmail.com','',0);
+
 ALTER TABLE members
 	ADD
 		CONSTRAINT PKmembers
@@ -259,7 +262,7 @@ ALTER TABLE members
 		)
 		REFERENCES company (
 			comid
-		);
+		) ON DELETE SET NULL;
 
 ALTER TABLE products
 	ADD
@@ -275,21 +278,21 @@ ALTER TABLE selllist
 	ADD
 		CONSTRAINT FKmembersTOselllist
 		FOREIGN KEY (
-			memid
+			memid 
 		)
 		REFERENCES members (
 			memid
-		);
+		) ON DELETE CASCADE;
 
-ALTER TABLE sellproductslist
+ALTER TABLE selllist
 	ADD
 		CONSTRAINT FKproductsTOselllist
 		FOREIGN KEY (
-			prodid
-		)
+			prodid 
+		) 
 		REFERENCES products (
-			prodid
-		);
+			prodid 
+		) ON DELETE CASCADE;
 
 ALTER TABLE boards
 	ADD
@@ -319,4 +322,4 @@ ALTER TABLE boards
 		)
 		REFERENCES products (
 			prodid
-		);
+		) ON DELETE CASCADE;

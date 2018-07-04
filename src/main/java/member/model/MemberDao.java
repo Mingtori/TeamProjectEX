@@ -1,7 +1,7 @@
 package member.model;
 
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,27 +20,27 @@ public class MemberDao {
 		cnt = sqlSessionTemplate.insert(namespace+".insertMember", member);
 		return cnt;
 	}
-
-	public Member getMember(String mem_id) {
+	
+	// 회원정보 가져오기
+	public Member getMember(String memid) {
 		// TODO Auto-generated method stub
-		System.out.println("mem_id : " + mem_id);
-		Member bean = sqlSessionTemplate.selectOne(namespace+".getMember", mem_id);
+		System.out.println("memid : " + memid);
+		Member bean = sqlSessionTemplate.selectOne(namespace+".getMember", memid);
 		return bean;
 	}
 
-	// members inner join mem_grade left outer join company
-	public Member getMemberJoinCG(String mem_id) {
-		System.out.println("mem_id : " + mem_id);
-		Member bean = sqlSessionTemplate.selectOne(namespace+".getMemberJoinCG", mem_id);
+	// 회원정보 가져오기 members inner join mem_grade left outer join company 
+	public Member getMemberJoinCG(String memid) {
+		System.out.println("mem_id : " + memid);
+		Member bean = sqlSessionTemplate.selectOne(namespace+".getMemberJoinCG", memid);
 		return bean;
 	}
-
+	// 회원정보 수정
 	public int updateMember(Member member) {
 		int cnt = -1;
 		cnt = sqlSessionTemplate.update(namespace+".updateMember", member);
 		return cnt;
 	}
-
 	public Member getMemberID(Member member) {
 		// TODO Auto-generated method stub
 		Member bean = null;
@@ -51,5 +51,24 @@ public class MemberDao {
 		String pw = null;
 		pw = sqlSessionTemplate.selectOne(namespace+".getMemberByPw", member);
 		return pw;
+	}
+	
+	// 회원목록
+	public List<Member> getMemberList(Map<String,String> map) {
+		List<Member> list = null;
+		list = sqlSessionTemplate.selectList(namespace+".getMemberList", map);
+		return list;
+	}
+
+	public int updatePermit(String memid) {
+		int cnt = -1;
+		cnt = sqlSessionTemplate.update(namespace+".updatePermit", memid);
+		return cnt;
+	}
+
+	public int deleteMember(String memid) {
+		int cnt = -1;
+		cnt = sqlSessionTemplate.delete(namespace+".deleteMember", memid);
+		return cnt;
 	}
 }

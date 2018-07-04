@@ -4,5 +4,64 @@
  	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="myboard">
+	<select id="getTotalCount" parameterType="hashMap" resultType="int">
+		select count(*) from boards
+		<if test="whatColumn == 'boardsubject'">
+			where boardsubject like #{keyword}
+		</if>
 
+		<if test="whatColumn == 'boardcontent'">
+			where boardcontent like #{keyword}
+		</if>
+	</select>
+
+	<select id="getBoardLists" parameterType="hashMap" resultType="MyBoard">
+		select * from boards
+
+		<where>
+			<if test="boardcateid = 'a01'">
+				boardcateid = #{boardcateid}
+			</if>
+
+			<if test="whatColumn == 'boardsubject'">
+				and boardsubject like #{keyword}
+			</if>
+
+			<if test="whatColumn == 'boardcontent'">
+				and boardcontent like #{keyword}
+			</if>
+
+		</where>
+
+		order by boardid desc
+	</select>
+	<insert id="insertBoard" parameterType="MyBoard">
+		insert into
+		boards
+		values (
+		boardseq.nextval
+		, #{boardsubject, jdbcType=VARCHAR}
+		,
+		#{memid, jdbcType=VARCHAR}
+		, #{boardcateid, jdbcType=VARCHAR}
+		, null
+		,
+		#{boardcontent}
+		, #{ref}
+		, #{restep}
+		, #{relevel}
+		, #{boardip,
+		jdbcType=VARCHAR}
+		, #{boardimage, jdbcType=VARCHAR}
+		, sysdate
+		,
+		#{boardreadcount}
+		)
+	</insert>
+	<select id="getArticle" resultType="MyBoard">
+		select * from boards where boardid=#{boardid}
+	</select>
+	<update id="readCountUpdate">
+		update boards set boardreadcount = boardreadcount+1 where boardid=#{boardid}
+	</update>
 </mapper>

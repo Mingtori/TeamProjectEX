@@ -39,10 +39,38 @@
 		SELECT * FROM members
 		WHERE
 		memname=#{memname} and mememail=#{mememail}
+		WHERE memname=#{memname} and mememail=#{mememail}
 	</select>
+
 	<select id="getMemberByPw" resultType="string" parameterType="MyMember">
 		SELECT mempw FROM members
 		WHERE mememail=#{mememail} and memid=#{memid}
 		and memname=#{memname}
+		WHERE mememail=#{mememail} and memid=#{memid} and memname=#{memname}
 	</select>
+	
+	<select id="getMemberList" resultType="MyMember" parameterType="hashmap">
+		select memid,mempw,memname,memaddr,memphone,mememail,mempermit,gradename,c.comid,c.comname,c.comaddr
+		from members m inner join memgrade g
+			on m.gradeid = g.gradeid
+			left outer join company c
+			on m.comid = c.comid
+		<if test="flag == 'memid'">
+			where memid like #{search}
+		</if>
+		<if test="flag == 'memname'">
+			where memname like #{search}
+		</if>
+	</select>
+	
+	<update id="updatePermit">
+		UPDATE members
+		SET mempermit='승인'
+		WHERE memid=#{memid}
+	</update>
+	
+	<delete id="deleteMember">
+		DELETE FROM members
+		WHERE memid=#{memid}
+	</delete>
 </mapper>

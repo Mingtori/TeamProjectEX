@@ -10,6 +10,9 @@
 	function goback(){
 		history.back(-1);
 	}
+	function leave(memid){
+		location.href="delete.me?memid=" + memid;
+	}
 </script>
 </head>
 <body>
@@ -66,6 +69,7 @@
 		
 		<input type="submit" value="수정하기">
 		<input type="button" value="돌아가기" onclick="goback();">
+		<input type="button" value="회원탈퇴" onclick="leave('${member.memid}');">
 	</form:form>
 </body>
 </html>
