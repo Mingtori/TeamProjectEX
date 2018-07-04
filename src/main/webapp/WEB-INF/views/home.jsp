@@ -11,7 +11,7 @@
 	Home.jsp<br>
 	<ul>
 		<li><a href="<%=request.getContextPath() %>/">Home</a></li>
-		<li><a href="#">공지사항</a></li>
+		<li><a href="notice.bd?boardcateid=a01">공지사항</a></li>
 		<li><a href="#">QnA</a></li>
 		<li><a href="mypage.pg">My Page</a></li>
 		<% if (session.getAttribute("loginfo")==null){ %>

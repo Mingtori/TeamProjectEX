@@ -24,7 +24,7 @@ public class MemberUpdateController {
 	@Autowired
 	private CompositeDao compositeDao; 
 	
-	@RequestMapping(value=command, method=RequestMethod.GET)
+	@RequestMapping(value=command, method=RequestMethod.GET)	
 	public String doActionGet(HttpSession session,
 			Model model,
 			@RequestParam(value="memid", required=false) String memid){

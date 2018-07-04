@@ -41,14 +41,12 @@ public class MemberDao {
 		cnt = sqlSessionTemplate.update(namespace+".updateMember", member);
 		return cnt;
 	}
-	// 아이디 찾기
 	public Member getMemberID(Member member) {
 		// TODO Auto-generated method stub
 		Member bean = null;
 		bean = sqlSessionTemplate.selectOne(namespace+".getMemberID",member);
 		return bean;
 	}
-	// 비밀번호 찾기
 	public String getMemberByPw(Member member) {
 		String pw = null;
 		pw = sqlSessionTemplate.selectOne(namespace+".getMemberByPw", member);
