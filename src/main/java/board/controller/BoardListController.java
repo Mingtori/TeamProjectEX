@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,7 @@ import utility.Paging;
 @Controller
 public class BoardListController {
 	private static final String getPage = "boardList";
-	private static final String command = "notice.bd";
+	private static final String command = "/notice.bd";
 
 	@Autowired
 	private BoardDao boardDao;
@@ -32,11 +33,12 @@ public class BoardListController {
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "pageNumber", required = false) String pageNumber,
 			@RequestParam(value = "pageSize", required = false) String pageSize,
-			@RequestParam(value = "boardcateid", required = false) String boardcateid) {
+			@RequestParam(value = "boardcateid", required = false) String boardcateid,
+			HttpSession session) {
 
-		System.out.println("\n" + this.getClass() + " 방식");
-
-		Map<String, String> map = new HashMap<String, String>();
+		System.out.println("\n" + this.getClass() + " get 방식");
+		System.out.println("boardcateid controller : " + boardcateid);
+		Map<String, Object> map = new HashMap<String, Object>();
 
 		map.put("whatColumn", whatColumn);
 		map.put("keyword", "%" + keyword + "%");
@@ -47,7 +49,7 @@ public class BoardListController {
 		System.out.println("url : " + url); // url : /ex/list.ab
 
 		ModelAndView mav = new ModelAndView();
-		Paging pageInfo = new Paging(pageNumber, pageSize, totalCount, url, whatColumn, keyword, null);
+		Paging pageInfo = new Paging(pageNumber, pageSize, totalCount, url, whatColumn, keyword, null, boardcateid);
 		System.out.println("offset : " + pageInfo.getOffset() + ", ");
 		System.out.println("limit : " + pageInfo.getLimit() + ", ");
 		System.out.println("url : " + pageInfo.getUrl() + ", ");

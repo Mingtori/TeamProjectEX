@@ -2,12 +2,15 @@
 package board.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import board.model.Board;
 import board.model.BoardDao;
 
 @Controller
@@ -17,11 +20,12 @@ public class BoardReviewController {
 	@Autowired
 	private BoardDao boardDao;
 	public String doActionGet(
-			@RequestParam(value="boardcateid") String boardcateid){
-		Map<String, Object> map = new HashMap<String, Object>();
+			@RequestParam(value="boardcateid") String boardcateid,
+			Model model){
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("boardcateid", boardcateid);
-		boardDao.getBoardLists(null,map);
-		
+		List<Board> lists = boardDao.getBoardLists(null,map);
+		model.addAttribute("reviewlist",lists);
 		return getPage;
 	}
 }

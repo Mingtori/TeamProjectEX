@@ -28,9 +28,9 @@
 			<c:set var="prodimage"
 				value="http://localhost:9090${pageContext.request.contextPath}/resources/${product.prodimage }" />
 				<td>
-					<a href = "detail.prd?prodid=${product.prodid }&pageNumber=${pageInfo.pageNumber}">
+					<a href = "detail.prd?prodid=${product.prodid }&pageNumber=${pageInfo.pageNumber}&boardcateid=p03">
 					<img src = ${prodimage } width="200"/> </a>
-					<h4><a href = "detail.prd?prodid=${product.prodid }&pageNumber=${pageInfo.pageNumber}">
+					<h4><a href = "detail.prd?prodid=${product.prodid }&pageNumber=${pageInfo.pageNumber}&boardcateid=p03">
 					${product.prodname }</a></h4>
 					<br>Date : ${product.prodstartdate } ~ ${product.prodenddate } 
 					<br>Price : ${product.prodprice } 

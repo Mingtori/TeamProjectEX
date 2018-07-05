@@ -47,7 +47,11 @@
 			  			 &nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="button" value="글삭제" onclick="document.location.href='delete.bd?boardid=${board.boardid}&boardcateid=${board.boardcateid}'">
 						 &nbsp;&nbsp;&nbsp;&nbsp;
-				   </c:if> 
+				   	</c:if>
+				    <c:if test="${board.boardcateid eq 'a02'}">
+						<input type="button" value="답글쓰기" onclick="document.location.href='reply.bd?boardid=${board.boardid}&boardcateid=${board.boardcateid}&ref=${board.ref }&relevel=${board.relevel }&restep=${board.restep }&pageNumber=${pageNumber }'">
+						 &nbsp;&nbsp;&nbsp;&nbsp;
+				   	</c:if>
 				   <input type="button" value="글목록" onclick="document.location.href='notice.bd?pageNumber=${pageNumber}&boardcateid=${board.boardcateid }'">
 				</td>
 			</tr>

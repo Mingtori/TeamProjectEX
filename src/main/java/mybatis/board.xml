@@ -19,10 +19,17 @@
 	</select>
 
 	<select id="getBoardLists" parameterType="hashMap" resultType="MyBoard">
-		select * from boards
+		select boardid, memid, boardsubject, boardinputdate, boardreadcount, ref, restep, relevel, boardcontent, boardip, boardcateid, prodid
+		from (select rownum as rank, boardid, memid, boardsubject, boardinputdate, boardreadcount, ref, restep, relevel, boardcontent, boardip, boardcateid, prodid
+		from (select boardid, memid, boardsubject, boardinputdate, boardreadcount, ref, restep, relevel, boardcontent, boardip, boardcateid, prodid
+		from boards
+		order by ref desc, restep asc ))
 		<where>
 			<if test="boardcateid != null">
 				boardcateid = #{boardcateid}
+			</if>
+			<if test="prodid != null">
+				and prodid = #{prodid}
 			</if>
 
 			<if test="whatColumn == 'boardsubject'">
@@ -33,31 +40,24 @@
 				and boardcontent like #{keyword}
 			</if>
 		</where>
-		order by boardid desc
 	</select>
 	
 	<insert id="insertBoard" parameterType="MyBoard">
-		insert into
-		boards
+		insert into boards
 		values (
 		boardseq.nextval
 		, #{boardsubject, jdbcType=VARCHAR}
-		,
-		#{memid,
-		jdbcType=VARCHAR}
+		, #{memid,jdbcType=VARCHAR}
 		, #{boardcateid, jdbcType=VARCHAR}
-		, null
-		,
-		#{boardcontent}
-		, #{ref}
+		, #{prodid}
+		, #{boardcontent}
+		, boardseq.currval
 		, #{restep}
 		, #{relevel}
-		, #{boardip,
-		jdbcType=VARCHAR}
+		, #{boardip,jdbcType=VARCHAR}
 		, #{boardimage, jdbcType=VARCHAR}
 		, sysdate
-		,
-		#{boardreadcount}
+		, #{boardreadcount}
 		)
 	</insert>
 	
@@ -80,4 +80,15 @@
 		set boardsubject=#{boardsubject}, boardcontent=#{boardcontent}
 		where boardid=#{boardid}
 	</update>
+	
+	<update id="updateRestep" parameterType="myBoard">
+		update boards
+		set restep=restep+1 
+		where restep>#{restep} and ref=#{ref}
+	</update> 
+
+	<insert id="insertReply" parameterType="myBoard">
+		insert into boards (boardid,memid,boardsubject,boardinputdate,ref,restep,relevel,boardcontent,boardip,boardcateid)
+		values(boardseq.nextval,#{memid},#{boardsubject},sysdate,#{ref},#{restep}+1,#{relevel}+1,#{boardcontent},#{boardip},#{boardcateid})
+	</insert>
 </mapper>

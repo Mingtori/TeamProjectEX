@@ -17,19 +17,23 @@ public class BoardDao {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
-	public int getTotalCount(Map<String, String> map) {
+	public int getTotalCount(Map<String, Object> map) {
 		int totalCnt = 0;
 		totalCnt = sqlSessionTemplate.selectOne(namespace + ".getTotalCount", map);
 
 		return totalCnt;
 	}
 
-	public List<Board> getBoardLists(Paging pageInfo, Map<String, String> map) {
+	public List<Board> getBoardLists(Paging pageInfo, Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		List<Board> lists = new ArrayList<Board>();
-		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
-		lists = sqlSessionTemplate.selectList(namespace+".getBoardLists", map, rowBounds);
-
+		RowBounds rowBounds = null;
+		if(pageInfo!=null){
+			rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
+			lists = sqlSessionTemplate.selectList(namespace+".getBoardLists", map, rowBounds);
+		}else{
+			lists = sqlSessionTemplate.selectList(namespace+".getBoardLists", map);
+		}
 		return lists;
 	}
 
@@ -57,6 +61,13 @@ public class BoardDao {
 	public int updateArticle(Board board) {
 		int cnt = -1;
 		cnt = sqlSessionTemplate.update(namespace+".updateArticle", board);
+		return cnt;
+	}
+
+	public int insertReply(Board board) {
+		int cnt = -1;
+		sqlSessionTemplate.update(namespace+".updateRestep", board);
+		cnt = sqlSessionTemplate.insert(namespace+".insertReply", board);
 		return cnt;
 	}
 

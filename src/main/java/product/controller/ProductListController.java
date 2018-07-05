@@ -42,7 +42,7 @@ public class ProductListController {
 		int totalCount = productdao.GetProductCount(map);
 		String url = request.getContextPath() + "/" + this.command;
 		pageSize = "9"; // 페이지당 레코드 갯수
-		Paging pageInfo = new Paging(pageNumber, pageSize, totalCount, url, whatColumn, keyword, null);
+		Paging pageInfo = new Paging(pageNumber, pageSize, totalCount, url, whatColumn, keyword, null, null);
 
 		List<Product> product = productdao.GetAllProduct(map, pageInfo);
 		

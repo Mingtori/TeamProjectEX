@@ -21,6 +21,8 @@ public class Paging {
 	private String whatColumn = "" ; //검색 모드(작성자, 글제목, 전체 검색은 all) 
 	private String keyword = "" ; //검색할 단어 
 
+	// 
+	private String boardcateid;
 	public int getTotalCount() {
 		return totalCount;
 	}
@@ -63,6 +65,16 @@ public class Paging {
 
 	public int getBeginRow() {
 		return beginRow;
+	}
+
+
+	public String getBoardcateid() {
+		return boardcateid;
+	}
+
+
+	public void setBoardcateid(String boardcateid) {
+		this.boardcateid = boardcateid;
 	}
 
 
@@ -179,7 +191,8 @@ public class Paging {
 			String url, 
 			String whatColumn, 
 			String keyword,
-			String whologin) {		
+			String whologin,
+			String boardcateid) {		
 
 		if(  _pageNumber == null ){
 			System.out.println("_pageNumber:"+_pageNumber); // null
@@ -231,6 +244,9 @@ public class Paging {
 			this.endPage = this.totalPage ;
 		}
 		
+		if(this.boardcateid == null || !this.boardcateid.equals(boardcateid)){
+			this.boardcateid = boardcateid;
+		}
 		System.out.println("pageNumber2:"+pageNumber+"/totalPage2:"+totalPage);	
 		this.url = url ; //  /ex/list.ab
 		this.whatColumn = whatColumn ;
@@ -238,11 +254,11 @@ public class Paging {
 		System.out.println("whatColumn:"+whatColumn+"/keyword:"+keyword);
 		
 		this.pagingHtml = getPagingHtml(url) ;
-	
 	}
 	
 	private String getPagingHtml( String url ){ //페이징 문자열을 만든다.
 		System.out.println("getPagingHtml url:"+url); 
+		System.out.println("boardcateid : " + this.boardcateid);
 		// getPagingHtml url:/ex/list.ab
 		
 		String result = "" ;
@@ -266,7 +282,7 @@ public class Paging {
 			} else {
 				result += "&nbsp;<a href='" + url   
 						+ "?pageNumber=" + i + "&pageSize=" + this.pageSize 
-						+ added_param + "'>" + i + "</a>&nbsp;" ;
+						+ added_param + "&boardcateid=" + this.boardcateid + "'>" + i + "</a>&nbsp;" ;
 				
 			}
 		}
@@ -276,11 +292,11 @@ public class Paging {
 			
 			result += "&nbsp;<a href='" + url  
 					+ "?pageNumber=" + (this.endPage + 1 ) + "&pageSize=" + this.pageSize 
-					+ added_param + "'>다음</a>&nbsp;" ;
+					+ added_param + "&boardcateid=" + this.boardcateid +"'>다음</a>&nbsp;" ;
 			
 			result += "&nbsp;<a href='" + url  
 					+ "?pageNumber=" + (this.totalPage ) + "&pageSize=" + this.pageSize 
-					+ added_param + "'>맨 끝</a>&nbsp;" ;
+					+ added_param + "&boardcateid=" + this.boardcateid +"'>맨 끝</a>&nbsp;" ;
 		}		
 		System.out.println("result2:"+result);
 		

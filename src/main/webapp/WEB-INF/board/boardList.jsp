@@ -8,10 +8,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<c:set var="theString" value="http://localhost:9090${pageContext.request.contextPath}/resources/images"/>
+	<c:set var="count" value="${pageInfo.totalCount - pageInfo.pageSize * (pageInfo.pageNumber-1)}"/>
 	boardList.jsp
 
 	<h3>공지사항</h3>
-	<c:set var="count" value="${pageInfo.totalCount - pageInfo.pageSize * (pageInfo.pageNumber-1)}"/>
 	<table border=1>
 		<c:if test="${loginfo.memid eq 'admin'}">
 		<tr>
@@ -29,7 +30,21 @@
 		<c:forEach items="${lists }" var="lists" varStatus="status">
 			<tr>
 				<td>${count-status.index}</td>
-				<td><a href="detail.bd?boardid=${lists.boardid}&pageNumber=${pageInfo.pageNumber}">${lists.boardsubject }</a></td>
+				<td>
+					<c:set var="wid" value="0" />
+				    <c:if test="${lists.relevel > 0}">
+					    <c:set var="wid" value="${20*lists.relevel }" />
+					    <img src="${theString}/level.gif" width="${wid }" height="16">
+						<img src="${theString}/re.gif">
+				    </c:if>
+					<c:if test="${board.re_level <= 0 }">
+						<img src="${theString}/level.gif" width="${wid }" height="16">
+					</c:if>
+					<a href="detail.bd?boardid=${lists.boardid}&pageNumber=${pageInfo.pageNumber}">${lists.boardsubject }</a>
+					<c:if test="${lists.boardreadcount > 10}">
+		        		 <img src="${theString}/hot.gif" border="0"  height="16">
+		 		   </c:if>
+				</td>
 				<td>${lists.memid }</td>
 				<td>${lists.boardinputdate}</td>
 				<td>${lists.boardreadcount }</td>

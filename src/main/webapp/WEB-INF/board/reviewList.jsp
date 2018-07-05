@@ -8,6 +8,24 @@
 <title>후기게시판</title>
 </head>
 <body>
+	<form action="insert.bd" method="post">
+		<input type="hidden" name="boardcateid" value="">
+		<table>
+			<tr>
+				<td>
+					<input type="text" name="boardsubject" placeholder="제목">
+				</td>
+				<td align="right">
+					<a href="">글쓰기</a>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="text" name="boardcontent" placeholder="내용">
+				</td>
+			</tr>
+		</table>
+	</form>
 	<table border="1">
 		<c:if test="${fn:length(reviewlist) == 0}">
 			<tr>
