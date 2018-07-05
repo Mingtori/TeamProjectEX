@@ -20,7 +20,7 @@
 			<li><a href="#">사용내역</a></li>
 		</c:if>
 		<c:if test="${loginfo.gradeid == 2 }"><!-- 판매자일경우 -->
-			<li><a href="#">상품관리목록</a></li>	
+			<li><a href="listSeller.prd?memid=${loginfo.memid }">상품관리목록</a></li>	
 			<li><a href="#">상품판매내역</a></li>	
 		</c:if>
 		<li><a href="update.me">회원정보수정</a></li>

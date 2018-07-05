@@ -92,4 +92,25 @@
 				, PRODCONTENT = #{prodcontent}
 		  where prodid = #{prodid}
 	</update>
+	
+	<select id="getSellProducts" parameterType="hashmap" resultType="MyProduct">
+		select memid, p.*
+		from selllist s, products p
+		where s.memid=#{memid} and s.prodid = p.prodid
+		<if test = "whatColumn == 'prodname'">
+			and prodname like #{keyword}
+		</if>
+		<if test = "whatColumn == 'prodcontent'">
+			and prodcontent like #{keyword} 
+		</if>
+		<if test = "whatColumn == 'all'">
+			and prodname || prodcontent like #{keyword}
+		</if>             
+	</select>
+	
+	<insert id="insertSellist" parameterType="MyProduct">
+		insert into selllist(memid, prodid)
+		values('min'
+		,(select LAST_NUMBER from user_sequences where SEQUENCE_NAME = 'PRODUCTSEQ')-1)
+	</insert>
 </mapper>

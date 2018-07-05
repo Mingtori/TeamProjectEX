@@ -1,5 +1,6 @@
 package product.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -42,7 +43,7 @@ public class ProductDao {
 		return bean;
 	}
 
-	public List<Product> GetAllProduct(Map<String, String> map, Paging pageInfo) {
+	public List<Product> GetAllProduct(Map<String, Object> map, Paging pageInfo) {
 		List<Product> list = null;
 		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
 		list = sqlSessionTemplate.selectList(namespace + ".GetAllProduct", map, rowBounds);
@@ -61,9 +62,24 @@ public class ProductDao {
 		return cnt;
 	}
 
-	public int GetProductCount(Map<String, String> map) {
+	public int GetProductCount(Map<String, Object> map) {
 		int cnt = 0;
 		cnt = sqlSessionTemplate.selectOne(namespace + ".GetProductCount", map);
+		return cnt;
+	}
+
+	public List<Product> getSellProducts(Paging pageInfo, Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		List<Product> sellist = null;
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
+		sellist = sqlSessionTemplate.selectList(namespace+".getSellProducts", map, rowBounds);
+		System.out.println("sellist size : " + sellist.size());
+		return sellist;
+	}
+
+	public int insertSellist(Product product) {
+		int cnt = -1;
+		cnt = sqlSessionTemplate.insert(namespace+".insertSellist", product);
 		return cnt;
 	}
 

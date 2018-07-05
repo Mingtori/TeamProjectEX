@@ -10,8 +10,9 @@
 <body>
 	ProductList.jsp
 	<br> 상품리스트화면
+	<br><a href = "insert.prd">상품 추가</a>
 	<div> 
-		<form action = "list.prd" method = "GET">
+		<form action = "listSeller.prd" method = "GET">
 			<select name = "whatColumn" id = "whatColumn">
 				<option value = "all">전체</option>
 				<option value = "prodname">제목</option>
@@ -23,7 +24,7 @@
 	</div>
 	<table>
 		<tr>
-			<c:forEach items="${product }" var="product">
+			<c:forEach items="${sellist }" var="product">
 			<c:set var="prodimage"
 				value="http://localhost:9090${pageContext.request.contextPath}/resources/${product.prodimage }" />
 				<td>

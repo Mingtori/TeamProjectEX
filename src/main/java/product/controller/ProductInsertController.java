@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +17,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import member.model.Member;
 import product.model.Product;
 import product.model.ProductDao;
 
 @Controller
 public class ProductInsertController {
 
-	private static final String getPage = "productRegisterForm";
-	private static final String gotoPage = "redirect:list.prd";
+	private static final String getPage = "productInsertForm";
+	private static final String gotoPage = "redirect:/listSeller.prd";
 	private static final String command = "insert.prd";
 
 	@Autowired
@@ -31,8 +33,6 @@ public class ProductInsertController {
 
 	@Autowired
 	ServletContext servletContext;
-
-	
 	
 	@RequestMapping(value = command, method = RequestMethod.GET)
 	public ModelAndView doActionGet() {
@@ -45,7 +45,8 @@ public class ProductInsertController {
 	}
 
 	@RequestMapping(value = command, method = RequestMethod.POST)
-	public ModelAndView doActionPost(@Valid Product product, BindingResult bindingResult) {
+	public ModelAndView doActionPost(@Valid Product product, BindingResult bindingResult,
+			HttpSession session) {
 		System.out.println("POST ¹æ½Äµé¾î¿È");
 		ModelAndView mav = new ModelAndView();
 		
@@ -75,6 +76,11 @@ public class ProductInsertController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			Member login = (Member)session.getAttribute("loginfo");
+			product.setMemid(login.getMemid());
+			System.out.println(login.getMemid());
+			mav.addObject("memid", login.getMemid());
+			productDao.insertSellist(product);
 		} else {
 			mav.setViewName(getPage);
 		}

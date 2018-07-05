@@ -38,6 +38,17 @@ public class Product {
 	private int rownum;
 	private int cnt;
 	private int pageNum;
+	
+	// ÆÇ¸ÅÀÚid;
+	private String memid;
+
+	public String getMemid() {
+		return memid;
+	}
+
+	public void setMemid(String memid) {
+		this.memid = memid;
+	}
 
 	public String getUpload2() {
 		return upload2;

@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	productRegisterForm.jsp
+	productInsertForm.jsp
 	<form:form commandName="product" method="post" action="insert.prd" enctype="multipart/form-data">
 	<h1><span>상품 추가 화면</span></h1>
 	<p>
