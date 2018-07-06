@@ -11,7 +11,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,7 +24,7 @@ import product.model.ProductDao;
 public class ProductInsertController {
 
 	private static final String getPage = "productInsertForm";
-	private static final String gotoPage = "redirect:/listSeller.prd";
+	private static final String gotoPage = "redirect:listSeller.prd";
 	private static final String command = "insert.prd";
 
 	@Autowired
@@ -33,6 +32,8 @@ public class ProductInsertController {
 
 	@Autowired
 	ServletContext servletContext;
+
+	
 	
 	@RequestMapping(value = command, method = RequestMethod.GET)
 	public ModelAndView doActionGet() {

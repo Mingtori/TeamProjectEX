@@ -12,7 +12,7 @@
 <body>
 	orderDetailView.jsp
 	<c:set var="theString" value=
-		"http://localhost:9090${pageContext.request.contextPath}/resources/${product.prodimage }"/>
+		"http://localhost:9090${pageContext.request.contextPath}/resources/${order.prodimage }"/>
 
 	<h1>${order.prodname }</h1>
 	<form action ="delete.ord" method ="post">

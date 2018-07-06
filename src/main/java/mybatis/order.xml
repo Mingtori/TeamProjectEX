@@ -5,11 +5,12 @@
 
 <mapper namespace="myorder">
 	<select id="getOrderList" resultType="MyOrder">
-		SELECT * FROM orders
-		WHERE orderid like #{memid} 
+		SELECT orderid, orderqty, orderuse, p.*
+		FROM orders o, products p
+		WHERE o.prodid = p.prodid AND orderid like #{memid}
 	</select>
 	
-	<select id="getOrder">
+	<select id="getOrder" resultType="MyOrder">
 		SELECT orderid, orderqty, orderuse, p.*
 		FROM orders o, products p
 		WHERE o.prodid = p.prodid AND orderid=#{orderid}
@@ -17,7 +18,7 @@
 	
 	<insert id="insertOrder" parameterType="MyOrder">
 		INSERT INTO orders
-		VALUES(#{orderid},#{orderqty},#{orderuse},#{prodid})
+		VALUES(#{orderid},#{orderqty},default,#{prodid})
 	</insert>
 	
 	<delete id="deleteOrder">

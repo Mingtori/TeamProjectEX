@@ -16,6 +16,7 @@ public class OrderDao {
 	public List<Order> getOrderList(String memid) {
 		// TODO Auto-generated method stub
 		List<Order> list = null;
+		System.out.println(memid);
 		list = sqlSessionTemplate.selectList(namespace+".getOrderList", memid);
 		return list;
 	}

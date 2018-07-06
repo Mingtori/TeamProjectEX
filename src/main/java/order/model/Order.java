@@ -17,7 +17,7 @@ public class Order extends Product{
 		this.orderqty = orderqty;
 		this.setProdid(prodid);
 	}
-
+	
 	public String getOrderid() {
 		return orderid;
 	}

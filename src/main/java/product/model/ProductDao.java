@@ -1,6 +1,5 @@
 package product.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -67,7 +66,7 @@ public class ProductDao {
 		cnt = sqlSessionTemplate.selectOne(namespace + ".GetProductCount", map);
 		return cnt;
 	}
-
+	
 	public List<Product> getSellProducts(Paging pageInfo, Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		List<Product> sellist = null;
@@ -82,5 +81,4 @@ public class ProductDao {
 		cnt = sqlSessionTemplate.insert(namespace+".insertSellist", product);
 		return cnt;
 	}
-
 }

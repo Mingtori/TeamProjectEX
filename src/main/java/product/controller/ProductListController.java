@@ -25,7 +25,7 @@ public class ProductListController {
 	private static final String command = "list.prd";
 
 	@Autowired
-	private ProductDao productdao;
+	public ProductDao productdao;
 
 	@RequestMapping(value = command)
 	public ModelAndView doActionGet(@RequestParam(value = "whatColumn", required = false) String whatColumn,

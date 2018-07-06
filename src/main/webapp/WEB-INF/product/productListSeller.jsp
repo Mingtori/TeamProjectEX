@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	ProductList.jsp
+	ProductSellerList.jsp
 	<br> 상품리스트화면
 	<br><a href = "insert.prd">상품 추가</a>
 	<div> 

@@ -6,13 +6,13 @@ import org.springframework.web.multipart.MultipartFile;
 public class Product {
 	private int prodid;
 
-	@NotEmpty(message = "»óÇ°¸íÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+	@NotEmpty(message = "ìƒí’ˆëª…ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.")
 	private String prodname;
 
-	@NotEmpty(message = "Ä«Å×°í¸®¸¦ ¼±ÅÃÇØÁÖ¼¼¿ä.")
+	@NotEmpty(message = "ì¹´í…Œê³ ë¦¬ë¥¼ ì„ íƒí•´ì£¼ì„¸ìš”.")
 	private String prodcateid;
 
-	// @NotEmpty(message = "ÀÌ¹ÌÁö¸¦ ¼±ÅÃÇØÁÖ¼¼¿ä")
+	// @NotEmpty(message = "ì´ë¯¸ì§€ë¥¼ ì„ íƒí•´ì£¼ì„¸ìš”")
 	private String prodimage;
 
 	private int prodprice;
@@ -21,13 +21,13 @@ public class Product {
 
 	private String prodinputdate;
 
-	@NotEmpty(message = "½ÃÀÛ ³¯Â¥¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+	@NotEmpty(message = "ì‹œì‘ ë‚ ì§œë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.")
 	private String prodstartdate;
 
-	@NotEmpty(message = "Á¾·á ³¯Â¥¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+	@NotEmpty(message = "ì¢…ë£Œ ë‚ ì§œë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.")
 	private String prodenddate;
 
-	@NotEmpty(message = "»ó¼¼ ³»¿ë ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+	@NotEmpty(message = "ìƒì„¸ ë‚´ìš© ì…ë ¥í•´ì£¼ì„¸ìš”.")
 	private String prodcontent;
 
 	private String prodcatename;
@@ -39,7 +39,7 @@ public class Product {
 	private int cnt;
 	private int pageNum;
 	
-	// ÆÇ¸ÅÀÚid;
+	// íŒë§¤ìid;
 	private String memid;
 
 	public String getMemid() {
@@ -185,5 +185,4 @@ public class Product {
 				+ prodinputdate + ", prodstartdate=" + prodstartdate + ", prodenddate=" + prodenddate + ", prodcontent="
 				+ prodcontent + ", prodcatename=" + prodcatename + ", upload=" + upload + "]";
 	}
-
 }

@@ -110,7 +110,7 @@
 	
 	<insert id="insertSellist" parameterType="MyProduct">
 		insert into selllist(memid, prodid)
-		values('min'
+		values(#{memid}
 		,(select LAST_NUMBER from user_sequences where SEQUENCE_NAME = 'PRODUCTSEQ')-1)
 	</insert>
 </mapper>

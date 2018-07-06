@@ -8,42 +8,43 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-	function comma(num){
-		var len, point, str;
-		
-		num = num + "";
-		len = num.length;
-		point = len % 3;
-		
-		str = num.substring(0, point);
-		while(point < len){
-			if(str != "")
-				str += ",";
-			str += num.substring(point, point + 3);
-			point  += 3;
-		}
-		return str;
-	}
-	
-	function comma2(num){
-		return x.toString().replace(/\B(?=(\d{3})+(?!\d)/g, ",");
-	}
+
+	var prodstock = ${product.prodstock};
 	
 	function checkProdstock(){
-		var orderNum = document.getElementById("orderNum").value;
-		var prodstock = ${product.prodstock};
-		if(prodstock < orderNum){
-			alert("!!")
+		var cartqty = document.getElementById("cartqty").value;
+		if(prodstock < cartqty){
 			return null;
 		}
 	}
 	
-	function addNum(){
-		var orderNum = document.getElementById("orderNum").value;
-		console.log(orderNum)
-		var x = (Number)orderNum + 1;
-		console.log(x)
-		//documemt.getElementById("orderNum").innerHTML = x;
+	function incNum(){
+		var cartqty = document.getElementById("cartqty").value;
+		var prodprice = ${product.prodprice};
+		var x = ++cartqty;
+		var y = prodprice * x;
+		if(x <= prodstock){
+			document.getElementById("cartqty").value = x;
+			document.getElementById("totalprodprice").value = y.toLocaleString();
+		}
+	}
+	
+	function decNum(){
+		var cartqty = document.getElementById("cartqty").value;
+		var prodprice = ${product.prodprice};
+		var x = --cartqty;
+		var y = prodprice * x;
+		if(x >= 1){
+			document.getElementById("cartqty").value = x;
+			document.getElementById("totalprodprice").value = y.toLocaleString();
+		}
+	}
+	
+	function chxNum(){
+		var cartqty = document.getElementById("cartqty").value;
+		var prodprice = ${product.prodprice};
+		var y = prodprice * cartqty;
+		document.getElementById("totalprodprice").value = y.toLocaleString();
 	}
 </script>
 </head>
@@ -51,30 +52,32 @@
 ProductDetailView.jsp
 <br><a href = "update.prd?prodid=${product.prodid }&pageNumber=${pageNumber}">수정</a>
 <a href = "delete.prd?prodid=${product.prodid }&pageNumber=${pageNumber}">삭제</a>
-<a href = "list.prd?pageNumber=${pageNumber}">돌아가기
+<a href = "list.prd?pageNumber=${pageNumber}">상품목록
 </a>
 <c:set var="theString" 
 value=
 "http://localhost:9090${pageContext.request.contextPath}/resources/${product.prodimage }"/>
 
-<h1>${product.prodname }</h1>
-<form name = "ProdUpdateForm" action = "upaateCart" method = "GET">
-<img src = ${theString } width="300" />
-<br>Date : ${product.prodstartdate } ~ ${product.prodenddate }
-<br>Price : ${product.prodprice }
-<br>category : ${product.prodcatename }
-<br>
-<!-- <input type = "button" value = "Add" onclick = "addNum()" /> -->
-<input type = "number" name = "orderNum" id = "orderNum" min = "1" max = "${product.prodstock }"/>
-<input type = "hidden" name = "prodid" value = "${product.prodid }"/>
-<input type = "submit" value = "주문"/> 
-(재고량 : ${product.prodstock })
+<form name = "ProdUpdateForm" action = "insert.ct" method = "GET">
+	<h1>${product.prodname }</h1>
+			<img src = ${theString } width="300" />
+				<br>Date : ${product.prodstartdate } ~ ${product.prodenddate }
+				<br>Price : <fmt:formatNumber value='${product.prodprice }' pattern='###,###'/> 원
+				<br>category : ${product.prodcatename }
+				<br>
+				<input type = "button" value = "+" onclick = "incNum()" />
+				<input type = "button" value = "-" onclick = "decNum()" />
+				<input type = "number" name = "cartqty" id = "cartqty" min = "1" max = "${product.prodstock }" value="1" onchange="chxNum()"/>
+				<input type = "submit" value = "장바구니"/> 
+				<br> 총 금액
+				
+			<input type = "text" id = "totalprodprice" value = "<fmt:formatNumber value='${product.prodprice }' pattern='###,###'/>">
+	<br><br>content : ${product.prodcontent }
+	<input type = "hidden" name = "prodid" id = "prodid"  value = "${product.prodid }"/>
+	<input type = "hidden" name = "prodstock" id = "prodstock"  value = "${product.prodstock }"/>
+	<input type = "hidden" name = "prodcateid" id = "prodcateid"  value = "${product.prodcateid }"/>
+	<br>
 </form>
-
-<br><br>content : ${product.prodcontent }
-<input type = "hidden" name = "prodid" id = "prodid"  value = "${product.prodid }"/>
-<input type = "hidden" name = "prodcateid" id = "prodcateid"  value = "${product.prodcateid }"/>
-<br>
 	<!-- 후기게시판 -->
 	<form action="insert.bd" method="post">
 		<input type="hidden" name="boardcateid" value="p03">

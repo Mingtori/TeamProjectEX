@@ -12,19 +12,28 @@
 	<table>
 		<c:forEach var="order" items="${orderlist }">
 			<c:set var="orderid" value="${fn:split(order.orderid, '@') }"/>
-			<c:set var="orderdate" value="${order[0] }"/>
+			<c:set var="orderdate" value="${orderid[0] }"/>
 			<tr>
-				<td>${order.orderdate }</td>
+				<td>${orderdate }</td>
 			</tr>
 			<tr>
-				<td rowspan="2">사진</td>
-				<td>${order.prodname }</td>
+				<td rowspan="2"><img
+							src="${pageContext.request.contextPath }/resources/${order.prodimage }"
+							width="100" /></td>
+				<td><a href="detail.ord?orderid=${order.orderid }">${order.prodname }</a></td>
 			</tr>
 			<tr>
 				<td>${order.prodprice }</td>
 			</tr>
 			<tr>
-				<td colspan="2">주문취소 || 후기작성</td>
+				<td colspan="2">
+					<c:if test="${order.orderuse == 'YES' }">
+						<input type="button" value="후기작성" onclick="">
+					</c:if>
+					<c:if test="${order.orderuse == 'NO' }">
+						<input type="button" value="주문취소" onclick="location.href='delete.ord?orderid=${order.orderid}'">
+					</c:if>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>
