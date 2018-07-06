@@ -16,8 +16,8 @@
 			<li><a href="#">상품관리목록</a></li>
 		</c:if>
 		<c:if test="${loginfo.gradeid == 1 }"><!-- 일반 사용자일경우 -->
-			<li><a href="#">구매내역</a></li>
-			<li><a href="#">사용내역</a></li>
+			<li><a href="#">장바구니내역</a></li>
+			<li><a href="list.ord">구매내역</a></li>
 		</c:if>
 		<c:if test="${loginfo.gradeid == 2 }"><!-- 판매자일경우 -->
 			<li><a href="listSeller.prd?memid=${loginfo.memid }">상품관리목록</a></li>	

@@ -67,7 +67,7 @@ value=
 <!-- <input type = "button" value = "Add" onclick = "addNum()" /> -->
 <input type = "number" name = "orderNum" id = "orderNum" min = "1" max = "${product.prodstock }"/>
 <input type = "hidden" name = "prodid" value = "${product.prodid }"/>
-<input type = "submit" value = "주문" onclick ="checkProdstock()"/> 
+<input type = "submit" value = "주문"/> 
 (재고량 : ${product.prodstock })
 </form>
 

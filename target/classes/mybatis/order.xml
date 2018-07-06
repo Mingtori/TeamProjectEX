@@ -4,5 +4,24 @@
  	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="myorder">
-
+	<select id="getOrderList" resultType="MyOrder">
+		SELECT * FROM orders
+		WHERE orderid like #{memid} 
+	</select>
+	
+	<select id="getOrder">
+		SELECT orderid, orderqty, orderuse, p.*
+		FROM orders o, products p
+		WHERE o.prodid = p.prodid AND orderid=#{orderid}
+	</select>
+	
+	<insert id="insertOrder" parameterType="MyOrder">
+		INSERT INTO orders
+		VALUES(#{orderid},#{orderqty},#{orderuse},#{prodid})
+	</insert>
+	
+	<delete id="deleteOrder">
+		DELETE FROM orders
+		WHERE orderid=#{orderid}
+	</delete>
 </mapper>
