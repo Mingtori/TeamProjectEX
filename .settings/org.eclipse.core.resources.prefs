@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/main/java/board/controller/BoardListController.java=UTF-8
 encoding//src/main/java/product/model/Product.java=UTF-8
-encoding//src/main/webapp/WEB-INF/views/home.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/member/loginForm.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/page/myPage.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/home2.jsp=UTF-8

@@ -31,10 +31,13 @@ public class OrderInsertController {
 			@RequestParam("rowid") String[] cartid,
 			HttpSession session){
 		long time = System.currentTimeMillis(); 
-		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String orderDate = dayTime.format(new Date(time));
 
 		for(String cart : cartid){
+			if(cart.equals("")){
+				continue;
+			}
 			Cart getCart = cartDao.GetOneCart(cart); 
 			String[] product = cart.split("@");
 			String orderid = orderDate+"@"+cart;

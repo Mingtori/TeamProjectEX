@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MyPageController {
 	private static final String getPage="myPage";
 	private static final String loginPage="../member/loginForm";
-	private static final String gotoPage="redirect:/myPage";
+	private static final String gotoPage="redirect:/mypage.pg";
 	private static final String command="mypage.pg";
 	
 	@RequestMapping(command)

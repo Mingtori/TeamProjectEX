@@ -94,9 +94,9 @@
 	</update>
 	
 	<select id="getSellProducts" parameterType="hashmap" resultType="MyProduct">
-		select memid, p.*
-		from selllist s, products p
-		where s.memid=#{memid} and s.prodid = p.prodid
+		select memid, p.*, c.prodcatename
+		from selllist s, products p, prodcategory c
+		where s.memid=#{memid} and s.prodid = p.prodid and p.prodcateid=c.prodcateid
 		<if test = "whatColumn == 'prodname'">
 			and prodname like #{keyword}
 		</if>

@@ -66,9 +66,9 @@ public class MemberLoginController {
 					return getPage;
 				}
 				session.setAttribute("loginfo", login);
-				if(member.getGradeid() == 0){	// 관리자 아이디일때
+				if(login.getGradeid() == 0){	// 관리자 아이디일때
 					return gotoAdminPage;
-				}else if(member.getGradeid() == 1){	// 일반 사용자 일때
+				}else if(login.getGradeid() == 1){	// 일반 사용자 일때
 					return gotoNormalPage;
 				}else{	// 판매자 일때
 					// permit 확인 해줘야함

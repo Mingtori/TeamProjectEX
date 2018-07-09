@@ -1,47 +1,70 @@
+<%@ include file="./../views/top.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="./../common/common.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	ProductList.jsp
-	<br> 상품리스트화면
-	<div> 
-		<form action = "list.prd" method = "GET">
-			<select name = "whatColumn" id = "whatColumn">
-				<option value = "all">전체</option>
-				<option value = "prodname">제목</option>
-				<option value = "prodcontent">내용</option>
-			</select> 
-			<input type = "text" name = "keyword" id = "keyword">
-			<input type = "submit" value = "검색"/> 
-		</form>
-	</div>
-	<table>
-		<tr>
+
+<style>
+.jumbotron {
+	background-color: #F2F2F2;
+	background-color: rgba(242, 242, 242, 0.8);
+}
+
+.form-inline label, .form-inline>.form-control {
+	display: inline-block;
+}
+
+.font-black {
+	color: black;
+}
+
+a {
+	color: black;
+}
+
+@media (min-width: 768px){
+	section {
+		background-image: url("./resources/img/header-bg.jpg");
+	    background-repeat: no-repeat;
+	    background-attachment: scroll;
+	    background-position: center center;
+	    -webkit-background-size: cover;
+	    -moz-background-size: cover;
+	    -o-background-size: cover;
+	    background-size: cover;
+	}
+}
+</style>
+<section class="bg-light" id="portfolio">
+	<div class="container">
+		<div class="jumbotron">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<h2 class="section-heading text-uppercase">PRODUCTS</h2>
+				<h3 class="section-subheading text-muted">상품 리스트 화면입니다.</h3>
+			</div>
+		</div>
+		<div class="row">
 			<c:forEach items="${product }" var="product">
-			<c:set var="prodimage"
-				value="http://localhost:9090${pageContext.request.contextPath}/resources/${product.prodimage }" />
-				<td>
-					<a href = "detail.prd?prodid=${product.prodid }&pageNumber=${pageInfo.pageNumber}&boardcateid=p03">
-					<img src = ${prodimage } width="200"/> </a>
-					<h4><a href = "detail.prd?prodid=${product.prodid }&pageNumber=${pageInfo.pageNumber}&boardcateid=p03">
-					${product.prodname }</a></h4>
-					<br>Date : ${product.prodstartdate } ~ ${product.prodenddate } 
-					<br>Price : ${product.prodprice } 
-					<br>category : ${product.prodcatename } 
-				</td>
-				<c:if test="${product.rownum%3 == 0 }">
-					<tr></tr>
-				</c:if>
+				<c:set var="prodimage"
+					value="http://localhost:9090${pageContext.request.contextPath}/resources/${product.prodimage }" />
+				<div class="col-md-4 col-sm-6 portfolio-item">
+					<a class="portfolio-link"
+						href="detail.prd?prodid=${product.prodid }&boardcateid=p03&pageNumber=${pageInfo.pageNumber}">
+						<div class="portfolio-hover">
+							<div class="portfolio-hover-content">
+								<i class="fa fa-plus fa-3x"></i>
+							</div>
+						</div> <img class="img-fluid" src="${prodimage }" alt="">
+					</a>
+					<div class="portfolio-caption">
+						<h4>${product.prodname }</h4>
+						<p class="text-muted">${product.prodcontent}</p>
+					</div>
+				</div>
 			</c:forEach>
-	</table>
-	<center>
-	${pageInfo.pagingHtml}
-	</center>	
-</body>
-</html>
+		</div>
+		</div>
+	</div>
+</section>
+
+<%@ include file="./../views/bottom.jsp"%>

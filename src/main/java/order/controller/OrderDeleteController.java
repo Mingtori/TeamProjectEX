@@ -13,7 +13,7 @@ import order.model.OrderDao;
 
 @Controller
 public class OrderDeleteController {
-	private static final String gotoPage="list.ord";
+	private static final String gotoPage="redirect:/list.ord";
 	private static final String command="delete.ord";
 	@Autowired
 	private OrderDao orderDao;
