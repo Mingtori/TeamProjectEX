@@ -44,8 +44,8 @@
 					, to_char(p.prodenddate, 'yyyy-MM-dd') as prodenddate
 					, p.prodcontent
 				from cart c, products p 
-			   where c.cartid like p.prodid||'%'
-				 and c.cartid like '%'||#{memid}
+			   where c.cartid like #{memid}||'%'
+				 and c.cartid like '%'||p.prodid
 				) a
 	</select>
 	<delete id = "DeleteCart" parameterType="String">

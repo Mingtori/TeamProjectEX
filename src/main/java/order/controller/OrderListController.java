@@ -1,6 +1,7 @@
 // 주문리스트
 package order.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import order.model.Order;
 import order.model.OrderDao;
-import product.model.ProductDao;
 
 @Controller
 public class OrderListController {
@@ -24,8 +24,14 @@ public class OrderListController {
 	public String doActionGet(
 			@RequestParam("memid") String memid,
 			Model model){
-		List<Order> orderlist = orderDao.getOrderList("%"+memid+"%");
-		model.addAttribute("orderlist", orderlist);
+		List<List<Order>> orderlists = new ArrayList<List<Order>>(); 
+		List<String> order = orderDao.getOrderIds("%"+memid+"%");
+		for(String str : order){
+			List<Order> list = orderDao.getOrderList(str+"%");
+			orderlists.add(list);
+		}
+		
+		model.addAttribute("orderlists", orderlists);
 		return getPage;
 	}
 }

@@ -42,7 +42,7 @@ public class OrderInsertController {
 			String[] product = cart.split("@");
 			String orderid = orderDate+"@"+cart;
 			int orderqty = getCart.getCartqty();
-			int prodid = Integer.parseInt(product[0]);
+			int prodid = Integer.parseInt(product[1]);
 			Order order = new Order(orderid, orderqty, prodid);
 			
 			int result = orderDao.insertOrder(order);

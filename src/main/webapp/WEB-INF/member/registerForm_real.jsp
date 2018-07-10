@@ -81,7 +81,7 @@ a {
 						</div>
 						<div class="form-inline" style="display: block;">
 							<label class="font-black col-md-2 control-label" for="mememail1">이메일</label> <input type="text"
-								class="form-control" name="mememail1" placeholder="email"> @ <select
+								class="form-control" name="mememail1" placeholder="email"> @ <select class="form-control"
 								name="mememail2">
 								<option value="">선택하세요
 								<option value="naver.com">naver.com

@@ -26,7 +26,7 @@ public class CartInsertController {
 		
 		int cnt = -1;
 		String userid = ((Member)session.getAttribute("loginfo")).getMemid();
-		String newCartid = product.getProdid() + "@" + userid; // 장바구니아이디 = 상품아이디#사용자아이디
+		String newCartid = userid + "@" + product.getProdid(); // 장바구니아이디 = 상품아이디#사용자아이디
 		cart.setCartid(newCartid);
 		
 		Cart exCart = cartdao.GetOneCart(newCartid);

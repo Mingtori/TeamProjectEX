@@ -1,6 +1,7 @@
 package order.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,11 @@ public class OrderDao {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	// 주문내역리스트
-	public List<Order> getOrderList(String memid) {
+	public List<Order> getOrderList(String str) {
 		// TODO Auto-generated method stub
 		List<Order> list = null;
-		System.out.println(memid);
-		list = sqlSessionTemplate.selectList(namespace+".getOrderList", memid);
+		System.out.println(str);
+		list = sqlSessionTemplate.selectList(namespace+".getOrderList", str);
 		return list;
 	}
 
@@ -39,5 +40,14 @@ public class OrderDao {
 		int cnt = -1;
 		cnt = sqlSessionTemplate.delete(namespace+".deleteOrder", orderid);
 		return cnt;
+	}
+
+	public List<String> getOrderIds(String memid) {
+		// TODO Auto-generated method stub
+		System.out.println("memid : " +memid);
+		List<String> list = null;
+		list = sqlSessionTemplate.selectList(namespace+".getOrderIds", memid);
+		System.out.println("listsize : " + list.size());
+		return list;
 	}
 }

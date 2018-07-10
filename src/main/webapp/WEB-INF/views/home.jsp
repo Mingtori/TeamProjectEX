@@ -3,8 +3,8 @@
     <header class="masthead">
       <div class="container">
         <div class="intro-text">
-          <div class="intro-lead-in">Welcome To Our Studio!</div>
-          <div class="intro-heading text-uppercase">It's Nice To Meet You</div>
+          <div class="intro-lead-in">Welcome To Our Homepage!</div>
+          <div class="intro-heading text-uppercase" align="center"><input class="form-control" style="width:30%; background-color:rgba(255,255,255,0.5);" type="text" name="search" placeholder="search"></div>
           <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a>
         </div>
       </div>

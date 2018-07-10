@@ -10,9 +10,28 @@
 <body>
 	<h3>주문내역</h3>
 	<table>
-		<c:forEach var="order" items="${orderlist }">
-			<c:set var="orderid" value="${fn:split(order.orderid, '@') }"/>
+		<c:forEach var="orderlist" items="${orderlists }">
+			<c:forEach var="order" items="${orderlist }" varStatus="status">
+				<c:set var="orderid" value="${fn:split(order.orderid, '@') }"/>
+				<c:set var="orderdate" value="${orderid[0] }"/>
+				<c:if test="${status.count ==1 }">
+					<tr>
+						<td>${orderdate }</td>
+					</tr>
+				</c:if>
+				<tr>
+					<td rowspan="2"><img
+								src="${pageContext.request.contextPath }/resources/${order.prodimage }"
+								width="100" /></td>
+					<td><a href="detail.ord?orderid=${order.orderid }">${order.prodname }</a></td>
+				</tr>
+				<tr>
+					<td>${order.prodprice }</td>
+				</tr>
+			</c:forEach>
+			<%-- <c:set var="orderid" value="${fn:split(order.orderid, '@') }"/>
 			<c:set var="orderdate" value="${orderid[0] }"/>
+			<c:set var="ordergroup" value="${orderid[0] + orderid[1] }"/>
 			<tr>
 				<td>${orderdate }</td>
 			</tr>
@@ -34,7 +53,7 @@
 						<input type="button" value="주문취소" onclick="location.href='delete.ord?orderid=${order.orderid}'">
 					</c:if>
 				</td>
-			</tr>
+			</tr> --%>
 		</c:forEach>
 	</table>
 </body>

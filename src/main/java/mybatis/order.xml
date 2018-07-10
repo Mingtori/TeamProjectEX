@@ -25,4 +25,10 @@
 		DELETE FROM orders
 		WHERE orderid=#{orderid}
 	</delete>
+	
+	<select id="getOrderIds" resultType="string" parameterType="string">
+		select str from (
+		select substr(orderid,0,instr(orderid,'@',-1)-1) as str from orders where orderid like #{memid})
+		group by str
+	</select>
 </mapper>
