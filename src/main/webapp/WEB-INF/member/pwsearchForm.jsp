@@ -36,17 +36,17 @@ a {
 					<div class="intro-lead-in font-black">비밀번호 찾기</div>
 					<form:form commandName="pwsearch" action="pwsearch.me"
 						method="post">
-						<div class="form-inline" style="display: block;">
+						<div class="form-group form-inline" style="display: block;">
 							<label class="font-black col-md-2 control-label" for="memid">아이디</label> <input
 								class="form-control" type="text" name="memid"
 								placeholder="hong">
 						</div>
-						<div class="form-inline" style="display: block;">
+						<div class="form-group form-inline" style="display: block;">
 							<label class="font-black col-md-2 control-label" for="memname">이름</label> <input
 								class="form-control" type="text" name="memname"
 								placeholder="홍길동">
 						</div>
-						<div class="form-inline" style="display: block;">
+						<div class="form-group form-inline" style="display: block;">
 							<label class="font-black col-md-2 control-label" for="mememail">이메일</label> <input
 								class="form-control" type="email"
 								name="mememail" placeholder="email@email.com">

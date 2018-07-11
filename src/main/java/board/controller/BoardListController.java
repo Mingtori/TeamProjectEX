@@ -33,7 +33,7 @@ public class BoardListController {
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "pageNumber", required = false) String pageNumber,
 			@RequestParam(value = "pageSize", required = false) String pageSize,
-			@RequestParam(value = "boardcateid", required = false) String boardcateid,
+			@RequestParam(value = "boardcateid", required = true) String boardcateid,
 			HttpSession session) {
 
 		System.out.println("\n" + this.getClass() + " get 방식");

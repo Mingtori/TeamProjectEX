@@ -31,4 +31,18 @@
 		select substr(orderid,0,instr(orderid,'@',-1)-1) as str from orders where orderid like #{memid})
 		group by str
 	</select>
+	
+	<select id="getOrderSellList" resultType="MyOrder">
+		select * from 
+			(select orderid, orderqty, orderuse, memid, products.*
+			from orders, selllist, products
+			where orders.prodid = selllist.prodid and products.prodid = orders.prodid)
+			where memid = #{memid}
+	</select>
+	
+	<update id="updateUse">
+		update orders
+		set orderuse='YES'
+		where orderid=#{orderid}
+	</update>
 </mapper>

@@ -10,7 +10,6 @@
 </script>
 <style>
 .jumbotron {
-	background-color: #F2F2F2;
 	background-color: rgba(242, 242, 242, 0.8);
 }
 
@@ -36,12 +35,12 @@ a {
 					<div class="intro-lead-in font-black">아이디 찾기</div>
 					<form:form commandName="idsearch" action="idsearch.me"
 						method="post">
-						<div class="form-inline" style="display: block;">
+						<div class="form-group form-inline" style="display: block;">
 							<label class="font-black col-md-2 control-label" for="memname">이름</label>
 							<input class="form-control" type="text" name="memname"
 								placeholder="홍길동">
 						</div>
-						<div class="form-inline" style="display: block;">
+						<div class="form-group form-inline" style="display: block;">
 							<label class="font-black col-md-2 control-label" for="mememail">이메일</label>
 							<input class="form-control" type="email" name="mememail"
 								placeholder="email@email.com">

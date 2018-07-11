@@ -42,13 +42,13 @@
 
 			<tr height="30">
 				<td colspan="4" align="right">
-					<c:if test="${loginfo.memid eq 'admin'}">
+					<c:if test="${(loginfo.memid eq 'admin') or (board.boardcateid eq 'a02' and board.memid eq loginfo.memid)}"> 
 						<input type="button" value="글수정" onclick="location.href='update.bd?boardid=${board.boardid}&pageNumber=${pageNumber }'">
 			  			 &nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="button" value="글삭제" onclick="document.location.href='delete.bd?boardid=${board.boardid}&boardcateid=${board.boardcateid}'">
 						 &nbsp;&nbsp;&nbsp;&nbsp;
 				   	</c:if>
-				    <c:if test="${board.boardcateid eq 'a02'}">
+				    <c:if test="${board.boardcateid eq 'a02' and loginfo.memid eq 'admin'}">
 						<input type="button" value="답글쓰기" onclick="document.location.href='reply.bd?boardid=${board.boardid}&boardcateid=${board.boardcateid}&ref=${board.ref }&relevel=${board.relevel }&restep=${board.restep }&pageNumber=${pageNumber }'">
 						 &nbsp;&nbsp;&nbsp;&nbsp;
 				   	</c:if>

@@ -3,27 +3,25 @@
 <%@ include file="./../common/common.jsp"%>
 <%@ include file="../page/mytop.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <style>
 	.container{
 		max-width:70%;
 	}
 </style>
-</head>
-<body>
-	<br><a href = "insert.prd">상품 추가</a>
+	<div align="right">
+		<a href = "insert.prd">상품 추가</a>
+	</div> 
 	<div> 
 		<form action = "listSeller.prd" method = "GET">
-			<select name = "whatColumn" id = "whatColumn">
-				<option value = "all">전체</option>
-				<option value = "prodname">제목</option>
-				<option value = "prodcontent">내용</option>
-			</select> 
-			<input class="form-control" type = "text" name = "keyword" id = "keyword">
-			<input class="btn btn-default" type = "submit" value = "검색"/> 
+			<div class="form-group form-inline">
+				<select class="form-control" name = "whatColumn" id = "whatColumn">
+					<option value = "all">전체</option>
+					<option value = "prodname">제목</option>
+					<option value = "prodcontent">내용</option>
+				</select> 
+				<input class="form-control" type = "text" name = "keyword" id = "keyword">
+				<input class="btn btn-default" type = "submit" value = "검색"/> 
+			</div>
 		</form>
 	</div>
 	<table>
@@ -42,8 +40,8 @@
 			</tr>
 			<tr>
 				<td>
-					기간 : ${product.prodstartdate } ~ ${product.prodenddate } 
-					<br>가격 : ${product.prodprice } 
+					기간 : ${fn:substring(product.prodstartdate,0,10) } ~ ${fn:substring(product.prodenddate,0,10) } 
+					<br>가격 : <fmt:formatNumber pattern="###,###" value="${product.prodprice }"/> 원
 					<br>장소 : 
 					<br>카테고리 : ${product.prodcatename } 
 				</td>
@@ -56,6 +54,4 @@
 	<center>
 	${pageInfo.pagingHtml}
 	</center>	
-</body>
-</html>
 <%@ include file="../page/mybottom.jsp" %>

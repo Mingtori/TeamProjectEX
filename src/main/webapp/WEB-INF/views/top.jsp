@@ -65,6 +65,18 @@
 					href="list.prd">products</a></li>
 				<!-- <li class="nav-item"><a class="nav-link js-scroll-trigger"
 					href="#about">About</a></li> -->
+					
+				<li class="nav-item">
+					<div class="dropdown">
+						<a class="dropdown-toggle nav-link js-scroll-trigger" href="#" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">contact
+						    <span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+						  <li role="presentation"><a role="menuitem" tabindex="-1" href="notice.bd?boardcateid=a01">Notice</a></li>
+						  <li role="presentation"><a role="menuitem" tabindex="-1" href="notice.bd?boardcateid=a02">QnA</a></li>
+						</ul>
+					</div>
+				</li>
 				<li class="nav-item"><a class="nav-link js-scroll-trigger"
 					href="mypage.pg">My Page</a></li>
 				<c:if test="${loginfo == null }">

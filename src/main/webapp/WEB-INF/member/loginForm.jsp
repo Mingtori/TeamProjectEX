@@ -34,12 +34,12 @@ a {
 				<div class="jumbotron">
 					<div class="intro-lead-in font-black">LOGIN</div>
 					<form action="login.me" method="post">
-						<div class="form-inline" style="display: block;">
+						<div class="form-group form-inline" style="display: block;">
 							<label for="memid" class="font-black col-md-2 control-label">아이디</label>
 							<input class="form-control" type="text" name="memid"
 								placeholder="ID"">
 						</div>
-						<div class="form-inline" style="display: block;">
+						<div class="form-group form-inline" style="display: block;">
 							<label for="mempw" class="font-black col-md-2 control-label">비밀번호</label>
 							<input class="form-control" type="password" name="mempw"
 								placeholder="PASSWORD">

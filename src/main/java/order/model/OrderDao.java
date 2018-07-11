@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import member.model.Member;
+
 @Component("myOrderDao")
 public class OrderDao {
 	private final String namespace="myorder";
@@ -49,5 +51,18 @@ public class OrderDao {
 		list = sqlSessionTemplate.selectList(namespace+".getOrderIds", memid);
 		System.out.println("listsize : " + list.size());
 		return list;
+	}
+
+	public List<Order> getOrderSellList(Member login) {
+		// TODO Auto-generated method stub
+		List<Order> list = sqlSessionTemplate.selectList(namespace+".getOrderSellList", login.getMemid());
+		return list;
+	}
+
+	public int updateUse(Order order) {
+		// TODO Auto-generated method stub
+		int cnt = -1;
+		cnt = sqlSessionTemplate.update(namespace+".updateUse", order.getOrderid());
+		return cnt;
 	}
 }

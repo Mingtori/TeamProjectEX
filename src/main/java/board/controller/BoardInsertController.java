@@ -39,7 +39,6 @@ public class BoardInsertController {
 		System.out.println(board);
 		boardDao.insertBoard(board);
 		
-		
 		return gotoPage+"?boardcateid="+board.getBoardcateid();
 	}
 }

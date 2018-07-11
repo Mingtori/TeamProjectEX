@@ -1,13 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="./../common/common.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@ include file="../page/mytop.jsp"%>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <script type="text/javascript">
-	
 	//체크박스전체
 	function checkAll(){
 		if(myform.allCheck.checked == true){
@@ -99,10 +94,7 @@
 	
 </script>
 </head>
-<body>
 <form name="myform">
-	CartList.jsp
-	<br>
 	<h1>장바구니</h1>
 	<div>
 		<table border=1 width="100%">
@@ -155,5 +147,4 @@
 		</div>
 	</div>
 </form>	
-</body>
-</html>
+<%@ include file="../page/mybottom.jsp"%>

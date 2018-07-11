@@ -126,8 +126,12 @@ CREATE TABLE products (
 	prodinputdate DATE DEFAULT SYSDATE, /* 등록일자 */
 	prodstartdate DATE NOT NULL, /* 시작일자 */
 	prodenddate DATE NOT NULL, /* 종료일자 */
-	prodcontent VARCHAR2(50) NOT NULL /* 내용 */
+	prodcontent VARCHAR2(50) NOT NULL /* 내용 */,
+	prodplace VARCHAR2(20) NOT NULL /* 장소 */
 );
+
+insert into products
+values(0,'게시판용','0','0',0,0,sysdate,sysdate,sysdate,'0');
 
 ALTER TABLE products
 	ADD
@@ -320,7 +324,7 @@ ALTER TABLE boards
 		)
 		REFERENCES members (
 			memid
-		);
+		) ON DELETE CASCADE;
 
 ALTER TABLE boards
 	ADD

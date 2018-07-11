@@ -46,16 +46,16 @@
 		insert into boards
 		values (
 		boardseq.nextval
-		, #{boardsubject, jdbcType=VARCHAR}
+		, #{boardsubject}
 		, #{memid,jdbcType=VARCHAR}
-		, #{boardcateid, jdbcType=VARCHAR}
+		, #{boardcateid}
 		, #{prodid}
 		, #{boardcontent}
 		, boardseq.currval
 		, #{restep}
 		, #{relevel}
-		, #{boardip,jdbcType=VARCHAR}
-		, #{boardimage, jdbcType=VARCHAR}
+		, #{boardip}
+		, #{boardimage}
 		, sysdate
 		, #{boardreadcount}
 		)

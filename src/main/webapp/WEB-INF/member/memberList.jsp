@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="./../common/common.jsp" %>
 <%@ include file="./../page/mytop.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -12,15 +11,17 @@
 </head>
 <body>
 	<form action="memberlist.me" method="get">
-		<select name="flag">
-			<option value="" selected>전체검색
-			<option value="memid">아이디
-			<option value="memname">이름
-		</select>
-		<input type="text" name="search" placeholder="검색" value="">
-		<input type="submit" value="검색">
+		<div class="form-group form-inline">
+			<select class="form-control" name="flag">
+				<option value="" selected>전체검색
+				<option value="memid">아이디
+				<option value="memname">이름
+			</select>
+			<input class="form-control" type="text" name="search" placeholder="검색" value="">
+			<input class="btn btn-default" type="submit" value="검색">
+		</div>
 	</form>
-	<table border="1" class="table table-bordered" style="max-width: 100%">
+	<table class="table table-bordered" style="background-color:white;">
 		<tr>
 			<th>아이디</th>
 			<th>비밀번호</th>
