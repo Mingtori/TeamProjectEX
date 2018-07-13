@@ -16,4 +16,5 @@
 	</bean>
 
 	<context:component-scan base-package="page"></context:component-scan>
+	
 </beans>

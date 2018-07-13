@@ -12,12 +12,12 @@
 <body>
 	<form action="memberlist.me" method="get">
 		<div class="form-group form-inline">
-			<select class="form-control" name="flag">
+			<select class="form-control" name="whatColumn">
 				<option value="" selected>전체검색
 				<option value="memid">아이디
 				<option value="memname">이름
 			</select>
-			<input class="form-control" type="text" name="search" placeholder="검색" value="">
+			<input class="form-control" type="text" name="keyword" placeholder="검색" value="">
 			<input class="btn btn-default" type="submit" value="검색">
 		</div>
 	</form>

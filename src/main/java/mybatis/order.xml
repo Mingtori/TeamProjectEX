@@ -28,7 +28,7 @@
 	
 	<select id="getOrderIds" resultType="string" parameterType="string">
 		select str from (
-		select substr(orderid,0,instr(orderid,'@',-1)-1) as str from orders where orderid like #{memid})
+		select substr(orderid,0,instr(orderid,'@',-1)-1) as str, substr(orderid,0,instr(orderid,'@',1)-1) as orderdate from orders where orderid like #{memid} order by orderdate desc)
 		group by str
 	</select>
 	

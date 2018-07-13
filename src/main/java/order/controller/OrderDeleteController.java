@@ -22,9 +22,9 @@ public class OrderDeleteController {
 	public String doActionGet(
 			@RequestParam("orderid") String orderid,
 			HttpSession session){
+		Member member = (Member)session.getAttribute("loginfo");
 		orderDao.deleteOrder(orderid);
 		
-		Member member = (Member)session.getAttribute("loginfo");
 		
 		return gotoPage + "?memid=" + member.getMemid();
 	}

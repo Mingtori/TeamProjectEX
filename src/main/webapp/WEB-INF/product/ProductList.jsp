@@ -1,7 +1,6 @@
 <%@ include file="./../views/top.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="./../common/common.jsp"%>
 
 <style>
 .jumbotron {
@@ -54,10 +53,10 @@ a {
 							<div class="portfolio-hover-content">
 								<i class="fa fa-plus fa-3x"></i>
 							</div>
-						</div> <img class="img-fluid" src="${prodimage }" alt="">
+						</div> <img class="img-fluid" src="${prodimage }" alt="" width="100%">
 					</a>
 					<div class="portfolio-caption">
-						<h4>${product.prodname }</h4>
+						<h5>${product.prodname }</h5>
 						<p class="text-muted">${product.prodcontent}</p>
 					</div>
 				</div>

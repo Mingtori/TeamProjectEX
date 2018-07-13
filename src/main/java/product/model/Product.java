@@ -38,7 +38,10 @@ public class Product {
 	private int rownum;
 	private int cnt;
 	private int pageNum;
-	
+
+	private String prodplace; // 장소
+	private String memplace; // 판매자 + 장소
+
 	// 판매자id;
 	private String memid;
 
@@ -48,6 +51,21 @@ public class Product {
 
 	public void setMemid(String memid) {
 		this.memid = memid;
+	}
+	public String getMemplace() {
+		return memplace;
+	}
+
+	public void setMemplace(String memplace) {
+		this.memplace = memplace;
+	}
+
+	public String getProdplace() {
+		return prodplace;
+	}
+
+	public void setProdplace(String prodplace) {
+		this.prodplace = prodplace;
 	}
 
 	public String getUpload2() {

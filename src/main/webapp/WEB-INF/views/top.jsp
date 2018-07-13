@@ -15,7 +15,7 @@
 <link
 	href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
-
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
 <!-- Custom fonts for this template -->
 <link
 	href="${pageContext.request.contextPath}/resources/vendor/font-awesome/css/font-awesome.min.css"
@@ -35,13 +35,6 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/agency.min.css"
 	rel="stylesheet">
-
-<style>
-	.container{
-		
-	}
-	
-</style>
 </head>
 
 <body id="page-top">
@@ -68,17 +61,42 @@
 					
 				<li class="nav-item">
 					<div class="dropdown">
-						<a class="dropdown-toggle nav-link js-scroll-trigger" href="#" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">contact
+						<a class="dropdown-toggle nav-link js-scroll-trigger" href="#" id="contact" data-toggle="dropdown" aria-expanded="true">contact
 						    <span class="caret"></span>
 						</a>
-						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+						<ul class="dropdown-menu" role="menu" aria-labelledby="contact">
 						  <li role="presentation"><a role="menuitem" tabindex="-1" href="notice.bd?boardcateid=a01">Notice</a></li>
 						  <li role="presentation"><a role="menuitem" tabindex="-1" href="notice.bd?boardcateid=a02">QnA</a></li>
 						</ul>
 					</div>
 				</li>
-				<li class="nav-item"><a class="nav-link js-scroll-trigger"
-					href="mypage.pg">My Page</a></li>
+				<c:if test="${loginfo != null }">
+				<li class="nav-item">
+					<div class="dropdown">
+					<a class="dropdown-toggle nav-link js-scroll-trigger" id="mypage" data-toggle="dropdown" aria-expanded="true" href="mypage.pg">My Page
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="mypage">
+						<c:if test="${loginfo.gradeid == 0 }">
+							<!-- 관리자일경우 -->
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="memberlist.me">회원관리목록</a></li>
+						  	<li role="presentation"><a role="menuitem" tabindex="-1" href="list.prd">상품관리목록</a></li>
+						</c:if>
+						<c:if test="${loginfo.gradeid == 1 }">
+							<!-- 일반 사용자일경우 -->
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="list.ct">장바구니</a></li>
+						  	<li role="presentation"><a role="menuitem" tabindex="-1" href="list.ord?memid=${loginfo.memid }">구매내역</a></li>
+						</c:if>
+						<c:if test="${loginfo.gradeid == 2 }">
+							<!-- 판매자일경우 -->
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="listSeller.prd?memid=${loginfo.memid }">상품관리목록</a></li>
+						  	<li role="presentation"><a role="menuitem" tabindex="-1" href="listSeller.ord">상품판매내역</a></li>
+						</c:if>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="update.me">회원정보수정</a></li>
+					</ul>
+					</div>
+				</li>
+				</c:if>
 				<c:if test="${loginfo == null }">
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
 						href="login.me">Login</a></li>

@@ -18,8 +18,8 @@
 </head>
 	<div class="container">
       <div class="row">
-	     <div class="col-sm-7 offset-sm-5"><h1>회원 정보 수정</h1></div>
-         <div class="col-sm-8 offset-sm-4 text-center">
+	     <div class="col-sm-8 offset-sm-4"><h1>회원 정보 수정</h1></div>
+         <div class="col-sm-9 offset-sm-3 text-center">
             <c:set var="phone" value="${fn:split(member.memphone,'-') }"/>
             <c:set var="email" value="${fn:split(member.mememail,'@') }"/>
             <form:form commandName="update" action="update.me" method="post">

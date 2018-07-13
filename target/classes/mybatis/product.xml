@@ -11,6 +11,7 @@
 	<select id="GetProductDetail" resultType="MyProduct">
 		select p.prodid
 			, p.prodname
+			, s.memid
 			, p.prodcateid
 			, c.prodcatename
 			, p.prodimage
@@ -20,10 +21,17 @@
 			, to_char(p.prodstartdate,'yyyy-MM-dd') as prodstartdate
 			, to_char(p.prodenddate,'yyyy-MM-dd') as prodenddate
 			, p.prodcontent
-			from products p
+			, m.memaddr || ' ' || p.prodplace as memplace
+			, p.prodplace
+		from products p
 			, prodcategory c
-			where p.prodcateid = c.prodcateid
-			and prodid = #{prodid}
+			, selllist s
+			, members m
+		where p.prodcateid = c.prodcateid
+			and s.prodid = p.prodid
+			and m.memid = s.memid
+			and p.prodid = #{prodid}
+			order by prodinputdate
 	</select>
 	<insert id="InsertProduct" parameterType="MyProduct">
 		insert into products
@@ -36,7 +44,8 @@
 				, sysdate
 				, #{prodstartdate}
 				, #{prodenddate}
-				, #{prodcontent} )
+				, #{prodcontent}
+				, #{prodplace} )
 	</insert>
 	<select id="GetAllProduct" resultType="MyProduct" parameterType="hashmap">
 		select rownum, a.* 
@@ -51,20 +60,23 @@
 		            , to_char(p.prodstartdate,'yyyy-MM-dd') as prodstartdate
 		            , to_char(p.prodenddate,'yyyy-MM-dd') as prodenddate
 		            , p.prodcontent
+		            , p.prodplace
 		            from products p
 		            , prodcategory c
 		            where p.prodcateid = c.prodcateid
 		            order by p.prodinputdate desc, p.prodid desc) a
+		where prodid>0    
 		<if test = "whatColumn == 'prodname'">
-			where prodname like #{keyword}
+			and prodname like #{keyword}
 		</if>
 		<if test = "whatColumn == 'prodcontent'">
-			where prodcontent like #{keyword} 
+			and prodcontent like #{keyword} 
 		</if>
 		<if test = "whatColumn == 'all'">
-			where prodname || prodcontent like #{keyword}
+			and prodname || prodcontent like #{keyword}
 		</if>             
 	</select>
+	
 	<select id = "GetProductCount" resultType = "Integer" parameterType="hashmap">
 		select count(*) as cnt from products
 		<if test = "whatColumn == 'prodname'">
@@ -90,13 +102,32 @@
 				, prodstartdate = #{prodstartdate}
 				, PRODENDDATE = #{prodenddate}
 				, PRODCONTENT = #{prodcontent}
+				, PRODPLACE = #{prodplace}
 		  where prodid = #{prodid}
 	</update>
 	
 	<select id="getSellProducts" parameterType="hashmap" resultType="MyProduct">
-		select memid, p.*, c.prodcatename
-		from selllist s, products p, prodcategory c
-		where s.memid=#{memid} and s.prodid = p.prodid and p.prodcateid=c.prodcateid
+		select p.prodid
+			, s.memid
+			, p.prodname
+			, p.prodcateid
+			, c.prodcatename
+			, p.prodimage
+			, p.prodprice
+			, p.prodstock
+			, to_char(p.prodinputdate,'yyyy-MM-dd') as prodinputdate
+		    , to_char(p.prodstartdate,'yyyy-MM-dd') as prodstartdate
+		    , to_char(p.prodenddate,'yyyy-MM-dd') as prodenddate
+			, p.prodcontent
+			, m.memaddr || ' ' || p.prodplace as memplace
+		from selllist s
+			, products p
+			, prodcategory c
+			, members m
+		where s.memid=#{memid} 
+		  and s.prodid = p.prodid 
+		  and p.prodcateid=c.prodcateid
+		  and m.memid = s.memid
 		<if test = "whatColumn == 'prodname'">
 			and prodname like #{keyword}
 		</if>
@@ -105,7 +136,7 @@
 		</if>
 		<if test = "whatColumn == 'all'">
 			and prodname || prodcontent like #{keyword}
-		</if>             
+		</if>
 	</select>
 	
 	<insert id="insertSellist" parameterType="MyProduct">

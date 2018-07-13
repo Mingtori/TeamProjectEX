@@ -118,20 +118,20 @@ ALTER TABLE memgrade
 /* products */
 CREATE TABLE products (
 	prodid NUMBER NOT NULL, /* 상품ID */
-	prodname VARCHAR2(15) NOT NULL, /* 상품명 */
+	prodname VARCHAR2(50) NOT NULL, /* 상품명 */
 	prodcateid NUMBER NOT NULL, /* 카테고리ID */
-	prodimage VARCHAR2(20) NOT NULL, /* 이미지 */
+	prodimage VARCHAR2(50) NOT NULL, /* 이미지 */
 	prodprice NUMBER NOT NULL, /* 가격 */
 	prodstock NUMBER NOT NULL, /* 재고수량 */
 	prodinputdate DATE DEFAULT SYSDATE, /* 등록일자 */
 	prodstartdate DATE NOT NULL, /* 시작일자 */
 	prodenddate DATE NOT NULL, /* 종료일자 */
-	prodcontent VARCHAR2(50) NOT NULL /* 내용 */,
-	prodplace VARCHAR2(20) NOT NULL /* 장소 */
+	prodcontent VARCHAR2(1000) NOT NULL /* 내용 */,
+	prodplace VARCHAR2(50) NOT NULL /* 장소 */
 );
 
 insert into products
-values(0,'게시판용','0','0',0,0,sysdate,sysdate,sysdate,'0');
+values(0,'게시판용','0','0',0,0,sysdate,sysdate,sysdate,'0',' ');
 
 ALTER TABLE products
 	ADD
@@ -174,16 +174,16 @@ ALTER TABLE selllist
 /* boards */
 CREATE TABLE boards (
 	boardid NUMBER NOT NULL, /* 게시글ID */
-	boardsubject VARCHAR2(20) NOT NULL, /* 제목 */
+	boardsubject VARCHAR2(50) NOT NULL, /* 제목 */
 	memid VARCHAR2(15) NOT NULL, /* 회원ID */
 	boardcateid VARCHAR2(5) NOT NULL, /* 카테고리ID */
 	prodid NUMBER, /* 상품ID */
-	boardcontent VARCHAR2(50) NOT NULL, /* 내용 */
+	boardcontent VARCHAR2(500) NOT NULL, /* 내용 */
 	ref NUMBER DEFAULT 0, /* ref */
 	restep NUMBER DEFAULT 0, /* restep */
 	relevel NUMBER DEFAULT 0, /* relevel */
 	boardip VARCHAR2(15) NOT NULL, /* IP */
-	boardimage VARCHAR2(20), /* 이미지 */
+	boardimage VARCHAR2(50), /* 이미지 */
 	boardinputdate DATE DEFAULT SYSDATE, /* 게시일자 */
 	boardreadcount NUMBER DEFAULT 0 /* 조회수 */
 );

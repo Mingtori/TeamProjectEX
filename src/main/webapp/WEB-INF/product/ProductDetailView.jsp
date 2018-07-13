@@ -10,7 +10,6 @@
 <title>Insert title here</title>
 <style>
 .jumbotron {
-	background-color: #F2F2F2;
 	background-color: rgba(242, 242, 242, 0.8);
 }
 
@@ -40,113 +39,129 @@ a {
 }
 </style>
 <script type="text/javascript">
-	var prodstock = $
-	{
-		product.prodstock
-	};
+var prodstock = ${product.prodstock};
 
-	function checkProdstock() {
-		var cartqty = document.getElementById("cartqty").value;
-		if (prodstock < cartqty) {
-			return null;
-		}
+function checkProdstock() {
+	var cartqty = document.getElementById("cartqty").value;
+	if (prodstock < cartqty) {
+		return null;
 	}
+}
 
-	function incNum() {
-		var cartqty = document.getElementById("cartqty").value;
-		var prodprice = $
-		{
-			product.prodprice
-		}
-		;
-		var x = ++cartqty;
-		var y = prodprice * x;
-		if (x <= prodstock) {
-			document.getElementById("cartqty").value = x;
-			document.getElementById("totalprodprice").value = y
-					.toLocaleString();
-		}
+function incNum() {
+	var cartqty = document.getElementById("cartqty").value;
+	var prodprice = ${product.prodprice}
+	;
+	var x = ++cartqty;
+	var y = prodprice * x;
+	if (x <= prodstock) {
+		document.getElementById("cartqty").value = x;
+		document.getElementById("totalprodprice").value = y
+				.toLocaleString();
 	}
+}
 
-	function decNum() {
-		var cartqty = document.getElementById("cartqty").value;
-		var prodprice = $
-		{
-			product.prodprice
-		}
-		;
-		var x = --cartqty;
-		var y = prodprice * x;
-		if (x >= 1) {
-			document.getElementById("cartqty").value = x;
-			document.getElementById("totalprodprice").value = y
-					.toLocaleString();
-		}
+function decNum() {
+	var cartqty = document.getElementById("cartqty").value;
+	var prodprice = ${product.prodprice};
+	var x = --cartqty;
+	var y = prodprice * x;
+	if (x >= 1) {
+		document.getElementById("cartqty").value = x;
+		document.getElementById("totalprodprice").value = y
+				.toLocaleString();
 	}
+}
 
-	function chxNum() {
-		var cartqty = document.getElementById("cartqty").value;
-		var prodprice = $
-		{
-			product.prodprice
-		}
-		;
-		var y = prodprice * cartqty;
-		document.getElementById("totalprodprice").value = y.toLocaleString();
-	}
+function chxNum() {
+	var cartqty = document.getElementById("cartqty").value;
+	var prodprice = ${product.prodprice};
+	var y = prodprice * cartqty;
+	document.getElementById("totalprodprice").value = y.toLocaleString();
+}
 </script>
 </head>
 <body>
 	<section class="bg-light">
 	<div class="container">
 	<div class="jumbotron" align="center">
-		<a
-			href="update.prd?prodid=${product.prodid }&pageNumber=${pageNumber}">수정</a>
-		<a
-			href="delete.prd?prodid=${product.prodid }&pageNumber=${pageNumber}">삭제</a>
-		<a href="list.prd?pageNumber=${pageNumber}">상품목록 </a>
+		<div align="right">
+			<c:if test="${loginfo.gradeid == 0 || loginfo.memid == product.memid}">
+			<a href="update.prd?prodid=${product.prodid }&pageNumber=${pageNumber}">
+				<button>수정</button></a>
+			<a href="delete.prd?prodid=${product.prodid }&pageNumber=${pageNumber}"><button>삭제</button></a>
+			</c:if>
+			<a href="list.prd?pageNumber=${pageNumber}"><button>상품목록</button> </a>
+		</div>
 		<c:set var="theString"
 			value="http://localhost:9090${pageContext.request.contextPath}/resources/${product.prodimage }" />
 
 		<form name="ProdUpdateForm" action="insert.ct" method="GET">
-			<h1>${product.prodname }</h1>
-			<img src=${theString } width="300" /> <br>Date :
-			${product.prodstartdate } ~ ${product.prodenddate } <br>Price :
-			<fmt:formatNumber value='${product.prodprice }' pattern='###,###' />
-			원 <br>category : ${product.prodcatename } <br> <input
-				type="button" value="+" onclick="incNum()" /> <input type="button"
-				value="-" onclick="decNum()" /> <input type="number" name="cartqty"
-				id="cartqty" min="1" max="${product.prodstock }" value="1"
-				onchange="chxNum()" /> <input type="submit" value="장바구니" /> <br>
-			총 금액 <input type="text" id="totalprodprice"
-				value="<fmt:formatNumber value='${product.prodprice }' pattern='###,###'/>">
-			<br>
-			<br>content : ${product.prodcontent } <input type="hidden"
-				name="prodid" id="prodid" value="${product.prodid }" /> <input
-				type="hidden" name="prodstock" id="prodstock"
-				value="${product.prodstock }" /> <input type="hidden"
-				name="prodcateid" id="prodcateid" value="${product.prodcateid }" />
-			<br>
+			<div>
+				<h1>${product.prodname }</h1>
+			</div>
+			<table>
+				<tr>
+					<td width="50%"><img src=${theString } width="100%" /></td>
+					<td><div>
+							<ul >
+								<li>분류 : ${product.prodcatename } 
+								<li>날짜 : ${product.prodstartdate } ~ ${product.prodenddate } 
+								<li>가격 : 성인 <fmt:formatNumber value='${product.prodprice }' pattern='###,###' /> 원 
+								<li>장소 : ${product.memplace } 
+								<li>소개 : ${product.prodcontent } <input type="hidden"
+							name="prodid" id="prodid" value="${product.prodid }" /> <input
+							type="hidden" name="prodstock" id="prodstock"
+							value="${product.prodstock }" /> <input type="hidden"
+							name="prodcateid" id="prodcateid" value="${product.prodcateid }" />
+							</ul>
+				</div></td>
+			</tr>
+			<tr>	
+			<td>
+				<div>
+				
+				</div>
+			</td>
+				<td>
+					<div align="right">
+				<label style = "font-size:x-large;">성인</label>
+				<input type="button" value="-" onclick="decNum()" /> 
+				<input type="number" name="cartqty" id="cartqty" min="1" max="${product.prodstock }" value="1" onchange="chxNum()" /> 
+				<input type="button" value="+" onclick="incNum()" /> 
+				<br><input style = "border:none;" readonly type="text" id="totalprodprice"
+					value="<fmt:formatNumber value='${product.prodprice }' pattern='###,###'/>" />
+				<br><input type="submit" value="장바구니" /> 
+			</div>
+				</td>
+				</tr>
+			</table>
+
 		</form>
+		<hr>
 		<!-- 후기게시판 -->
+		<h3>관람후기</h3>
 		<form action="insert.bd" method="post">
 			<input type="hidden" name="boardcateid" value="p03"> <input
 				type="hidden" name="prodid" value="${ product.prodid}"> <input
 				type="hidden" name="memid" value="${loginfo.memid }">
 			<table>
 				<tr>
-					<td><input type="text" name="boardsubject" placeholder="제목">
+					<td ><input type="text" name="boardsubject" placeholder="제목">
 					</td>
-					<td align="right"><input type="submit" value="글쓰기"></td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="text" name="boardcontent"
+					<td ><input type="text" name="boardcontent"
 						placeholder="내용"></td>
+				</tr>
+				<tr>
+					<td align="center"><input type="submit" value="글쓰기"></td>
 				</tr>
 			</table>
 		</form>
+		
 		<table>
-			<tr><td>관람후기</td></tr>
+			<tr><td></td></tr>
 			<c:if test="${fn:length(reviewlist) == 0}">
 				<tr>
 					<td align="center">후기가 없습니다.</td>

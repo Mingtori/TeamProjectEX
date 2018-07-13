@@ -23,6 +23,19 @@ public class Paging {
 
 	// 
 	private String boardcateid;
+	private String whologin;
+	
+	
+	public String getWhologin() {
+		return whologin;
+	}
+
+
+	public void setWhologin(String whologin) {
+		this.whologin = whologin;
+	}
+
+
 	public int getTotalCount() {
 		return totalCount;
 	}
@@ -247,6 +260,11 @@ public class Paging {
 		if(this.boardcateid == null || !this.boardcateid.equals(boardcateid)){
 			this.boardcateid = boardcateid;
 		}
+		
+		if(this.whologin == null || !this.whologin.equals(whologin)){
+			this.whologin = whologin;
+		}
+		
 		System.out.println("pageNumber2:"+pageNumber+"/totalPage2:"+totalPage);	
 		this.url = url ; //  /ex/list.ab
 		this.whatColumn = whatColumn ;
@@ -282,7 +300,7 @@ public class Paging {
 			} else {
 				result += "&nbsp;<a href='" + url   
 						+ "?pageNumber=" + i + "&pageSize=" + this.pageSize 
-						+ added_param + "&boardcateid=" + this.boardcateid + "'>" + i + "</a>&nbsp;" ;
+						+ added_param + "&boardcateid=" + this.boardcateid + "&memid=" + this.whologin + "'>" + i + "</a>&nbsp;" ;
 				
 			}
 		}

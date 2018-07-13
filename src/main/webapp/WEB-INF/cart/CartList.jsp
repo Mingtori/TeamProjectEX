@@ -97,7 +97,7 @@
 <form name="myform">
 	<h1>장바구니</h1>
 	<div>
-		<table border=1 width="100%">
+		<table class="table">
 			<tr align="center">
 				<th>번호</th>
 				<th>이미지</th>

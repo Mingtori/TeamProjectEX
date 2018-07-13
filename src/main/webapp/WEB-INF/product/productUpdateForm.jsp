@@ -1,66 +1,117 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="./../common/common.jsp" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+	pageEncoding="UTF-8"%>
+<%@ include file="./../common/common.jsp"%>
+<%@ include file="../views/top.jsp"%>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
+<script type="text/javascript">
+	function goback() {
+		history.back(-1);
+	}
+	function duplicateID() {
+
+	}
+</script>
+<style>
+.jumbotron {
+	background-color: #F2F2F2;
+	background-color: rgba(242, 242, 242, 0.8);
+}
+
+.form-inline label, .form-inline>.form-control {
+	display: inline-block;
+}
+
+.font-black {
+	color: black;
+}
+
+a {
+	color: black;
+}
+
+@media ( min-width : 768px) {
+	section {
+		background-image: url("./resources/img/header-bg.jpg");
+		background-repeat: no-repeat;
+		background-attachment: scroll;
+		background-position: center center;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+	}
+}
+div {
+	margin : 10px 10px 10px 10px;
+}
+</style>
 <body>
-	productUpdateForm.jsp
-	<form:form commandName="product" method="post" action="update.prd" enctype="multipart/form-data">
-	<h1><span>[${product.prodid }]번 상품 수정 화면</span></h1>
-	<p>
-		<label for="prodname">상품명</label>
-		<input type = "text" name = "prodname" id = "prodname" value = "${product.prodname }"/>
-		<form:errors cssClass="err" path="prodname" />
-	</p>
-	<p>
-		<label for="prodimage">이미지</label>
-		<image src = "${pageContext.request.contextPath}/resources/${product.prodimage }" width = 100 />
-		<input type = "file" name = "upload" id = "upload"/>
-		<form:errors cssClass="err" path="prodimage" />
-	</p>
-	<p>
-		<label for="prodstartdate">시작일자</label>
-		<input type = "date" name = "prodstartdate" id = "prodstartdate" value = "${product.prodstartdate}"/>
-		<form:errors cssClass="err" path="prodstartdate" />
-		<label for="prodenddate">종료일자</label>
-		<input type = "date" name = "prodenddate" id = "prodenddate" value = "${product.prodenddate}"/>
-		<form:errors cssClass="err" path="prodenddate" />
-	</p>
-	<p>
-		<label for="location">위치</label>
-		<input type = "text" name = "location" id = "location" value ="예술의 전당"/>
-	</p>
-	<p>
-		<label for="prodstock">수량</label>
-		<input type = "text" name = "prodstock" id = "prodstock" placeholder="수량" value = "${product.prodstock}"/>
-		<label for="prodprice">가격</label>
-		<input type = "text" name = "prodprice" id = "prodprice" placeholder="가격" value = "${product.prodprice}"/>
-	</p>
-	<p>
-		<label for="prodcateid">카테고리</label>
-		<select name = "prodcateid" id = "prodcateid">
-			<c:forEach items="${categoryList }" var = "category">
-				<option value ="${category.prodcateid }" 
-					<c:if test ="${product.prodcateid eq category.prodcateid}"> selected </c:if>>
-						[${category.prodcateid }]${category.prodcatename }
-			</c:forEach>
-		</select>
-		<form:errors cssClass="err" path="prodcateid" />
-	</p>
-	<p>
-		<label for="prodcontent">상세정보</label>
-		<textarea name = "prodcontent" id = "prodcontent" rows="" cols="">${product.prodcontent}</textarea>
-		<form:errors cssClass="err" path="prodcontent" />
-	</p>
-	<p>
-		<input type = "hidden" id ="prodid" name = "prodid" value = "${product.prodid }" />
-		<input type = "hidden" name = "upload2" id = "upload2" value = "${product.prodimage }"/>
-		<input type = "submit" value = "수정하기"/>
-	</p>	
-	</form:form>
-</body>
-</html>
+	<section class="bg-light">
+		<div class="container">
+				<div class="jumbotron" align="center">
+					<h1>상품수정화면</h1>
+						<form:form commandName="product" method="post" action="update.prd" enctype="multipart/form-data">
+						<div>
+							<label for="prodname" class="form-inline">상품명</label>
+							<input type = "text" name = "prodname" id = "prodname" value = "${product.prodname }" class="form-control"/>
+							<form:errors cssClass="err" path="prodname" />
+						</div>
+						<div>
+							<label for="prodimage" class="form-inline">이미지</label>
+							<div align="left">
+								<image src = "${pageContext.request.contextPath}/resources/${product.prodimage }" width = "100"/>
+							</div>
+							<input type = "file" name = "upload" id = "upload" class="form-control"/>
+							<form:errors cssClass="err" path="prodimage" />
+						</div>
+						<div>
+							<label for="prodstartdate" class="form-inline">시작일자</label>
+							<input type = "date" name = "prodstartdate" id = "prodstartdate" value = "${product.prodstartdate}" class="form-control"/>
+							<form:errors cssClass="err" path="prodstartdate" />
+						</div>
+						<div>
+							<label for="prodenddate" class="form-inline">종료일자</label>
+							<input class="form-control" type = "date" name = "prodenddate" id = "prodenddate" value = "${product.prodenddate}"/>
+							<form:errors cssClass="err" path="prodenddate" />
+						</div>
+						<div>
+							<label for="prodplace" class="form-inline">위치</label>
+							<input class="form-control" type = "text" name = "prodplace" id = "prodplace" value ="${product.prodplace }"/>
+						</div>
+						<div>
+							<label for="prodstock" class="form-inline">수량</label>
+							<input class="form-control" type = "text" name = "prodstock" id = "prodstock" placeholder="수량" value = "${product.prodstock}"/>
+						</div>
+						<div>
+							<label for="prodprice" class="form-inline">가격</label>
+							<input class="form-control" type = "text" name = "prodprice" id = "prodprice" placeholder="가격" value = "${product.prodprice}"/>
+						</div>
+						<div>
+							<label for="prodcateid" class="form-inline">카테고리</label>
+							<select class="form-control" name = "prodcateid" id = "prodcateid">
+								<c:forEach items="${categoryList }" var = "category">
+									<option value ="${category.prodcateid }" 
+										<c:if test ="${product.prodcateid eq category.prodcateid}"> selected </c:if>>
+											[${category.prodcateid }]${category.prodcatename }
+								</c:forEach>
+							</select>
+							<form:errors cssClass="err" path="prodcateid" />
+						</div>
+						<div>
+							<label for="prodcontent" class="form-inline">상세정보</label>
+						<br><textarea class="form-control" name = "prodcontent" id = "prodcontent" rows="" cols="">${product.prodcontent}</textarea>
+							<form:errors cssClass="err" path="prodcontent" />
+						</div>
+						<div>
+							<input type = "hidden" id ="prodid" name = "prodid" value = "${product.prodid }" />
+							<input type = "hidden" name = "upload2" id = "upload2" value = "${product.prodimage }"/>
+							<input type = "submit" value = "수정하기"/>
+						</div>	
+						</form:form>
+					</div>
+				</div>
+		</section>
+	</body>
+
+
+	<%@ include file="../views/bottom.jsp"%>

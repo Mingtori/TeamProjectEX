@@ -12,6 +12,15 @@ public class Cart {
 	private int cartprice;
 	private int prodid;
 	private int prodstock;
+	private int prodprice;
+	
+	public int getProdprice() {
+		return prodprice;
+	}
+
+	public void setProdprice(int prodprice) {
+		this.prodprice = prodprice;
+	}
 
 	public int getProdstock() {
 		return prodstock;

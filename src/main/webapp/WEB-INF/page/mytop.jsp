@@ -11,14 +11,6 @@
 }
 
 
-#mainNav .navbar-nav .nav-item .nav-link {
-	font-size: 90%;
-	font-weight: 400;
-	padding: .75em 0;
-	letter-spacing: 1px;
-	font-family: Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
 @media ( min-width : 768px) {
 	section {
 		background-image: url("./resources/img/header-bg.jpg");
@@ -33,9 +25,6 @@
 }
 a {
 	color:blue;
-}
-.container{
-	max-width: 100%;
 }
 </style>
 <section>
@@ -64,4 +53,4 @@ a {
 							class="list-group-item" href="logout.me">로그아웃</a>
 					</div>
 				</div>
-				<div class="col-sm-8 col-sm-offset-2">
+				<div class="col-sm-10">

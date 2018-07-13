@@ -47,7 +47,7 @@
 		values (
 		boardseq.nextval
 		, #{boardsubject}
-		, #{memid,jdbcType=VARCHAR}
+		, #{memid}
 		, #{boardcateid}
 		, #{prodid}
 		, #{boardcontent}

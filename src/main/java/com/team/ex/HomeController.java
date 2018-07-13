@@ -1,39 +1,44 @@
 package com.team.ex;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import cart.model.Cart;
+import cart.model.CartDao;
+import member.model.Member;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class HomeController {
+	private static final String getPage = "home";
+	private static final String command = "/"; 
+	@Autowired
+	private CartDao cartDao;
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+	@RequestMapping(value = command, method = RequestMethod.GET)
+	public String doActionGet(Model model
+			, HttpSession session) {
+		Member login = (Member)session.getAttribute("loginfo");
+		if(login != null){
+			List<Cart> cartlist = cartDao.GetAllCart(login.getMemid());
+			int totalprice = 0;
+			for(int i = 0 ; i < cartlist.size(); i++){
+				totalprice += cartlist.get(i).getCartprice();
+			}
+			model.addAttribute("cartlist", cartlist);
+			model.addAttribute("totalprice", totalprice);
+		}
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "home";
+		return getPage;
 	}
 	
 }

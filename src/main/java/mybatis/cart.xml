@@ -27,6 +27,7 @@
 			, cartqty
 			, prodname
 			, prodimage
+			, prodprice
 			, cartprice
 			, prodstartdate || ' ~ ' || prodenddate as proddate	
 			, prodid
@@ -37,6 +38,7 @@
 					, p.prodname
 					, p.prodcateid
 					, p.prodimage
+					, p.prodprice
 					, p.prodprice * c.cartqty as cartprice
 					, p.prodstock
 					, p.prodinputdate

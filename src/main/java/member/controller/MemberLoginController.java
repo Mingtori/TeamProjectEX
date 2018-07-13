@@ -19,9 +19,7 @@ import member.model.MemberDao;
 @Controller
 public class MemberLoginController {
 	private static final String getPage="loginForm";
-	private static final String gotoAdminPage="redirect:/";
-	private static final String gotoNormalPage="redirect:/";
-	private static final String gotoSellerPage="redirect:/";
+	private static final String gotoPage="redirect:/";
 	private static final String command="login.me";
 	
 	@Autowired
@@ -66,15 +64,9 @@ public class MemberLoginController {
 					return getPage;
 				}
 				session.setAttribute("loginfo", login);
-				if(login.getGradeid() == 0){	// 관리자 아이디일때
-					return gotoAdminPage;
-				}else if(login.getGradeid() == 1){	// 일반 사용자 일때
-					return gotoNormalPage;
-				}else{	// 판매자 일때
-					// permit 확인 해줘야함
-					return gotoSellerPage;
-				}
+				return gotoPage;
 			}
+			
 		}
 	}
 }

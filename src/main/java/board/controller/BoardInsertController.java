@@ -3,6 +3,7 @@ package board.controller;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,10 +27,15 @@ public class BoardInsertController {
 	@RequestMapping(value = command, method = RequestMethod.GET)
 	public String doActionGet(
 			@RequestParam("boardcateid") String boardcateid,
+			HttpSession session,
 			Model model) {
+		if(session.getAttribute("loginfo") == null){
+			return "redirect:/login.me";
+		}
 		model.addAttribute("boardcateid", boardcateid);
 		return getPage;
 	}
+	
 	@RequestMapping(value = command, method = RequestMethod.POST)
 	public String doActionPost(
 			Board board,

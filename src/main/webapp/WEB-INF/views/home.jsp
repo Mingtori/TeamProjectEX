@@ -1,7 +1,38 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ include file="top.jsp" %>
     <!-- Header -->
     <header class="masthead">
       <div class="container">
+      	<c:if test="${loginfo != null and loginfo.gradeid == 1}">
+           <div class="dropdown" align="left">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" style="margin-top:110px;"
+            	>
+               My Bag ${fn:length(cartlist)}개 / <fmt:formatNumber value="${totalprice }" pattern="###,###"/>원 
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            	<table class="table" style="margin:0 0;">
+		            <c:if test="${fn:length(cartlist) > 0}">
+		            <c:forEach items="${cartlist}" var="cart">
+						<c:set var="theString"
+									value="http://localhost:9090${pageContext.request.contextPath}/resources/${cart.prodimage }" />
+						<tr>
+							<td><img alt="" src="${theString }" width="50px" height="50px"></td>
+							<td>${cart.prodname }<br>${cart.cartqty } 개 / <fmt:formatNumber value="${cart.prodprice }" pattern="###,###"/> 원</td>
+							<td style="vertical-align: middle;'" align="right"><fmt:formatNumber value="${cart.cartprice }" pattern="###,###"/> 원</td>
+						</tr>       
+		            </c:forEach>
+	            	</c:if>
+	            	<c:if test="${fn:length(cartlist) == 0}">
+	            		<tr><td align="center">상품이 없습니다.</td></tr>
+	            	</c:if>
+	            	<tr>
+	            		<td colspan="3"><input type="button" class="btn btn-default form-control" value="장바구니가기" onclick="location.href='list.ct'"></td>
+	            	</tr>
+            	</table>
+            </div>
+         </div>
+        </c:if>
         <div class="intro-text">
           <div class="intro-lead-in">Welcome To Our Homepage!</div>
           <div class="intro-heading text-uppercase" align="center">
@@ -18,16 +49,16 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <h2 class="section-heading text-uppercase">세얼간이</h2>
+            <h3 class="section-subheading text-muted">너무 하기 싫은데도 할수 밖에없는 상황</h3>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-4">
             <div class="team-member">
-              <img class="mx-auto rounded-circle" src="img/team/1.jpg" alt="">
-              <h4>Kay Garland</h4>
-              <p class="text-muted">Lead Designer</p>
+              <img class="mx-auto rounded-circle" src="${pageContext.request.contextPath}/resources/img/team/1.jpg" alt="">
+              <h4>임 주 하</h4>
+              <p class="text-muted">대장</p>
               <ul class="list-inline social-buttons">
                 <li class="list-inline-item">
                   <a href="#">
@@ -49,9 +80,9 @@
           </div>
           <div class="col-sm-4">
             <div class="team-member">
-              <img class="mx-auto rounded-circle" src="img/team/2.jpg" alt="">
-              <h4>Larry Parker</h4>
-              <p class="text-muted">Lead Marketer</p>
+              <img class="mx-auto rounded-circle" src="${pageContext.request.contextPath}/resources/img/team/2.jpg" alt="">
+              <h4>김 민 창</h4>
+              <p class="text-muted">멍청이</p>
               <ul class="list-inline social-buttons">
                 <li class="list-inline-item">
                   <a href="#">
@@ -73,9 +104,9 @@
           </div>
           <div class="col-sm-4">
             <div class="team-member">
-              <img class="mx-auto rounded-circle" src="img/team/3.jpg" alt="">
-              <h4>Diana Pertersen</h4>
-              <p class="text-muted">Lead Developer</p>
+              <img class="mx-auto rounded-circle" src="${pageContext.request.contextPath}/resources/img/team/3.jpg" alt="">
+              <h4>김지희</h4>
+              <p class="text-muted">결석생</p>
               <ul class="list-inline social-buttons">
                 <li class="list-inline-item">
                   <a href="#">
@@ -98,7 +129,7 @@
         </div>
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
-            <p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
+            <p class="large text-muted">황소곱창황소곱창황소곱창황소곱창황소곱창황소곱창황소곱창황소곱창황소곱창황소곱창황소곱창황소곱창황소곱창</p>
           </div>
         </div>
       </div>
