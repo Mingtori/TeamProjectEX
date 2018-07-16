@@ -3,95 +3,137 @@
 <%@ include file="../page/mytop.jsp"%>
 <head>
 <script type="text/javascript">
-	//체크박스전체
-	function checkAll(){
-		if(myform.allCheck.checked == true){
-			for(i=0; i < myform.mycheck.length; i++){
-				myform.mycheck[i].checked = true;
-			}
-			var val = parseInt('${totalprice}');
-			document.getElementById("selectprice").value = val.toLocaleString();
-		} else if(myform.allCheck.checked == false){
-			for(i=0; i < myform.mycheck.length; i++){
-				myform.mycheck[i].checked = false;
-			}
-			document.getElementById("selectprice").value = 0;
-		} 
-	}
-	
-	//체크박스개별
-	function checkOne(){
-		for(i=0; i < myform.mycheck.length; i++){
-			if(myform.mycheck[i].checked == false){
-				myform.allCheck.checked = false;
-				break;
-			}
-		}
-		
-		var chk = myform.mycheck;
-		var len = chk.length;
-		var checkRow = '';
-		var checkCnt = 0;
-		var checkLast = '';
-		var sum = 0;
-		var cnt = 0;
-		
-		for(var i = 0; i < len; i++){
-			if(chk[i].checked == true){
-				checkCnt++;
-				checkLast = i;
-			}
-		}
-		
-		for(var i = 0; i < len; i++){
-			var val = 0;
-			if(chk[i].checked == true){
-				var j = i+1
-				checkRow = document.getElementById("cartprice_"+j).value;
-				val = parseInt(checkRow);
-			}
-			sum += val;
-			cnt++;
-			checkRow = '';
-		}
-		document.getElementById("selectprice").value = sum.toLocaleString();
-	}
-
-	function changeQty(_cartid){
-		var cartqty = document.getElementById("cartqty"+_cartid).value;
-		var cartid = document.getElementById("cartid"+_cartid).value;
-		location.href = '${pageContext.request.contextPath}/update.ct?cartid='+cartid+'&cartqty='+cartqty;
-	}
-	
-	function chxCart(str){
-		var chk = myform.mycheck;
-		var len = chk.length;
-		var checkRow = '';
-		var checkCnt = 0;
-		var checkLast = '';
-		var cnt = 0;
-		var rowid = [];
-		
-		for(var i = 0; i < len; i++){
-			if(chk[i].checked == true){
-				checkCnt++;
-				checkLast = i;
-			}
-		}
-		
-		for(var i = 0; i < len; i++){
-			if(chk[i].checked == true){
-				checkRow = chk[i].value;
-			}
-			rowid.push(checkRow);
-			cnt++;
-			checkRow = '';
-		}
-
-		alert(rowid)
-		location.href = '${pageContext.request.contextPath}/'+str+'?rowid='+rowid;  
-	}
-	
+      
+   //체크박스전체
+   function checkAll(){
+      if(myform.allCheck.checked == true){
+         myform.mycheck.checked = true;
+         for(i=0; i < myform.mycheck.length; i++){
+            myform.mycheck[i].checked = true;
+         }
+         var val = parseInt('${totalprice}');
+         document.getElementById("selectprice").value = val.toLocaleString();
+      } else if(myform.allCheck.checked == false){
+         myform.mycheck.checked = false;
+         for(i=0; i < myform.mycheck.length; i++){
+            myform.mycheck[i].checked = false;
+         }
+         document.getElementById("selectprice").value = 0;
+      } 
+   }
+   
+   //체크박스개별
+   function checkOne(){
+      for(i=0; i < myform.mycheck.length; i++){
+         if(myform.mycheck[i].checked == false){
+            myform.allCheck.checked = false;
+            break;
+         }
+      }
+      
+      var chk = myform.mycheck;
+      var len = chk.length;
+      var checkRow = '';
+      var sum = 0;
+      var cnt = 0;
+      var checkCnt = 0;
+   
+      for(var i = 0; i < len; i++){
+         if(chk[i].checked == true){
+            checkCnt ++;
+         }
+      }
+      
+      if(len == undefined){
+         if(myform.mycheck.checked == true){
+            checkRow = document.getElementById("cartprice_"+1).value;
+            val = parseInt(checkRow);
+         } else if(myform.mycheck.checked == false){
+            myform.allCheck.checked = false;
+            checkRow = 0;
+            val = parseInt(checkRow);
+         }
+         sum += val;
+         checkRow = '';
+      }else {
+         for(var i = 0; i < len; i++){
+            var val = 0;
+            if(chk[i].checked == true){
+               var j = i+1
+               checkRow = document.getElementById("cartprice_"+j).value;
+               val = parseInt(checkRow);
+            } 
+            sum += val;
+            cnt++;
+            checkRow = '';
+         }
+      }
+      document.getElementById("selectprice").value = sum.toLocaleString();
+   }
+   
+   function changeQty(_cartid){
+      var cartqty = document.getElementById("cartqty"+_cartid).value;
+      var cartid = document.getElementById("cartid"+_cartid).value;
+      location.href = '${pageContext.request.contextPath}/update.ct?cartid='+cartid+'&cartqty='+cartqty;
+   }
+   
+   function chxCart(str){
+      var chk = myform.mycheck;
+      var len = chk.length;
+      var checkRow = '';
+      var cnt = 0;
+      var rowid = [];
+      var checkCnt = 0;
+   
+      for(var i = 0; i < len; i++){
+         if(chk[i].checked == true){
+            checkCnt ++;
+         }
+      }
+      
+      if(len == undefined){
+         if(myform.mycheck.checked == true){
+            checkRow = chk.value;
+         } 
+         rowid.push(checkRow);
+         checkRow = '';
+      }else {
+         for(var i = 0; i < len; i++){
+            if(chk[i].checked == true){
+               checkRow = chk[i].value;
+            } 
+            rowid.push(checkRow);
+            cnt++;
+            checkRow = '';
+         }
+      }
+   
+      location.href = '${pageContext.request.contextPath}/'+str+'?rowid='+rowid;  
+   }
+   
+   function checkDate(str) {
+      var _enddate = str
+      var _todate = new Date();
+      var _year = _todate.getFullYear();
+      var _month = _todate.getMonth() + 1;
+      var _day = _todate.getDate();
+      
+      if(_month < 10) {
+         _month = '0' + _month
+      }
+      
+      if(_day < 10) {
+         _day = '0' + _day
+      }
+      
+      _todate = _year + "-" + _month + "-" + _day;
+      
+      if(_enddate < _todate) {
+         alert("예매불가능")
+         return false;
+      }
+   }
+      
 </script>
 </head>
 <form name="myform">

@@ -71,4 +71,11 @@ public class MemberDao {
 		cnt = sqlSessionTemplate.delete(namespace+".deleteMember", memid);
 		return cnt;
 	}
+
+	public int checkSignup(String userid) {
+      System.out.println("userid : " + userid);
+      int cnt = 0;
+      cnt = sqlSessionTemplate.selectOne(namespace+".checkSignup", userid);
+      return cnt;
+   }
 }

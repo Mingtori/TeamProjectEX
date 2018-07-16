@@ -49,8 +49,7 @@ a {
 								href="listSeller.prd?memid=${loginfo.memid }">상품관리목록</a>
 							<a class="list-group-item" href="listSeller.ord">상품판매내역</a>
 						</c:if>
-						<a class="list-group-item" href="update.me">회원정보수정</a> <a
-							class="list-group-item" href="logout.me">로그아웃</a>
+						<a class="list-group-item" href="update.me">회원정보수정</a>
 					</div>
 				</div>
 				<div class="col-sm-10">

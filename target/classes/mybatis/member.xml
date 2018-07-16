@@ -73,4 +73,10 @@
 		DELETE FROM members
 		WHERE memid=#{memid}
 	</delete>
+	
+	<select id="checkSignup" parameterType="String" resultType="Integer">
+      SELECT count(*) FROM members
+      WHERE
+      memid = #{userid}
+   </select>
 </mapper>

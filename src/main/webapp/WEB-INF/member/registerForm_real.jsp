@@ -2,12 +2,68 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../views/top.jsp"%>
 <head>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
 	function goback() {
 		history.back(-1);
 	}
 	function duplicateID() {
 
+	}
+	
+	var pwflag = false;
+	var idflag = false;
+	
+	function pwcheck(){
+		var pw1 = $("input[name='mempw']").val();
+		var pw2 = $("input[name='mempwcheck']").val();
+		if(pw1 == pw2){
+			$("#pwcheck").html("비밀번호 일치");
+			pwflag=true;
+		}else{
+			$("#pwcheck").html("비밀번호 불일치");
+			pwflag=false;
+		}
+		
+	}
+	
+	 
+	$(function(){
+	   $("#duplicateId").click(function(){
+	       var memid = $("#memid").val();   
+	       $.ajax({
+	             async: true,
+	            type : "POST",
+	            data : memid,
+	            url : "checkSignup.me",
+	            dataType : "json",
+	               contentType: "application/json; charset=UTF-8",
+	            success : function(data){
+	               if(data.cnt > 0){
+	                  alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");
+	                  idflag = false;
+	               }else {
+	                       alert("사용가능한 아이디입니다.");
+	                       idflag = true;
+	               }
+	            },
+	            error : function(request, status,error) {
+	                   alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+	               }
+	         });
+	   });
+	});
+
+	function check(){
+		if(idflag == false){
+	         alert("아이디 중복확인을 해주세요.");
+	         return false;
+	    }
+		if(pwflag == false){
+			alert("비밀번호가 서로 일치하지 않습니다.");
+			return false;
+		}
 	}
 </script>
 <style>
@@ -28,6 +84,10 @@ a {
 .col-sm-2 {
 	padding: 0;
 }
+
+#pwcheck{
+	color:red;
+}
 </style>
 </head>
 <body>
@@ -42,13 +102,12 @@ a {
 							<div class="col-sm-8 offset-sm-4" align="left">
 								<input type="hidden" name="what" value="${what }">
 								<div class="form-group form-inline">
-									<label class="font-black col-sm-2 control-label" for="memid">아이디</label>
-									<input class="form-control" type="text" name="memid"
-										placeholder="ID">
-									<!-- <div class="col-sm-4 form-control">
-				                        <input type="button" value="중복확인" onclick="duplicateID();">
-				                     </div> -->
-									<form:errors cssClass="err" path="memid" />
+									<label class="font-black col-sm-2 control-label" for="memid">아이디</label> 
+									<input class="form-control" type="text" id="memid" name="memid" placeholder="ID">
+				                     <div class="col-sm-4">
+				                        <input type="button" class="btn btn-default" value="중복확인" id="duplicateId">
+				                     </div>
+				                     <form:errors cssClass="err" path="memid" />
 								</div>
 								<div class="form-group form-inline">
 									<label class="font-black col-sm-2 control-label" for="mempw">비밀번호</label>
@@ -59,7 +118,8 @@ a {
 								<div class="form-group form-inline">
 									<label class="font-black col-sm-2 control-label"
 										for="mempwcheck">비밀번호 확인</label> <input type="password"
-										class="form-control" name="mempwcheck" placeholder="PASSWORD">
+										class="form-control" name="mempwcheck" placeholder="PASSWORD" onblur="pwcheck();">
+									<span id="pwcheck"></span>
 									<form:errors cssClass="err" path="mempwcheck" />
 								</div>
 								<div class="form-group form-inline">
@@ -118,7 +178,7 @@ a {
 									</div>
 								</c:if>
 								<div align="right">
-									<input class="btn btn-primary" type="submit" value="회원가입">
+									<input class="btn btn-primary" type="submit" value="회원가입" onclick="return check();">
 									<input class="btn btn-default" type="button" value="돌아가기"
 										onclick="goback();">
 								</div>

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,35 +20,36 @@ import utility.Paging;
 @Controller
 public class ProductListController {
 
-	private static final String getPage = "ProductList";
-	private static final String command = "list.prd";
+   private static final String getPage = "ProductList";
+   private static final String command = "list.prd";
 
-	@Autowired
-	public ProductDao productdao;
+   @Autowired
+   public ProductDao productdao;
 
-	@RequestMapping(value = command)
-	public ModelAndView doActionGet(@RequestParam(value = "whatColumn", required = false) String whatColumn,
-			@RequestParam(value = "keyword", required = false) String keyword,
-			@RequestParam(value = "pageNumber", required = false) String pageNumber,
-			@RequestParam(value = "pageSize", required = false) String pageSize, HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView();
+   @RequestMapping(value = command)
+   public ModelAndView doActionGet(@RequestParam(value = "whatColumn", required = false) String whatColumn,
+         @RequestParam(value = "keyword", required = false) String keyword,
+         @RequestParam(value = "pageNumber", required = false) String pageNumber,
+         @RequestParam(value = "pageSize", required = false) String pageSize, HttpServletRequest request) {
+      
+      ModelAndView mav = new ModelAndView();
 
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("whatColumn", whatColumn);
-		map.put("keyword", "%" + keyword + "%");
+      Map<String, Object> map = new HashMap<String, Object>();
+      map.put("whatColumn", whatColumn);
+      map.put("keyword", "%" + keyword + "%");
 
-		// 페이징
-		int totalCount = productdao.GetProductCount(map);
-		String url = request.getContextPath() + "/" + this.command;
-		pageSize = "9"; // 페이지당 레코드 갯수
-		Paging pageInfo = new Paging(pageNumber, pageSize, totalCount, url, whatColumn, keyword, null, null);
+      // 페이징
+      int totalCount = productdao.GetProductCount(map);
+      String url = request.getContextPath() + "/" + this.command;
+      pageSize = "9"; // 페이지당 레코드 갯수
+      Paging pageInfo = new Paging(pageNumber, pageSize, totalCount, url, whatColumn, keyword, null, null);
 
-		List<Product> product = productdao.GetAllProduct(map, pageInfo);
-		
-		mav.addObject("product", product);
-		mav.addObject( "pageInfo", pageInfo );
-		mav.addObject( "keyword", keyword );
-		mav.setViewName(getPage);
-		return mav;
-	}
+      List<Product> product = productdao.GetAllProduct(map, pageInfo);
+      
+      mav.addObject("product", product);
+      mav.addObject( "pageInfo", pageInfo );
+      mav.addObject( "keyword", keyword );
+      mav.setViewName(getPage);
+      return mav;
+   }
 }

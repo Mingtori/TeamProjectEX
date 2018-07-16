@@ -39,7 +39,7 @@ public class ProductListSellerController {
 		map.put("memid", memid);
 		
 		// 페이징
-		int totalCount = productDao.GetProductCount(map); 
+		int totalCount = productDao.GetSellProductsCount(map); 
 		String url = request.getContextPath() + "/" + this.command;
 		pageSize = "3"; // 페이지당 레코드 갯수
 		Paging pageInfo = new Paging(pageNumber, pageSize, totalCount, url, whatColumn, keyword, memid, null);

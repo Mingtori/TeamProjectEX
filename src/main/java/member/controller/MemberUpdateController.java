@@ -34,7 +34,7 @@ public class MemberUpdateController {
 		Member loginfo, member; 
 		if(memid == null){	// 본인 회원수정
 			loginfo = (Member) session.getAttribute("loginfo");
-			member = memberDao.getMemberJoinCG(loginfo.getMemid());
+			return "beforeUpdate";
 		}else{		// 관리자가 회원수정
 			member = memberDao.getMemberJoinCG(memid);
 		}

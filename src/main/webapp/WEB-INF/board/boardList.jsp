@@ -8,8 +8,7 @@
 }
 
 </style>
-
-		<c:set var="theString" value="http://localhost:9090${pageContext.request.contextPath}/resources/images"/>
+		<c:set var="theString" value="http://localhost:9090${pageContext.request.contextPath}/resources/img/board"/>
 		<c:set var="count" value="${pageInfo.totalCount - pageInfo.pageSize * (pageInfo.pageNumber-1)}"/>
 		<header class="masthead">
 		<div class="container">
@@ -66,6 +65,7 @@
 						</table>
 						${pageInfo.pagingHtml }
 						<form action="notice.bd" method="get">
+							<input type="hidden" name="boardcateid" value="${boardcateid }">
 							<div class="form-inline form-group" >
 								<div style="margin:0 auto;">
 									<select class="form-control" name="whatColumn">

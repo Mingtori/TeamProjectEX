@@ -48,8 +48,18 @@ public class ProductDetailController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("boardcateid", "p03");
 		map.put("prodid", prodid);
-		List<Board> lists = boardDao.getBoardLists(null,map);
-		model.addAttribute("reviewlist",lists);
+		List<Board> reviewlist = boardDao.getBoardLists(null,map);
+		// 문의 게시판
+		map.remove("boardcateid");
+		map.put("boardcateid", "p02");
+		List<Board> qnalist = boardDao.getBoardLists(null,map);
+		// 공지게시판
+		map.remove("boardcateid");
+		map.put("boardcateid", "p01");
+		List<Board> noticelist = boardDao.getBoardLists(null,map);
+		model.addAttribute("reviewlist",reviewlist);
+		model.addAttribute("qnalist",qnalist);
+		model.addAttribute("noticelist",noticelist);
 		return getPage;
 	}
 

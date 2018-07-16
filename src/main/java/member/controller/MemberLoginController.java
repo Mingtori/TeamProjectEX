@@ -64,6 +64,11 @@ public class MemberLoginController {
 					return getPage;
 				}
 				session.setAttribute("loginfo", login);
+				String destination = (String)session.getAttribute("destination");
+				session.removeAttribute("destination");
+				if(destination != null){
+					return destination;
+				}
 				return gotoPage;
 			}
 			

@@ -8,7 +8,7 @@
            <div class="dropdown" align="left">
             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" style="margin-top:110px;"
             	>
-               My Bag ${fn:length(cartlist)}개 / <fmt:formatNumber value="${totalprice }" pattern="###,###"/>원 
+               <i class="fas fa-shopping-bag"></i>&nbsp;&nbsp;  in My Bag ${fn:length(cartlist)}개 / <fmt:formatNumber value="${totalprice }" pattern="###,###"/>원 
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             	<table class="table" style="margin:0 0;">
@@ -33,10 +33,10 @@
             </div>
          </div>
         </c:if>
-        <div class="intro-text">
+        <div class="intro-text" style="padding-bottom:300px;"> 
           <div class="intro-lead-in">Welcome To Our Homepage!</div>
           <form action = "list.prd">
-	         <div class="input-group mb-3" align="center">
+	         <div class="input-group input-group-lg col-sm-6 offset-sm-3" align="center">
    		     	<input type = "hidden" name="whatColumn" id="whatColumn" value="all"/>
    		     	<input class="form-control" style="background-color:rgba(255,255,255,0.5);" type="text" name="keyword" id="keyword" placeholder="search">
        		   	<div class="input-group-append">
@@ -44,9 +44,6 @@
 			    </div>
        		 </div>
        		 <br><br>
-       		 <div>
-		        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a>
-       		 </div>
           </form>
         </div>
       </div>
@@ -57,7 +54,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">세얼간이</h2>
+            <h2 class="section-heading text-uppercase">Team</h2>
             <h3 class="section-subheading text-muted">너무 하기 싫은데도 할수 밖에없는 상황</h3>
           </div>
         </div>

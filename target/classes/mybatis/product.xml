@@ -1,147 +1,168 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-	  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
- 	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="myproduct">
-	<select id="GetCategoryList" resultType="MyProduct">
-		select * from
-		prodcategory
-	</select>
-	<select id="GetProductDetail" resultType="MyProduct">
-		select p.prodid
-			, p.prodname
-			, s.memid
-			, p.prodcateid
-			, c.prodcatename
-			, p.prodimage
-			, p.prodprice
-			, p.prodprice * 0.7 as kidsprice
-			, p.prodstock
-			, to_char(p.prodinputdate,'yyyy-MM-dd') as prodinputdate
-			, to_char(p.prodstartdate,'yyyy-MM-dd') as prodstartdate
-			, to_char(p.prodenddate,'yyyy-MM-dd') as prodenddate
-			, p.prodcontent
-			, m.memaddr || ' ' || p.prodplace as memplace
-			, p.prodplace
-		from products p
-			, prodcategory c
-			, selllist s
-			, members m
-		where p.prodcateid = c.prodcateid
-			and s.prodid = p.prodid
-			and m.memid = s.memid
-			and p.prodid = #{prodid}
-			order by prodinputdate
-	</select>
-	<insert id="InsertProduct" parameterType="MyProduct">
-		insert into products
-		values ( productseq.nextval
-				, #{prodname}
-				, #{prodcateid}
-				, #{prodimage}
-				, #{prodprice}
-				, #{prodstock}
-				, sysdate
-				, #{prodstartdate}
-				, #{prodenddate}
-				, #{prodcontent}
-				, #{prodplace} )
-	</insert>
-	<select id="GetAllProduct" resultType="MyProduct" parameterType="hashmap">
-		select rownum, a.* 
-		from ( select p.prodid
-		            , p.prodname
-		            , p.prodcateid
-		            , c.prodcatename
-		            , p.prodimage
-		            , p.prodprice
-		            , p.prodstock
-		            , to_char(p.prodinputdate,'yyyy-MM-dd') as prodinputdate
-		            , to_char(p.prodstartdate,'yyyy-MM-dd') as prodstartdate
-		            , to_char(p.prodenddate,'yyyy-MM-dd') as prodenddate
-		            , p.prodcontent
-		            , p.prodplace
-		            from products p
-		            , prodcategory c
-		            where p.prodcateid = c.prodcateid
-		            order by p.prodinputdate desc, p.prodid desc) a
-			where prodenddate >= to_char(sysdate,'yyyy-MM-dd')            
-		<if test = "whatColumn == 'prodname'">
-			and lower(prodname) like lower(#{keyword})
-		</if>
-		<if test = "whatColumn == 'prodcontent'">
-			and lower(prodcontent) like #{keyword} 
-		</if>
-		<if test = "whatColumn == 'all'">
-			and lower(prodname || prodcontent) like lower(#{keyword})
-		</if>             
-	</select>
-	<select id = "GetProductCount" resultType = "Integer" parameterType="hashmap">
-		select count(*) as cnt from products
-		<if test = "whatColumn == 'prodname'">
-			where lower(prodname) like lower(#{keyword})
-		</if>
-		<if test = "whatColumn == 'prodcontent'">
-			where lower(prodcontent) like #{keyword} 
-		</if>
-		<if test = "whatColumn == 'all'">
-			where lower(prodname || prodcontent) like lower(#{keyword})
-		</if> 
-	</select>
-	<delete id = "DeleteProduct" parameterType ="Integer">
-		delete from products where prodid = #{prodid }
-	</delete>
-	<update id = "UpdateProduct" parameterType = "MyProduct">
-		update products
-			set prodname = #{prodname}
-				, prodcateid = #{prodcateid}
-				, prodimage = #{prodimage}
-				, prodprice = #{prodprice}
-				, PRODINPUTDATE = sysdate
-				, prodstartdate = #{prodstartdate}
-				, PRODENDDATE = #{prodenddate}
-				, PRODCONTENT = #{prodcontent}
-				, PRODPLACE = #{prodplace}
-		  where prodid = #{prodid}
-	</update>
-	
-	<select id="getSellProducts" parameterType="hashmap" resultType="MyProduct">
-		select p.prodid
-			, s.memid
-			, p.prodname
-			, p.prodcateid
-			, c.prodcatename
-			, p.prodimage
-			, p.prodprice
-			, p.prodstock
-			, to_char(p.prodinputdate,'yyyy-MM-dd') as prodinputdate
-		    , to_char(p.prodstartdate,'yyyy-MM-dd') as prodstartdate
-		    , to_char(p.prodenddate,'yyyy-MM-dd') as prodenddate
-			, p.prodcontent
-			, m.memaddr || ' ' || p.prodplace as memplace
-		from selllist s
-			, products p
-			, prodcategory c
-			, members m
-		where s.memid=#{memid} 
-		  and s.prodid = p.prodid 
-		  and p.prodcateid=c.prodcateid
-		  and m.memid = s.memid
-		<if test = "whatColumn == 'prodname'">
-			and lower(prodname) like lower(#{keyword})
-		</if>
-		<if test = "whatColumn == 'prodcontent'">
-			and lower(prodcontent) like #{keyword} 
-		</if>
-		<if test = "whatColumn == 'all'">
-			and lower(prodname || prodcontent) like lower(#{keyword})
-		</if>             
-	</select>
-	
-	<insert id="insertSellist" parameterType="MyProduct">
-		insert into selllist(memid, prodid)
-		values(#{memid}
-		,(select LAST_NUMBER from user_sequences where SEQUENCE_NAME = 'PRODUCTSEQ')-1)
-	</insert>
+   <select id="GetCategoryList" resultType="MyProduct">
+      select * from
+      prodcategory
+   </select>
+   <select id="GetProductDetail" resultType="MyProduct">
+      select p.prodid
+         , p.prodname
+         , s.memid
+         , p.prodcateid
+         , c.prodcatename
+         , p.prodimage
+         , p.prodprice
+         , p.prodprice * 0.7 as kidsprice
+         , p.prodstock
+         , to_char(p.prodinputdate,'yyyy-MM-dd') as prodinputdate
+         , to_char(p.prodstartdate,'yyyy-MM-dd') as prodstartdate
+         , to_char(p.prodenddate,'yyyy-MM-dd') as prodenddate
+         , p.prodcontent
+         , m.memaddr || ' ' || p.prodplace as memplace
+         , p.prodplace
+      from products p
+         , prodcategory c
+         , selllist s
+         , members m
+      where p.prodcateid = c.prodcateid
+         and s.prodid = p.prodid
+         and m.memid = s.memid
+         and p.prodid = #{prodid}
+         order by prodinputdate
+   </select>
+   <insert id="InsertProduct" parameterType="MyProduct">
+      insert into products
+      values ( productseq.nextval
+            , #{prodname}
+            , #{prodcateid}
+            , #{prodimage}
+            , #{prodprice}
+            , #{prodstock}
+            , sysdate
+            , #{prodstartdate}
+            , #{prodenddate}
+            , #{prodcontent}
+            , #{prodplace} )
+   </insert>
+   <select id="GetAllProduct" resultType="MyProduct" parameterType="hashmap">
+      select rownum, a.* 
+      from ( select p.prodid
+                  , p.prodname
+                  , p.prodcateid
+                  , c.prodcatename
+                  , p.prodimage
+                  , p.prodprice
+                  , p.prodstock
+                  , to_char(p.prodinputdate,'yyyy-MM-dd') as prodinputdate
+                  , to_char(p.prodstartdate,'yyyy-MM-dd') as prodstartdate
+                  , to_char(p.prodenddate,'yyyy-MM-dd') as prodenddate
+                  , p.prodcontent
+                  , p.prodplace
+                  from products p
+                  , prodcategory c
+                  where p.prodcateid = c.prodcateid
+                  order by p.prodinputdate desc, p.prodid desc) a
+         where prodenddate >= to_char(sysdate,'yyyy-MM-dd')            
+      <if test = "whatColumn == 'prodname'">
+         and lower(prodname) like lower(#{keyword})
+      </if>
+      <if test = "whatColumn == 'prodcontent'">
+         and lower(prodcontent) like #{keyword} 
+      </if>
+      <if test = "whatColumn == 'all'">
+         and lower(prodname || prodcontent) like lower(#{keyword})
+      </if>             
+   </select>
+   <select id = "GetProductCount" resultType = "Integer" parameterType="hashmap">
+      select count(*) as cnt from products
+      <if test = "whatColumn == 'prodname'">
+         where lower(prodname) like lower(#{keyword})
+      </if>
+      <if test = "whatColumn == 'prodcontent'">
+         where lower(prodcontent) like #{keyword} 
+      </if>
+      <if test = "whatColumn == 'all'">
+         where lower(prodname || prodcontent) like lower(#{keyword})
+      </if> 
+   </select>
+   <delete id = "DeleteProduct" parameterType ="Integer">
+      delete from products where prodid = #{prodid }
+   </delete>
+   <update id = "UpdateProduct" parameterType = "MyProduct">
+      update products
+         set prodname = #{prodname}
+            , prodcateid = #{prodcateid}
+            , prodimage = #{prodimage}
+            , prodprice = #{prodprice}
+            , PRODINPUTDATE = sysdate
+            , prodstartdate = #{prodstartdate}
+            , PRODENDDATE = #{prodenddate}
+            , PRODCONTENT = #{prodcontent}
+            , PRODPLACE = #{prodplace}
+        where prodid = #{prodid}
+   </update>
+   
+   <select id="getSellProducts" parameterType="hashmap" resultType="MyProduct">
+      select p.prodid
+         , s.memid
+         , p.prodname
+         , p.prodcateid
+         , c.prodcatename
+         , p.prodimage
+         , p.prodprice
+         , p.prodstock
+         , to_char(p.prodinputdate,'yyyy-MM-dd') as prodinputdate
+          , to_char(p.prodstartdate,'yyyy-MM-dd') as prodstartdate
+          , to_char(p.prodenddate,'yyyy-MM-dd') as prodenddate
+         , p.prodcontent
+         , m.memaddr || ' ' || p.prodplace as memplace
+      from selllist s
+         , products p
+         , prodcategory c
+         , members m
+      where s.memid=#{memid} 
+        and s.prodid = p.prodid 
+        and p.prodcateid=c.prodcateid
+        and m.memid = s.memid
+      <if test = "whatColumn == 'prodname'">
+         and lower(prodname) like lower(#{keyword})
+      </if>
+      <if test = "whatColumn == 'prodcontent'">
+         and lower(prodcontent) like #{keyword} 
+      </if>
+      <if test = "whatColumn == 'all'">
+         and lower(prodname || prodcontent) like lower(#{keyword})
+      </if>             
+   </select>
+   
+   <select id="GetSellProductsCount" resultType = "Integer" parameterType="hashmap">
+      select count(*)
+      from selllist s
+         , products p
+         , prodcategory c
+         , members m
+      where s.memid=#{memid} 
+        and s.prodid = p.prodid 
+        and p.prodcateid=c.prodcateid
+        and m.memid = s.memid
+      <if test = "whatColumn == 'prodname'">
+         and lower(prodname) like lower(#{keyword})
+      </if>
+      <if test = "whatColumn == 'prodcontent'">
+         and lower(prodcontent) like #{keyword} 
+      </if>
+      <if test = "whatColumn == 'all'">
+         and lower(prodname || prodcontent) like lower(#{keyword})
+      </if>             
+   </select>
+   
+   <insert id="insertSellist" parameterType="MyProduct">
+      insert into selllist(memid, prodid)
+      values(#{memid}
+      ,(select LAST_NUMBER from user_sequences where SEQUENCE_NAME = 'PRODUCTSEQ')-1)
+   </insert>
 </mapper>

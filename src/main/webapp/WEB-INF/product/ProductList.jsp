@@ -64,11 +64,14 @@ a {
 					</a>
 					<div class="portfolio-caption">
 						<h5>${product.prodname }</h5>
-						<p class="text-muted">${product.prodcontent}</p>
+						<p class="text-muted">${product.prodstartdate } ~ ${product.prodenddate }</p>
 					</div>
 				</div>
 			</c:forEach>
 		</div>
+		<center>
+			${pageInfo.pagingHtml}
+		</center>
 		</div>
 	</div>
 </section>

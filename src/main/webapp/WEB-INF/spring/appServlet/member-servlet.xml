@@ -17,4 +17,5 @@
 
 	<context:component-scan base-package="member"/>
 	<context:component-scan base-package="composite"/>
+	<context:component-scan base-package="board"/>
 </beans>

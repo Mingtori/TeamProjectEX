@@ -375,3 +375,154 @@ INSERT INTO boardscategory VALUES('a02', '전체문의사항');
 INSERT INTO boardscategory VALUES('p01', '상품공지사항');
 INSERT INTO boardscategory VALUES('p02', '상품문의사항');
 INSERT INTO boardscategory VALUES('p03', '상품후기');
+
+
+INSERT INTO company VALUES(companyseq.nextval,'예술의 전당','서울시 서초구 남부순환로 2406 예술의전당');
+INSERT INTO company VALUES(companyseq.nextval,'코엑스','서울특별시 강남구 영동대로 513');
+INSERT INTO company VALUES(companyseq.nextval,'킨텍스','경기도 고양시 일산서구 킨텍스로 217-60');
+-- 판매자
+INSERT INTO
+		members(memid,mempw,memname,memaddr,memphone,mememail,mempermit,gradeid,comid)
+		VALUES('artcenter','1234','판매자01','서울시 서초구 남부순환로 2406 예술의전당','02-1234-5678','seller@artcenter.com','승인','2',
+		(select comid from company where comname='예술의 전당'));
+INSERT INTO
+		members(memid,mempw,memname,memaddr,memphone,mememail,mempermit,gradeid,comid)
+		VALUES('coex','1234','판매자02','서울특별시 강남구 영동대로 513','02-1234-5678','seller@coex.com','승인','2',
+		(select comid from company where comname='코엑스'));
+INSERT INTO
+		members(memid,mempw,memname,memaddr,memphone,mememail,mempermit,gradeid,comid)
+		VALUES('kintex','1234','판매자03','경기도 고양시 일산서구 킨텍스로 217-60','02-1234-5678','seller@kintex.com','승인','2',
+		(select comid from company where comname='킨텍스'));    
+--상품
+select * from products;
+insert into products
+values ( productseq.nextval
+				, '대한민국 소프트웨어대전, 소프트웨이브 2018'
+				, '1'
+				, 'software.jpg'
+				, 5000
+				, '1000'
+				, sysdate
+				, '18/08/08'
+				, '18/08/10'
+				, '대한민국 유일의 SW 전문 비즈니스 전시회로 컨퍼러스, 바이어 초청 상담회, SW 취업상담회, 참가사 이벤트, 우수참가사상 등 다양한 부대행사 동시 개최
+          빅데이터, 클라우드, SI, AI, IoT, VR, 자율주행, SW교육, 핀테크, 앱/콘텐츠, 전자정부, 공공솔루션, 정보보호, 방송통신/SNS, 국방, 헬스케어 등'
+				, '코엑스 A홀' );     
+insert into products
+values ( productseq.nextval
+				, '세계명차품평대회'
+				, '1'
+				, 'tea.jpg'
+				, 6000
+				, '1000'
+				, sysdate
+				, '18/08/02'
+				, '18/08/05'
+				, '한국와 세계의 다양한 차와 다도구를 찾아보고 구매하며, 차와 연관된 문화와 퍼포먼스가 제공됩니다.
+          국내와 해외 녹차, 홍차, 청차, 흑차, 블렌딩티, 약차, 다기/다구전시, 목공예와 소품.'
+				, '코엑스 B1홀' ); 
+insert into products
+values ( productseq.nextval
+				, '2018 스마트국토엑스포'
+				, '1'
+				, 'geo.jpg'
+				, 4000
+				, '1000'
+				, sysdate
+				, '18/09/12'
+				, '18/09/14'
+				, '● 국토교통부 7대 신산업을 포함한 최신 공간정보기술 소개 및 공간정보 산업 비즈니스 성과 교류 도모 ● 공간정보산업 대표 기업과 기관의 관련 제품 전시 및 체험을 통한 글로벌 산업동향 이해
+          GIS, BIM, 드론 및 위성, 레이저스캐너, 라이다, 모바일맵핑, 스마트시티, 측량, UAV 등'
+				, '코엑스 D2홀' );
+insert into products
+values ( productseq.nextval
+				, '2018 대한민국 세게여성발명대회 및 여성발명품박람회(여성발명왕EXPO)'
+				, '0'
+				, 'inventor.jpg'
+				, 0
+				, '1000'
+				, sysdate
+				, '18/07/28'
+				, '18/08/01'
+				, '여성 기업의 우수한 발명 제품을 전시, 소개하여 판매를 촉진하고 브랜드 인지도를 높여 여성발명인들의 사업에 실질적인 도움을 주기 위함. '
+				, '코엑스 D2홀' );
+insert into products
+values ( productseq.nextval
+				, '제16회 국제 나노기술심포지엄 및 나노융합대전'
+				, '1'
+				, 'nano.jpg'
+				, 5000
+				, '1000'
+				, sysdate
+				, '18/08/11'
+				, '18/08/13'
+				, '□ 세계 3대 나노기술 전문전시회 
+          ㅇ 나노기술 연구개발 및 상용화에 특화된 국내유일, 세계 3대 나노융합 국제행사입니다. 또한 나노기반의 미래융합기술을 주도하는 국제교류의 장으로서 마이크로/나노시스템, 레이저기술, 첨단세라믹, 고기능소재, 스마트센서 등 첨단기술분야를 총망라하여 총 6개 전시회를 합동개최하고 있습니다. 
+          
+          □ 트렌드 & 이슈 
+          ㅇ 최신 나노기술 연구성과를 한눈에 확인할 수 있는 기회의 장입니다. 나노코리아 기조강연, 심포지엄, 전문세션 등을 통해 첨단 나노기술의 현주소와 미래 트렌드를 확인할 수 있으며, 전문 산업화세션을 통해 나노기술의 상용화 현황과 국내외 유명 기업들의 미래개발 로드맵을 한눈에 볼 수 있는 첨단기술 전문 전시회입니다. 
+          
+          □ 실질적인 비즈니스 성과창출 
+          ㅇ 주요참관객은 최신 나노기술과 신기술 솔루션의 도입을 통해 기업의 신사업과 제품혁신, 국가 R&D프로젝트 기획 및 수행, 신규 파트너 발굴을 희망하는 최종·중간 결정권자입니다. 전체 참관객의 85%가 바이어로 구성되어 있으며, 이중 50% 이상이 최종·중간결정권자 이상으로 나타나 전문 비즈니스 성격에 부합하고 있습니다.'
+				, '장소 전시홀 7 (제2전시장) , 전시홀 8A (제2전시장)' );  
+insert into products
+values ( productseq.nextval
+				, '2018 코리아하우징리빙페어'
+				, '1'
+				, 'living.jpg'
+				, 5000
+				, '1000'
+				, sysdate
+				, '18/08/19'
+				, '18/08/22'
+				, '리빙 및 인테리어 관련 최신제품과 트렌드를 볼 수 있으며,다양한 정보를 통해 삶의 질을 향상시키고, 관련산업발전에 이익을 추구하고자 2017 코리아 하우징리빙페어를 개최합니다  '
+				, '전시홀 4 (제1전시장)' );          
+insert into products
+values ( productseq.nextval
+				, '‘The Loop’ - 텍스타일 디자인 展'
+				, '0'
+				, 'the_loop.jpg'
+				, 0
+				, '1000'
+				, sysdate
+				, '18/08/29'
+				, '18/09/08'
+				, '본 전시는 “loop“이라는 주제로 5인의 작가가 함께 모인 프로젝트로, 작품-디자인-가구에 이르는 연결고리와 개인과 집단이 이루는 사회적 연결고리를 표현하고자 한다.'
+				, '한가람디자인미술관 제3전시실' );
+insert into products
+values ( productseq.nextval
+				, '이미 아직'
+				, '0'
+				, 'already_not_yet.jpg'
+				, 0
+				, '1000'
+				, sysdate
+				, '18/08/10'
+				, '18/08/18'
+				, '하나 하나의 집들은 영혼을 의미하며, 저마다의 빛과 색으로 칠해진 지붕, 벽, 창문은 각 사람의 아우라를 의미한다. 즉 개개인은 하나의 작은 집(영토, 백성)으로서 신의 나라를 이루는 형상을 지니고 있다.'
+				, '한가람디자인미술관 제3전시실' );
+insert into products
+values ( productseq.nextval
+				, '신미식 작가 x 윤쌍웅 작가 기증 작품전'
+				, '0'
+				, 'shin.jpg'
+				, 0
+				, '1000'
+				, sysdate
+				, '18/08/01'
+				, '18/08/12'
+				, '신미식은 아프리카를 기반으로 작업하는 다큐멘터리 사진가다. 11년 전 처음 아프리카를 여행한것을 계기로 지금까지 60회 가까이 아프리카를 여행했다. 1년에 절반 가까이 낯선 곳에서 낯선 사람들을 만나며 본인이 꿈꾸었던 삶을 살고 있다. 신미식은 글과 사진으로 평범한 삶을 사는 사람들에게 특별함을 꿈꾸게 하는 사람이다.'
+				, '한가람디자인미술관 제2전시실' );           
+				
+--판매자리스트
+insert into selllist(memid, prodid) values('coex', '1');
+insert into selllist(memid, prodid) values('coex', '2');
+insert into selllist(memid, prodid) values('coex', '3');
+insert into selllist(memid, prodid) values('kintex', '4');
+insert into selllist(memid, prodid) values('kintex', '5');
+insert into selllist(memid, prodid) values('kintex', '6');
+insert into selllist(memid, prodid) values('artcenter', '7');
+insert into selllist(memid, prodid) values('artcenter', '8');
+insert into selllist(memid, prodid) values('artcenter', '9');
+
+commit;

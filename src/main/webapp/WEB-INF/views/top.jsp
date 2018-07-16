@@ -12,6 +12,7 @@
 <title>Ticket</title>
 
 <!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 <link
 	href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -35,14 +36,19 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/agency.min.css"
 	rel="stylesheet">
+<style>
+.dropdown-menu{
+	background-color:transparent;
+	border:none;
+}
+</style>
 </head>
 
 <body id="page-top">
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
 	<div class="container">
-		<a class="navbar-brand js-scroll-trigger" href="${pageContext.request.contextPath}/">Start
-			Bootstrap</a>
+		<a class="navbar-brand js-scroll-trigger" href="${pageContext.request.contextPath}/">Withibition</a> 
 		<button class="navbar-toggler navbar-toggler-right" type="button"
 			data-toggle="collapse" data-target="#navbarResponsive"
 			aria-controls="navbarResponsive" aria-expanded="false"
@@ -58,9 +64,6 @@
 				</c:if>
 				<li class="nav-item"><a class="nav-link js-scroll-trigger"
 					href="list.prd">products</a></li>
-				<!-- <li class="nav-item"><a class="nav-link js-scroll-trigger"
-					href="#about">About</a></li> -->
-					
 				<li class="nav-item">
 					<div class="dropdown">
 						<a class="dropdown-toggle nav-link js-scroll-trigger" href="#" id="contact" data-toggle="dropdown" aria-expanded="true">contact
