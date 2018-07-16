@@ -48,6 +48,7 @@ public class ProductListController {
 		
 		mav.addObject("product", product);
 		mav.addObject( "pageInfo", pageInfo );
+		mav.addObject( "keyword", keyword );
 		mav.setViewName(getPage);
 		return mav;
 	}

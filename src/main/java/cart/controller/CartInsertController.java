@@ -1,11 +1,14 @@
 // 장바구니 추가(= 장바구니 담기)
 package cart.controller;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cart.model.Cart;
 import cart.model.CartDao;
@@ -21,9 +24,10 @@ public class CartInsertController {
 	@Autowired
 	private CartDao cartdao;
 	
-	@RequestMapping(value = command)
-	public String doActionGet(Cart cart, Product product, HttpSession session){
+	@RequestMapping(value = command, method=RequestMethod.POST)
+	public void doActionGet(Cart cart, Product product, HttpSession session, HttpServletResponse response){
 		
+		System.out.println("Cartqtykids :" + cart.getCartqtykids());
 		int cnt = -1;
 		String userid = ((Member)session.getAttribute("loginfo")).getMemid();
 		String newCartid = userid + "@" + product.getProdid(); // 장바구니아이디 = 상품아이디#사용자아이디
@@ -37,7 +41,5 @@ public class CartInsertController {
 			cnt = cartdao.UpdateCartQty(cart);
 		}
 		System.out.println("cartqty : " + cart.getCartqty());
-		
-		return gotoPage;
 	}
 }

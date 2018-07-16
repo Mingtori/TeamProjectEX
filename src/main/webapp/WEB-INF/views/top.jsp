@@ -38,7 +38,6 @@
 </head>
 
 <body id="page-top">
-
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
 	<div class="container">
@@ -52,8 +51,11 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav text-uppercase ml-auto">
-				<li class="nav-item"><a class="nav-link js-scroll-trigger"
-					href="#team">Team</a></li>
+				<c:set var="pagestart" value="${pageContext.request.contextPath }"/>
+				<c:if test="${fn:substringAfter(pageContext.request.requestURL,pagestart) == '/WEB-INF/views/home.jsp'}">
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="#team">Team</a></li>
+				</c:if>
 				<li class="nav-item"><a class="nav-link js-scroll-trigger"
 					href="list.prd">products</a></li>
 				<!-- <li class="nav-item"><a class="nav-link js-scroll-trigger"

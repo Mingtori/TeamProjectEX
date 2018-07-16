@@ -41,9 +41,17 @@ public class Product {
 
 	private String prodplace; // 장소
 	private String memplace; // 판매자 + 장소
-
 	// 판매자id;
 	private String memid;
+	private int kidsprice; // 소인 가격
+
+	public int getKidsprice() {
+		return kidsprice;
+	}
+
+	public void setKidsprice(int kidsprice) {
+		this.kidsprice = kidsprice;
+	}
 
 	public String getMemid() {
 		return memid;

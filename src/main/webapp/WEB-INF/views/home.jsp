@@ -35,11 +35,19 @@
         </c:if>
         <div class="intro-text">
           <div class="intro-lead-in">Welcome To Our Homepage!</div>
-          <div class="intro-heading text-uppercase" align="center">
-          	<input class="form-control" style="width:30%; background-color:rgba(255,255,255,0.5);" type="text" name="search" placeholder="search">
-          	<input class="btn btn-default" type="button" value="Search">
-          </div>
-          <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a>
+          <form action = "list.prd">
+	         <div class="input-group mb-3" align="center">
+   		     	<input type = "hidden" name="whatColumn" id="whatColumn" value="all"/>
+   		     	<input class="form-control" style="background-color:rgba(255,255,255,0.5);" type="text" name="keyword" id="keyword" placeholder="search">
+       		   	<div class="input-group-append">
+			      <button class="btn btn-success" type="submit">search</button>  
+			    </div>
+       		 </div>
+       		 <br><br>
+       		 <div>
+		        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a>
+       		 </div>
+          </form>
         </div>
       </div>
     </header>

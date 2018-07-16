@@ -13,7 +13,16 @@ public class Cart {
 	private int prodid;
 	private int prodstock;
 	private int prodprice;
-	
+	private int cartqtykids;
+
+	public int getCartqtykids() {
+		return cartqtykids;
+	}
+
+	public void setCartqtykids(int cartqtykids) {
+		this.cartqtykids = cartqtykids;
+	}
+
 	public int getProdprice() {
 		return prodprice;
 	}

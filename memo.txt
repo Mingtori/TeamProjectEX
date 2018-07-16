@@ -84,12 +84,11 @@ CREATE TABLE members (
 	memphone VARCHAR2(13), /* 전화번호 */
 	mememail VARCHAR2(20) NOT NULL, /* 이메일 */
 	mempermit VARCHAR2(10) DEFAULT '승인', /* 가입승인 */
-	gradeid NUMBER default 1, /* 회원등급ID */
+	gradeid NUMBER default 1 NOT NULL, /* 회원등급ID */
 	comid NUMBER /* 회사ID */
 );
 
-insert into members(memid,mempw,memname,mememail,mempermit,gradeid)
-values('admin','1234','관리자','admin@gmail.com','',0);
+
 
 ALTER TABLE members
 	ADD
@@ -104,9 +103,7 @@ CREATE TABLE memgrade (
 	gradename VARCHAR2(10) NOT NULL /* 등급이름 */
 );
 
-INSERT INTO memgrade VALUES(0, '관리자');
-INSERT INTO memgrade VALUES(1, '일반회원');
-INSERT INTO memgrade VALUES(2, '판매자');
+
 
 ALTER TABLE memgrade
 	ADD
@@ -130,8 +127,7 @@ CREATE TABLE products (
 	prodplace VARCHAR2(50) NOT NULL /* 장소 */
 );
 
-insert into products
-values(0,'게시판용','0','0',0,0,sysdate,sysdate,sysdate,'0',' ');
+
 
 ALTER TABLE products
 	ADD
@@ -145,9 +141,6 @@ CREATE TABLE prodcategory (
 	prodcateid NUMBER NOT NULL, /* 카테고리ID */
 	prodcatename VARCHAR(10) NOT NULL /* 카테고리명 */
 );
-
-INSERT INTO prodcategory VALUES(0, '전시');
-INSERT INTO prodcategory VALUES(1, '행사');
 
 
 ALTER TABLE prodcategory
@@ -201,12 +194,6 @@ CREATE TABLE boardscategory (
 	boardcatename VARCHAR2(15) NOT NULL /* 카테고리명 */
 );
 
-INSERT INTO boardscategory VALUES('a01', '전체공지사항');
-INSERT INTO boardscategory VALUES('a02', '전체문의사항');
-INSERT INTO boardscategory VALUES('p01', '상품공지사항');
-INSERT INTO boardscategory VALUES('p02', '상품문의사항');
-INSERT INTO boardscategory VALUES('p03', '상품후기');
-
 
 ALTER TABLE boardscategory
 	ADD
@@ -242,8 +229,8 @@ ALTER TABLE orders
 /* company */
 CREATE TABLE company (
 	comid NUMBER NOT NULL, /* 회사ID */
-	comname VARCHAR2(15) NOT NULL UNIQUE, /* 회사이름 */
-	comaddr VARCHAR2(40) NOT NULL /* 회사주소 */
+	comname VARCHAR2(25) NOT NULL UNIQUE, /* 회사이름 */
+	comaddr VARCHAR2(50) NOT NULL /* 회사주소 */
 );
 
 ALTER TABLE company
@@ -345,3 +332,46 @@ ALTER TABLE boards
 		REFERENCES products (
 			prodid
 		) ON DELETE CASCADE;
+		
+		
+		
+		
+INSERT INTO memgrade VALUES(0, '관리자');
+INSERT INTO memgrade VALUES(1, '일반회원');
+INSERT INTO memgrade VALUES(2, '판매자');
+		
+INSERT INTO prodcategory VALUES(0, '전시');
+INSERT INTO prodcategory VALUES(1, '행사');
+
+
+insert into products
+values(0,'게시판용','0','0',0,0,sysdate,sysdate,sysdate,'0',' ');
+		
+		
+insert into members(memid,mempw,memname,mememail,mempermit,gradeid)
+values('admin','1234','관리자','admin@gmail.com','',0);		
+insert into members
+values('seller1', '1234', '판매자1', '서울특별시 마포구 신촌로 176','010-1111-1111','seller1@gmail.com','승인',2,1);
+insert into members
+values('seller2', '1234', '판매자2', '인천광역시 남구 인하로','010-2222-2222','seller2@gmail.com','승인',2,2);
+insert into members
+values('seller3', '1234', '판매자3', '경기도 고양시','010-3333-3333','seller3@gmail.com','승인',2,3);
+insert into members
+values('buyer1', '1234', '구매자1', '부산광역시 동구','010-4444-4444','buyer1@naver.com','승인',1,null);
+insert into members
+values('buyer2', '1234', '구매자2', '부산광역시 동구','010-5555-5555','buyer2@naver.com','승인',1,null);
+
+
+insert into company
+values(companyseq.nextval, '예술의전당', '서울특별시 서초구 서초동');
+insert into company
+values(companyseq.nextval, '코엑스', '서울특별시 강남구');
+insert into company
+values(companyseq.nextval, '킨텍스', '경기도 고양시 일산서구');
+
+
+INSERT INTO boardscategory VALUES('a01', '전체공지사항');
+INSERT INTO boardscategory VALUES('a02', '전체문의사항');
+INSERT INTO boardscategory VALUES('p01', '상품공지사항');
+INSERT INTO boardscategory VALUES('p02', '상품문의사항');
+INSERT INTO boardscategory VALUES('p03', '상품후기');

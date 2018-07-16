@@ -4,7 +4,6 @@
 
 <style>
 .jumbotron {
-	background-color: #F2F2F2;
 	background-color: rgba(242, 242, 242, 0.8);
 }
 
@@ -39,7 +38,15 @@ a {
 		<div class="row">
 			<div class="col-lg-12 text-center">
 				<h2 class="section-heading text-uppercase">PRODUCTS</h2>
-				<h3 class="section-subheading text-muted">상품 리스트 화면입니다.</h3>
+				<form action = "list.prd">
+	         <div class="input-group mb-3" align="center">
+   		     	<input type = "hidden" name="whatColumn" id="whatColumn" value="all"/>
+   		     	<input class="form-control" style="background-color:rgba(255,255,255,0.5);" type="text" name="keyword" id="keyword" placeholder="search" value = "${keyword }">
+       		   	<div class="input-group-append">
+			      <button class="btn btn-success" type="submit">search</button>  
+			    </div>
+       		 </div>
+          </form>
 			</div>
 		</div>
 		<div class="row">

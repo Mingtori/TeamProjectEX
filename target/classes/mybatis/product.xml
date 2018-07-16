@@ -16,6 +16,7 @@
 			, c.prodcatename
 			, p.prodimage
 			, p.prodprice
+			, p.prodprice * 0.7 as kidsprice
 			, p.prodstock
 			, to_char(p.prodinputdate,'yyyy-MM-dd') as prodinputdate
 			, to_char(p.prodstartdate,'yyyy-MM-dd') as prodstartdate
@@ -65,28 +66,27 @@
 		            , prodcategory c
 		            where p.prodcateid = c.prodcateid
 		            order by p.prodinputdate desc, p.prodid desc) a
-		where prodid>0    
+			where prodenddate >= to_char(sysdate,'yyyy-MM-dd')            
 		<if test = "whatColumn == 'prodname'">
-			and prodname like #{keyword}
+			and lower(prodname) like lower(#{keyword})
 		</if>
 		<if test = "whatColumn == 'prodcontent'">
-			and prodcontent like #{keyword} 
+			and lower(prodcontent) like #{keyword} 
 		</if>
 		<if test = "whatColumn == 'all'">
-			and prodname || prodcontent like #{keyword}
+			and lower(prodname || prodcontent) like lower(#{keyword})
 		</if>             
 	</select>
-	
 	<select id = "GetProductCount" resultType = "Integer" parameterType="hashmap">
 		select count(*) as cnt from products
 		<if test = "whatColumn == 'prodname'">
-			where prodname like #{keyword}
+			where lower(prodname) like lower(#{keyword})
 		</if>
 		<if test = "whatColumn == 'prodcontent'">
-			where prodcontent like #{keyword} 
+			where lower(prodcontent) like #{keyword} 
 		</if>
 		<if test = "whatColumn == 'all'">
-			where prodname || prodcontent like #{keyword}
+			where lower(prodname || prodcontent) like lower(#{keyword})
 		</if> 
 	</select>
 	<delete id = "DeleteProduct" parameterType ="Integer">
@@ -129,14 +129,14 @@
 		  and p.prodcateid=c.prodcateid
 		  and m.memid = s.memid
 		<if test = "whatColumn == 'prodname'">
-			and prodname like #{keyword}
+			and lower(prodname) like lower(#{keyword})
 		</if>
 		<if test = "whatColumn == 'prodcontent'">
-			and prodcontent like #{keyword} 
+			and lower(prodcontent) like #{keyword} 
 		</if>
 		<if test = "whatColumn == 'all'">
-			and prodname || prodcontent like #{keyword}
-		</if>
+			and lower(prodname || prodcontent) like lower(#{keyword})
+		</if>             
 	</select>
 	
 	<insert id="insertSellist" parameterType="MyProduct">
