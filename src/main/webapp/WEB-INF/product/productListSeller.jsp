@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../page/mytop.jsp" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<style>
+td a {
+	color:blue;
+} 
+</style>
 
 	<div align="center"> 
 		<form class="form-inline" action = "listSeller.prd" method = "GET">
@@ -23,21 +29,33 @@
 			<tr>
 			<c:set var="prodimage"
 				value="http://localhost:9090${pageContext.request.contextPath}/resources/${product.prodimage }" />
-				<td rowspan="2">
-					<a href = "detail.prd?prodid=${product.prodid }&pageNumber=${pageInfo.pageNumber}&boardcateid=p03">
-					<img src = ${prodimage } width="200"/> </a>
-				</td>
-				<td>
-					<h4><a href = "detail.prd?prodid=${product.prodid }&pageNumber=${pageInfo.pageNumber}&boardcateid=p03">
-					${product.prodname }</a></h4>
-				</td>
-				</tr><tr>
-				<td>
-					기간 : ${product.prodstartdate } ~ ${product.prodenddate } 
-					<br>가격 : <fmt:formatNumber value='${product.prodprice }' pattern='###,###'/>
-					<br>장소 : ${product.memplace }
-					<br>카테고리 : ${product.prodcatename } 
-				</td>
+					<td rowspan="3">
+						<a href = "detail.prd?prodid=${product.prodid }&pageNumber=${pageInfo.pageNumber}&boardcateid=p03">
+						<img src = ${prodimage } width="200"/> </a>
+					</td>
+					<td>
+						<h4><a href = "detail.prd?prodid=${product.prodid }&pageNumber=${pageInfo.pageNumber}&boardcateid=p03">
+						${product.prodname }</a></h4>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						기간 : ${product.prodstartdate } ~ ${product.prodenddate } 
+						<br>가격 : <fmt:formatNumber value='${product.prodprice }' pattern='###,###'/>
+						<br>장소 : ${product.memplace }
+						<br>카테고리 : ${product.prodcatename } 
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<a
+						href="update.prd?prodid=${product.prodid }&pageNumber=1&seller=true">
+						<button class="btn btn-default">수정</button>
+					</a>
+					<a
+						href="delete.prd?prodid=${product.prodid }&pageNumber=1&seller=true">
+						<button class="btn btn-default">삭제</button></a>
+					</td>
 				</tr>
 			<c:if test="${product.rownum%3 == 0 }">
 				<tr></tr> 

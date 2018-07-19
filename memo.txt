@@ -225,7 +225,8 @@ ALTER TABLE orders
 		)
 		REFERENCES products (
 			prodid
-		);
+		) ON DELETE CASCADE;
+		
 /* company */
 CREATE TABLE company (
 	comid NUMBER NOT NULL, /* »∏ªÁID */

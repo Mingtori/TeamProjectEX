@@ -66,7 +66,7 @@
                   , prodcategory c
                   where p.prodcateid = c.prodcateid
                   order by p.prodinputdate desc, p.prodid desc) a
-         where prodenddate >= to_char(sysdate,'yyyy-MM-dd')            
+         where prodenddate >= to_char(sysdate,'yyyy-MM-dd') and prodid>0     
       <if test = "whatColumn == 'prodname'">
          and lower(prodname) like lower(#{keyword})
       </if>
@@ -124,10 +124,12 @@
          , products p
          , prodcategory c
          , members m
-      where s.memid=#{memid} 
+      where m.memid = s.memid
         and s.prodid = p.prodid 
         and p.prodcateid=c.prodcateid
-        and m.memid = s.memid
+        <if test="memid != 'admin'">
+	        and s.memid=#{memid} 
+        </if>
       <if test = "whatColumn == 'prodname'">
          and lower(prodname) like lower(#{keyword})
       </if>
@@ -145,10 +147,12 @@
          , products p
          , prodcategory c
          , members m
-      where s.memid=#{memid} 
+      where m.memid = s.memid
         and s.prodid = p.prodid 
         and p.prodcateid=c.prodcateid
-        and m.memid = s.memid
+        <if test="memid != 'admin'">
+	        and s.memid=#{memid} 
+        </if>
       <if test = "whatColumn == 'prodname'">
          and lower(prodname) like lower(#{keyword})
       </if>

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import member.model.Member;
 import product.model.Product;
 import product.model.ProductDao;
 
@@ -34,16 +36,22 @@ public class ProductUpdateController {
 	ServletContext servletContext;
 
 	@RequestMapping(value = command, method = RequestMethod.GET)
-	public String doActionGet(@RequestParam(value = "prodid", required = true) int prodid, Model model) {
+	public String doActionGet(@RequestParam(value = "prodid", required = true) int prodid, Model model
+			,@RequestParam(value = "seller", required = false) String seller) {
 		Product bean = productdao.GetProductDetail(prodid);
 		List<Product> categoryList = productdao.GetCategoryList();
 		model.addAttribute("product", bean);
 		model.addAttribute("categoryList", categoryList);
+		if(seller!=null){
+			model.addAttribute("seller", seller);
+		}
 		return getPage;
 	}
 
 	@RequestMapping(value = command, method = RequestMethod.POST)
-	public String doActionPost(@Valid Product product, BindingResult bindingResult) {
+	public String doActionPost(@Valid Product product, BindingResult bindingResult
+			,@RequestParam(value = "seller", required = false) String seller
+			,HttpSession session) {
 
 		String uploadPath = servletContext.getRealPath("/resources");
 		MultipartFile multi = product.getUpload();
@@ -77,7 +85,9 @@ public class ProductUpdateController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
+			if(seller != null){
+				return "redirect:/listSeller.prd?memid=" + ((Member)session.getAttribute("loginfo")).getMemid();
+			}	
 			return gotoPage;
 		} else {
 			return getPage;

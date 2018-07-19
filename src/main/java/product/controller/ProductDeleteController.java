@@ -4,12 +4,14 @@ package product.controller;
 import java.io.File;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import member.model.Member;
 import product.model.Product;
 import product.model.ProductDao;
 
@@ -27,7 +29,9 @@ public class ProductDeleteController {
 	
 	@RequestMapping(value=command)
 	public String doActionGet(@RequestParam(value="prodid", required=true) int prodid
-			,@RequestParam(value="pageNumber", required=false) int pageNumber){
+			,@RequestParam(value="pageNumber", required=false) int pageNumber
+			,@RequestParam(value = "seller", required = false) String seller
+			,HttpSession session){
 	
 		String uploadPath = servletContext.getRealPath("/resources");
 		
@@ -43,6 +47,9 @@ public class ProductDeleteController {
 		} else {
 			File filepath = new File(uploadPath + File.separator + product.getProdimage());
 			filepath.delete();
+			if(seller != null){
+				return "redirect:/listSeller.prd?memid=" + ((Member)session.getAttribute("loginfo")).getMemid();
+			}
 			return gotoPage + pageNumber;
 		}
 		

@@ -102,6 +102,7 @@ a {
 						<div>
 							<input type = "hidden" id ="prodid" name = "prodid" value = "${product.prodid }" />
 							<input type = "hidden" name = "upload2" id = "upload2" value = "${product.prodimage }"/>
+							<input type = "hidden" name = "seller" value = "${seller }"/>
 							<input type = "submit" value = "수정하기"/>
 						</div>	
 						</form:form>
