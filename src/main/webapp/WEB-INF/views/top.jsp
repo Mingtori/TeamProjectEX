@@ -40,8 +40,48 @@
 
 <style>
 #dropdown-menu{
-	background-color:transparent;
+	background-color:lightsteelblue;
 	border:none;
+}
+.navbar-nav{
+	flex-direction: row;
+}
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+.dropdown-menu>li>a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: white;
+    white-space: nowrap;
+    text-decoration: none;
+}
+.navbar-nav>li>.dropdown-menu {
+    margin-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 </style>
 </head>
@@ -51,13 +91,13 @@
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
 	<div class="container">
 		<a class="navbar-brand js-scroll-trigger" href="${pageContext.request.contextPath}/">Withibition</a> 
-		<button class="navbar-toggler navbar-toggler-right" type="button"
+	<!-- 	<button class="navbar-toggler navbar-toggler-right" type="button"
 			data-toggle="collapse" data-target="#navbarResponsive"
 			aria-controls="navbarResponsive" aria-expanded="false"
 			aria-label="Toggle navigation">
 			Menu <i class="fa fa-bars"></i>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarResponsive">
+		</button> -->
+		<div id="navbarResponsive">
 			<ul class="navbar-nav text-uppercase ml-auto">
 				<c:set var="pagestart" value="${pageContext.request.contextPath }"/>
 				<c:if test="${fn:substringAfter(pageContext.request.requestURL,pagestart) == '/WEB-INF/views/home.jsp'}">
@@ -79,7 +119,7 @@
 				</li>
 				<c:if test="${loginfo != null }">
 				<li class="nav-item">
-					<div class="dropdown">
+					<div class="dropdown"> 
 					<a class="dropdown-toggle nav-link js-scroll-trigger" id="mypage" data-toggle="dropdown" aria-expanded="true" href="mypage.pg">My Page
 						<span class="caret"></span>
 					</a>

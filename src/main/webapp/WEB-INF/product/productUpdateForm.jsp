@@ -41,9 +41,6 @@ a {
 		background-size: cover;
 	}
 }
-div {
-	margin : 10px 10px 10px 10px;
-}
 </style>
 <body>
 	<section class="bg-light">

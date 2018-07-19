@@ -202,6 +202,15 @@ ul.nav.nav-tabs {
 	}
 
 	$(function() {
+		var review = ${review != null};
+		if(review){
+			$("#review-tab").trigger("click");
+		}
+		var qna = ${qna != null};
+		if(qna){
+			$("#qna-tab").trigger("click");
+		}
+		
 		$("#cart_add").click(function() {
 
 			var str = $("#prodenddate").val();
@@ -342,7 +351,7 @@ ul.nav.nav-tabs {
 											max="${product.prodstock }" value="0"
 											onchange="chxNum('kids')" /> <input class="btn btn-sm"
 											type="button" value="+" onclick="incNum('kids')" />
-									</div> <input class="form-control col-sm-5" style="border: none;"
+									</div> <input class="form-control col-sm-5" style="border: none; text-align: right;"
 									readonly type="text" id="totalprodprice"
 									value="<fmt:formatNumber value='${product.prodprice }' pattern='###,###'/>" />
 									<br> <br>
@@ -473,7 +482,7 @@ ul.nav.nav-tabs {
 												<b>${review.boardinputdate }</b>
 												<c:if test="${review.memid eq loginfo.memid }">
 				                                    <button type="button" id="update_${review.boardid}" onclick="updateForm('${review.prodid }','${review.boardsubject }','${review.boardid}','${pageNumber}','${review.boardcontent }');"><i class="far fa-edit"></i></button>
-				                                    <button type="button" id="delete_${review.boardid}" onclick="location.href='delete.bd?boardid=${review.boardid}&boardcateid=${review.boardcateid }&flag=flag&prodid=${review.prodid }'" ><i class="far fa-trash-alt"></i></button>
+				                                    <button type="button" id="delete_${review.boardid}" onclick="location.href='delete.bd?review=1&boardid=${review.boardid}&boardcateid=${review.boardcateid }&flag=flag&prodid=${review.prodid }'" ><i class="far fa-trash-alt"></i></button>
 				                                 </c:if>
 												</td>
 										</tr>
@@ -532,7 +541,7 @@ ul.nav.nav-tabs {
 												<b>${qna.boardinputdate }</b>
 												<c:if test="${qna.memid eq loginfo.memid }">
 				                                    <button type="button" id="update_${qna.boardid}" onclick="updateForm('${qna.prodid }','${qna.boardsubject }','${qna.boardid}','${pageNumber}','${qna.boardcontent }');"><i class="far fa-edit"></i></button>
-				                                    <button type="button" id="delete_${qna.boardid}" onclick="location.href='delete.bd?boardid=${qna.boardid}&boardcateid=${qna.boardcateid }&flag=flag&prodid=${qna.prodid }'" ><i class="far fa-trash-alt"></i></button>
+				                                    <button type="button" id="delete_${qna.boardid}" onclick="location.href='delete.bd?qna=1&boardid=${qna.boardid}&boardcateid=${qna.boardcateid }&flag=flag&prodid=${qna.prodid }'" ><i class="far fa-trash-alt"></i></button>
 				                                 </c:if>
 												</td>
 										</tr>

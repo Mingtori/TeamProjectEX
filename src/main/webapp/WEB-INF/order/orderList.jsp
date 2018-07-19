@@ -11,11 +11,17 @@ function board(what, type, prodname, prodid, memid){
 	   $("#boardsubject").val(prodname);
 	   $("#reviewModal").modal();
 }
-
 </script>
+<style>
+td a{
+ color:blue;
+}
+
+
+</style>
    <h1>구매내역</h1>
 
-		<table>
+		<table class="table table-hover">
 			<c:if test="${fn:length(orderlists) == 0 }">
 				<tr><td align="center">구매내역이 없습니다.</td></tr>
 			</c:if>
@@ -24,12 +30,14 @@ function board(what, type, prodname, prodid, memid){
 		         <c:set var="orderid" value="${fn:split(order.orderid, '@') }"/>
 		         <c:set var="orderdate" value="${orderid[0] }"/>
 		         <c:if test="${status.count ==1 }">
+		            <thead>
 		            <tr>
 		               <td width="30%"><font size="3px"><b>주문일 : </b>${orderdate }</font></td>
-		               <td align="right" colspan="2"><a href="detail.ord?orderid=${order.orderid }">주문 상세</a></td>
+		               <td align="right" colspan="2"><%-- <a href="detail.ord?orderid=${order.orderid }">주문 상세</a> --%></td>
 		            </tr>
+		            </thead>
 		         </c:if>
-		         <tr style="border:1px solid black;">
+		         <tr>
 		            <td>
 		               <img src="${pageContext.request.contextPath }/resources/${order.prodimage }" width="200px" /></td>
 		            <td valign="top">

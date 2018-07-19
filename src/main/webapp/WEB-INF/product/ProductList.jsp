@@ -15,10 +15,6 @@
 	color: black;
 }
 
-a {
-	color: black;
-}
-
 @media (min-width: 768px){
 	section {
 		background-image: url("./resources/img/header-bg.jpg");
@@ -53,7 +49,7 @@ a {
 			<c:forEach items="${product }" var="product">
 				<c:set var="prodimage"
 					value="http://localhost:9090${pageContext.request.contextPath}/resources/${product.prodimage }" />
-				<div class="col-md-4 col-sm-6 portfolio-item">
+				<div class="col-md-4 col-sm-6 portfolio-item" max-height=500px>
 					<a class="portfolio-link"
 						href="detail.prd?prodid=${product.prodid }&boardcateid=p03&pageNumber=${pageInfo.pageNumber}">
 						<div class="portfolio-hover">

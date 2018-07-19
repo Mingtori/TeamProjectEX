@@ -4,9 +4,10 @@
 <style>
 .jumbotron {
 	background-color: rgba(242, 242, 242, 0.8);
-	color: black;
 }
-
+td, th, .font-black{
+	color:black;
+}
 </style>
 		<c:set var="theString" value="http://localhost:9090${pageContext.request.contextPath}/resources/img/board"/>
 		<c:set var="count" value="${pageInfo.totalCount - pageInfo.pageSize * (pageInfo.pageNumber-1)}"/>
@@ -41,7 +42,7 @@
 						<c:forEach items="${lists }" var="lists" varStatus="status">
 							<tr>
 								<td>${count-status.index}</td>
-								<td>
+								<td align="left">
 									<c:set var="wid" value="0" />
 								    <c:if test="${lists.relevel > 0}">
 									    <c:set var="wid" value="${20*lists.relevel }" />
@@ -51,7 +52,7 @@
 									<c:if test="${board.re_level <= 0 }">
 										<img src="${theString}/level.gif" width="${wid }" height="16">
 									</c:if>
-									<a href="detail.bd?boardid=${lists.boardid}&pageNumber=${pageInfo.pageNumber}">${lists.boardsubject }</a>
+									<a href="detail.bd?boardid=${lists.boardid}&pageNumber=${pageInfo.pageNumber}" style="color:black;"><b>${lists.boardsubject }</b></a>
 									<c:if test="${lists.boardreadcount > 10}">
 						        		 <img src="${theString}/hot.gif" border="0"  height="16">
 						 		   </c:if>

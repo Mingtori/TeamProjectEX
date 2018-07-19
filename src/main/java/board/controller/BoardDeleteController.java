@@ -23,13 +23,21 @@ public class BoardDeleteController {
 			@RequestParam("boardid") int boardid,
 			@RequestParam("boardcateid") String boardcateid,
 			@RequestParam(value="prodid", required=false) int prodid,
-			@RequestParam(value="flag", required=false) String flag
-			){
+			@RequestParam(value="flag", required=false) String flag,
+			@RequestParam(value="review", required=false) String review,
+			@RequestParam(value="qna", required=false) String qna
+		){
 		System.out.println("boardcateid:"+boardcateid);
 		boardDao.deleteArticle(boardid);
 		if(flag==null){
-			return gotoPage+"?boardcateid="+boardcateid;
+			return gotoPage+"?boardcateid="+boardcateid; 
 		}else{
+			if(qna != null){
+				return "redirect:/detail.prd?pageNumber=1&qna=1&prodid=" + prodid;
+			}
+			if(review != null){
+				return "redirect:/detail.prd?pageNumber=1&review=1&prodid=" + prodid;
+			}
 			return "redirect:/detail.prd?pageNumber=1&prodid=" + prodid;
 		}
 	}

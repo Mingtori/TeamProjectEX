@@ -24,8 +24,10 @@ public class OrderDeleteController {
 			HttpSession session){
 		Member member = (Member)session.getAttribute("loginfo");
 		orderDao.deleteOrder(orderid);
-		
-		
-		return gotoPage + "?memid=" + member.getMemid();
+		if(member.getGradeid()==1){
+			return gotoPage + "?memid=" + member.getMemid();
+		}else{
+			return "redirect:/listSeller.ord";
+		}
 	}
 }

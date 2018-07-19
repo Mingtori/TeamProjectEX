@@ -21,6 +21,7 @@
 				<td>
 					<c:if test="${order.orderuse == 'NO' }">
 						<input type="button" value="사용" onclick="location.href='update.ord?orderid=${order.orderid}'">
+						<input type="button" value="판매취소" onclick="location.href='delete.ord?orderid=${order.orderid}'">
 					</c:if>
 					<c:if test="${order.orderuse == 'YES' }">
 						${order.orderuse }

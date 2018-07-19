@@ -4,12 +4,11 @@
 <%@ include file="./../common/common.jsp"%>
 <style>
 .list-group-item {
-	color: black;
+	color: black; 
 }
 .jumbotron {
 	background-color: rgba(242, 242, 242, 0.8);
 }
-
 
 @media ( min-width : 768px) {
 	section {
@@ -22,9 +21,6 @@
 		-o-background-size: cover;
 		background-size: cover;
 	}
-}
-a {
-	color:blue;
 }
 </style>
 <section>

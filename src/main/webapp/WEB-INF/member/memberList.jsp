@@ -6,8 +6,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>회원관리</title>
-<script type="text/javascript">
-</script>
+<style>
+td>a {
+	color:blue; 
+}
+</style>
 </head>
 <body>
 	<form action="memberlist.me" method="get">
@@ -24,7 +27,6 @@
 	<table class="table table-bordered" style="background-color:white;">
 		<tr>
 			<th>아이디</th>
-			<th>비밀번호</th>
 			<th>이름</th>
 			<th>전화번호</th>
 			<th>이메일</th>
@@ -38,7 +40,6 @@
 		<c:forEach var="member" items="${memberlist }">
 			<tr>
 				<td>${member.memid }</td>
-				<td>${member.mempw }</td>
 				<td>${member.memname }</td>
 				<td>${member.memphone }</td>
 				<td>${member.mememail }</td>

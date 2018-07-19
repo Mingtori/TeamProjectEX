@@ -38,6 +38,6 @@ public class BoardReplyController {
 			HttpServletRequest request){
 		board.setBoardip(request.getRemoteAddr());
 		boardDao.insertReply(board);
-		return gotoPage+"?pageNumber="+pageNumber;
+		return gotoPage+"?pageNumber="+pageNumber +"&boardcateid=" + board.getBoardcateid();
 	}
 }

@@ -35,6 +35,8 @@ public class ProductDetailController {
 	@RequestMapping(value = command, method = RequestMethod.GET)
 	public String doActionGet(@RequestParam(value="prodid", required = true) int prodid 
 			,@RequestParam(value="pageNumber") int pageNumber
+			,@RequestParam(value="qna", required=false) String qna
+			,@RequestParam(value="review", required=false) String review
 			,Model model) {
 		Product bean = productdao.GetProductDetail(prodid);
 		model.addAttribute("product", bean);
@@ -56,6 +58,13 @@ public class ProductDetailController {
 		model.addAttribute("reviewlist",reviewlist);
 		model.addAttribute("qnalist",qnalist);
 		model.addAttribute("noticelist",noticelist);
+		if(qna != null){
+			model.addAttribute("qna",qna);
+		}
+		if(review != null){
+			model.addAttribute("review",review);
+		}
+		
 		return getPage;
 	}
 

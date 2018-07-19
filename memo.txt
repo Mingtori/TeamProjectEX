@@ -204,7 +204,7 @@ ALTER TABLE boardscategory
 
 /* orders */
 CREATE TABLE orders (
-	orderid VARCHAR2(30) NOT NULL, /* 주문ID */
+	orderid VARCHAR2(50) NOT NULL, /* 주문ID */
 	orderqty NUMBER NOT NULL, /* 수량 */
 	orderuse VARCHAR2(5) DEFAULT 'NO', /* 사용여부 */
 	prodid NUMBER

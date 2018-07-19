@@ -59,10 +59,10 @@ public class BoardInsertController {
 		board.setBoardip(request.getRemoteAddr());
 		if(board.getBoardcateid().equals("p03")){//후기
 			board.setBoardsubject("["+ prodname +"] 관람 후기");
-			mv.setViewName("redirect:/detail.prd?prodid="+board.getProdid()+"&boardcateid=p03&pageNumber=1");
+			mv.setViewName("redirect:/detail.prd?prodid="+board.getProdid()+"&boardcateid=p03&pageNumber=1&review=1");
 		}else if(board.getBoardcateid().equals("p02")){// 문의
 			board.setBoardsubject("["+ prodname +"] 문의사항");
-			mv.setViewName("redirect:/detail.prd?prodid="+board.getProdid()+"&boardcateid=p02&pageNumber=1");
+			mv.setViewName("redirect:/detail.prd?prodid="+board.getProdid()+"&boardcateid=p02&pageNumber=1&qna=1");
 		}else if(board.getBoardcateid().equals("p01")){// 공지
 			board.setBoardsubject("["+ prodname +"] 공지사항");
 			mv.setViewName("redirect:/detail.prd?prodid="+board.getProdid()+"&boardcateid=p01&pageNumber=1");
