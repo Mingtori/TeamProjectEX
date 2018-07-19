@@ -34,11 +34,15 @@ public class BoardUpdateController {
 	public String doActionPost(
 			Board board,
 			@RequestParam("pageNumber") int pageNumber,
+			@RequestParam(value="flag", required=false) String flag,
 			Model model){
 		boardDao.updateArticle(board);
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("boardid", board.getBoardid());
-		
-		return gotoPage;
+		if(flag == null){
+			return gotoPage;
+		}else{
+			return "redirect:/detail.prd?pageNumber=1&prodid=" + board.getProdid();
+		}
 	}
 }

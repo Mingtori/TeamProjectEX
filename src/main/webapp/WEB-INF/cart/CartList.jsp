@@ -149,6 +149,7 @@
 				<th>가격</th>
 				<th>선택<br> <input type="checkbox" name="allCheck" onchange="checkAll()"></th>
 			</tr>
+			<c:if test="${fn:length(cart) != 0 }">
 			<c:forEach items="${cart }" var="cart">
 				<tr align="center">
 					<td>${cart.rownum }</td>
@@ -172,6 +173,10 @@
 					</td>
 				</tr>
 			</c:forEach>
+			</c:if>
+			<c:if test="${fn:length(cart) == 0 }">
+				<tr><td align="center" colspan="7">장바구니에 담긴 상품이 없습니다.</td></tr> 
+			</c:if>
 		</table>
 		<div>
 			<label style="font-size: large;"> 총금액 </label>

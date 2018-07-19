@@ -9,7 +9,6 @@
 </script>
 <style>
 .jumbotron {
-	background-color: #F2F2F2;
 	background-color: rgba(242, 242, 242, 0.8);
 }
 
@@ -21,7 +20,7 @@
 	color: black;
 }
 
-a {
+a.font {
 	color: black;
 }
 </style>
@@ -48,7 +47,7 @@ a {
 						<input class="btn btn-default" type="button" value="회원가입"
 							onclick="register();">
 					</form>
-					<a href="idsearch.me">아이디 찾기</a> / <a href="pwsearch.me">비밀번호
+					<a class="font" href="idsearch.me">아이디 찾기</a> / <a class="font" href="pwsearch.me">비밀번호
 						찾기</a>
 				</div>
 			</div>

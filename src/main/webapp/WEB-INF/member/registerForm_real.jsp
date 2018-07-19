@@ -3,7 +3,6 @@
 <%@ include file="../views/top.jsp"%>
 <head>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
 	function goback() {
 		history.back(-1);
@@ -18,14 +17,18 @@
 	function pwcheck(){
 		var pw1 = $("input[name='mempw']").val();
 		var pw2 = $("input[name='mempwcheck']").val();
-		if(pw1 == pw2){
-			$("#pwcheck").html("비밀번호 일치");
-			pwflag=true;
+		if(pw1 != "" && pw2 != ""){
+			if(pw1 == pw2){
+				$("#pwcheck").html("비밀번호 일치");
+				pwflag=true;
+			}else{
+				$("#pwcheck").html("비밀번호 불일치");
+				pwflag=false;
+			}
 		}else{
-			$("#pwcheck").html("비밀번호 불일치");
+			$("#pwcheck").html("비밀번호를 입력해주세요");
 			pwflag=false;
 		}
-		
 	}
 	
 	 
@@ -65,6 +68,7 @@
 			return false;
 		}
 	}
+	
 </script>
 <style>
 .jumbotron {
@@ -100,7 +104,7 @@ a {
 						method="post">
 						<div class="row">
 							<div class="col-sm-8 offset-sm-4" align="left">
-								<input type="hidden" name="what" value="${what }">
+								<input type="hidden" name="type" value="${type }">
 								<div class="form-group form-inline">
 									<label class="font-black col-sm-2 control-label" for="memid">아이디</label> 
 									<input class="form-control" type="text" id="memid" name="memid" placeholder="ID">
@@ -129,10 +133,20 @@ a {
 									<form:errors cssClass="err" path="memname" />
 								</div>
 								<div class="form-group form-inline">
-									<label class="font-black col-sm-2 control-label" for="memaddr">주소</label>
-									<input type="text" name="memaddr" class="form-control"
-										placeholder="서울시 서대문구">
+									<label class="font-black col-sm-2 control-label" for="mempost">우편번호</label>
+									<input type="text" id="mempost" name="mempost" class="example_pcfull postcodify_postcode5 form-control" readonly>
+									<div class="col-sm-4">
+								    	<input class="btn btn-default" type="button" id="memaddr_button" class="example_button" value="검색">
+								    </div>
 									<form:errors cssClass="err" path="memaddr" />
+								</div>
+								<div class="form-group form-inline">	    
+								    <label class="font-black col-sm-2 control-label" for="memaddr">도로명주소</label>
+								    <input type="text" id="memaddr" name="memaddr" class="example_input postcodify_address form-control" style="width:70%" readonly> 
+								</div>
+								<div class="form-group form-inline">	
+									<label class="font-black col-sm-2 control-label" for="memaddrdetail">상세주소</label>
+									<input type="text" id="memaddrdetail" name="memaddrdetail" class="example_input postcodify_details form-control" style="width:70%;">    
 								</div>
 								<div class="form-group form-inline">
 									<label class="font-black col-sm-2  control-label"
@@ -161,20 +175,31 @@ a {
 										<option value="">선택하세요
 										<option value="naver.com">naver.com
 										<option value="daum.net">daum.net
+										<option value="gmail.com">gmail.com
 									</select>
 									<form:errors cssClass="err" path="mememail1" />
 									<form:errors cssClass="err" path="mememail2" />
 								</div>
-								<c:if test="${what == 'seller' }">
+								<c:if test="${type == 'seller' }">
 									<div class="form-group form-inline">
 										<label class="font-black col-sm-2 control-label" for="comname">회사이름</label>
 										<input type="text" class="form-control" name="comname"
 											placeholder="예술의 전당">
 									</div>
 									<div class="form-group form-inline">
-										<label class="font-black col-sm-2 control-label" for="comaddr">회사주소</label>
-										<input type="text" class="form-control" name="comaddr"
-											placeholder="서울시 서초구">
+										<label class="font-black col-sm-2 control-label" for="compost">우편번호</label>
+										<input type="text" id="compost" name="compost" class="example_pcfull postcodify_postcode5 form-control" readonly>
+										<div class="col-sm-4">
+									    	<input class="btn btn-default" type="button" id="comaddr_button" class="example_button" value="검색">
+									    </div>
+									</div>
+									<div class="form-group form-inline">	    
+									    <label class="font-black col-sm-2 control-label" for="comaddr">도로명주소</label>
+									    <input type="text" id="comaddr" name="comaddr" class="example_input postcodify_address form-control" style="width:70%" readonly> 
+									</div>
+									<div class="form-group form-inline">	
+										<label class="font-black col-sm-2 control-label" for="comaddrdetail">상세주소</label>
+										<input type="text" id="comaddrdetail" name="comaddrdetail" class="example_input postcodify_details form-control" style="width:70%;">    
 									</div>
 								</c:if>
 								<div align="right">
@@ -190,5 +215,6 @@ a {
 		</div>
 	</header>
 
+<%@ include file="./searchAddr.jsp" %>
 
-	<%@ include file="../views/bottom.jsp"%>
+<%@ include file="../views/bottom.jsp"%>

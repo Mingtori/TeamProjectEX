@@ -21,10 +21,16 @@ public class BoardDeleteController {
 	@RequestMapping(value=command,method=RequestMethod.GET)
 	public String doActionGet(
 			@RequestParam("boardid") int boardid,
-			@RequestParam("boardcateid") String boardcateid
+			@RequestParam("boardcateid") String boardcateid,
+			@RequestParam(value="prodid", required=false) int prodid,
+			@RequestParam(value="flag", required=false) String flag
 			){
 		System.out.println("boardcateid:"+boardcateid);
 		boardDao.deleteArticle(boardid);
-		return gotoPage+"?boardcateid="+boardcateid;
+		if(flag==null){
+			return gotoPage+"?boardcateid="+boardcateid;
+		}else{
+			return "redirect:/detail.prd?pageNumber=1&prodid=" + prodid;
+		}
 	}
 }

@@ -11,6 +11,8 @@ public class Member {
 	private String memname;	//이름
 	@NotEmpty(message="주소를 입력해주세요.")
 	private String memaddr;	//주소
+	private String mempost;	//우편번호
+	private String memaddrdetail; // 상세주소
 	private String memphone;	//전화번호
 	@NotEmpty(message="전화번호를 입력해주세요.")
 	private String memphone1;
@@ -29,7 +31,34 @@ public class Member {
 	private int comid;			//회사ID
 	private String comname;	//회사이름
 	private String comaddr;	//회사주소
+	private String compost;
+	private String comaddrdetail;
 	
+	
+	public String getCompost() {
+		return compost;
+	}
+	public void setCompost(String compost) {
+		this.compost = compost;
+	}
+	public String getComaddrdetail() {
+		return comaddrdetail;
+	}
+	public void setComaddrdetail(String comaddrdetail) {
+		this.comaddrdetail = comaddrdetail;
+	}
+	public String getMempost() {
+		return mempost;
+	}
+	public void setMempost(String mempost) {
+		this.mempost = mempost;
+	}
+	public String getMemaddrdetail() {
+		return memaddrdetail;
+	}
+	public void setMemaddrdetail(String memaddrdetail) {
+		this.memaddrdetail = memaddrdetail;
+	}
 	public String getGradename() {
 		return gradename;
 	}

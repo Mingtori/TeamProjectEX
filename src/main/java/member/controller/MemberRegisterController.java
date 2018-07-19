@@ -28,10 +28,10 @@ public class MemberRegisterController {
 	
 	@RequestMapping(value=command, method=RequestMethod.GET)
 	public String doActionGet(
-			@RequestParam(value="what", required=false) String what,
+			@RequestParam(value="type", required=false) String type,
 			Model model){
-		if(what != null){
-			model.addAttribute("what", what);
+		if(type != null){
+			model.addAttribute("type", type);
 			return getPage2;
 		}
 		return getPage;
@@ -39,8 +39,8 @@ public class MemberRegisterController {
 	
 	@RequestMapping(value=command, method=RequestMethod.POST)
 	public String doActionPost(
-			@RequestParam(value="what") String what,
-			@Valid Member member,
+			@RequestParam(value="type") String type,
+			Member member,
 			BindingResult bindingResult,
 			Model model){
 		if(bindingResult.hasErrors()){
@@ -52,11 +52,16 @@ public class MemberRegisterController {
 		
 		member.setMememail(member.getMememail1()+"@"+member.getMememail2());
 		member.setMemphone(member.getMemphone1()+"-"+member.getMemphone2()+"-"+member.getMemphone3());
+		System.out.println("(" + member.getMempost()+")"+ member.getMemaddr()+ "/"+ member.getMemaddrdetail());
+		// 주소 합치기
+		String memaddr = "(" + member.getMempost()+")"+ member.getMemaddr()+ "/"+ member.getMemaddrdetail();
+		member.setMemaddr(memaddr);
 		
-		
-		if(what.equals("seller")){
+		if(type.equals("seller")){
 			member.setMempermit("승인대기");
 			member.setGradeid(2);
+			String comaddr = "(" + member.getCompost()+")"+ member.getComaddr()+ "/"+ member.getComaddrdetail();
+			member.setComaddr(comaddr);
 			compositeDao.insertCompany(member);
 		}else{
 			member.setMempermit("승인");

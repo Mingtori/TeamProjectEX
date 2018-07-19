@@ -2,12 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../page/mytop.jsp"%>
 <head>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript">
 	function goback(){
 		history.back(-1);
 	}
 	function leave(memid){
-		location.href="delete.me?memid=" + memid;
+		if(confirm("정말 탈퇴하시겠습니까?")==true){
+			location.href="delete.me?memid=" + memid;
+		}else{
+			return;
+		}
 	}
 	
 	var pwflag = false;
@@ -15,14 +20,18 @@
 	function pwcheck(){
 		var pw1 = $("input[name='mempw']").val();
 		var pw2 = $("input[name='mempwcheck']").val();
-		if(pw1 == pw2){
-			$("#pwcheck").html("비밀번호 일치");
-			pwflag=true;
+		if(pw1 != "" && pw2 != ""){
+			if(pw1 == pw2){
+				$("#pwcheck").html("비밀번호 일치");
+				pwflag=true;
+			}else{
+				$("#pwcheck").html("비밀번호 불일치");
+				pwflag=false;
+			}
 		}else{
-			$("#pwcheck").html("비밀번호 불일치");
+			$("#pwcheck").html("비밀번호를 입력해주세요");
 			pwflag=false;
 		}
-		
 	}
 	
 
@@ -72,12 +81,22 @@
                      <input type="text" class="form-control" name="memname" value="${member.memname }"/>
                      <form:errors cssClass="err" path="memname"/>
                   </div>
-                  
                   <div class="form-group form-inline">
-                     <label for="memaddr" class="col-sm-2 control-label">주소</label>
-                     <input type="text" class="form-control" name="memaddr" value="${member.memaddr }"/>
-                     <form:errors cssClass="err" path="memaddr"/>
-                  </div>
+						<label class="font-black col-sm-2 control-label" for="mempost">우편번호</label>
+						<input type="text" id="mempost" name="mempost" class="example_pcfull postcodify_postcode5 form-control" readonly  value="${member.mempost }">
+						<div class="col-sm-4">
+					    	<input class="btn btn-default" type="button" id="memaddr_button" class="example_button" value="검색">
+					    </div>
+						<form:errors cssClass="err" path="memaddr" />
+					</div>
+					<div class="form-group form-inline">	    
+					    <label class="font-black col-sm-2 control-label" for="memaddr">도로명주소</label>
+					    <input type="text" id="memaddr" name="memaddr" class="example_input postcodify_address form-control" style="width:70%" readonly value="${member.memaddr }"> 
+					</div>
+					<div class="form-group form-inline">	
+						<label class="font-black col-sm-2 control-label" for="memaddrdetail">상세주소</label>
+						<input type="text" id="memaddrdetail" name="memaddrdetail" class="example_input postcodify_details form-control" style="width:70%;" value="${member.memaddrdetail }">    
+					</div>
                   <c:if test="${member.memid!='admin'}">
                      <div class="form-group form-inline">
                         <label for="memphone1" class="col-sm-2 control-label">전화번호</label>
@@ -101,6 +120,7 @@
                         <option value="">선택하세요
                         <option value="naver.com" <c:if test="${email[1] == 'naver.com' }">selected</c:if>>naver.com
                         <option value="daum.net" <c:if test="${email[1] == 'daum.net' }">selected</c:if>>daum.net
+                        <option value="gmail.com" <c:if test="${email[1] == 'gmail.com' }">selected</c:if>>gmail.com
                      </select>
                      <form:errors cssClass="err" path="mememail1"/>
                      <form:errors cssClass="err" path="mememail2"/>
@@ -111,11 +131,21 @@
 		                  <input class="form-control" type="text" name="comname" placeholder="예술의 전당" value="${member.comname }">
 		                  <form:errors cssClass="err" path="comname"/>
 	                  </div>
-	                  <div class="form-group form-inline">      
-		                  <label class="col-sm-2 control-label" for="comaddr">회사주소</label>
-		                  <input class="form-control" type="text" name="comaddr" placeholder="서울시 서초구" value="${member.comaddr }">
-		                  <form:errors cssClass="err" path="memaddr"/>
-	                  </div>
+	                  <div class="form-group form-inline">
+							<label class="font-black col-sm-2 control-label" for="compost">우편번호</label>
+							<input type="text" id="compost" name="compost" class="example_pcfull postcodify_postcode5 form-control" readonly value="${member.compost }">
+							<div class="col-sm-4">
+						    	<input class="btn btn-default" type="button" id="comaddr_button" class="example_button" value="검색">
+						    </div>
+						</div>
+						<div class="form-group form-inline">	    
+						    <label class="font-black col-sm-2 control-label" for="comaddr">도로명주소</label>
+						    <input type="text" id="comaddr" name="comaddr" class="example_input postcodify_address form-control" style="width:70%" readonly value="${member.comaddr }"> 
+						</div>
+						<div class="form-group form-inline">	
+							<label class="font-black col-sm-2 control-label" for="comaddrdetail">상세주소</label>
+							<input type="text" id="comaddrdetail" name="comaddrdetail" class="example_input postcodify_details form-control" style="width:70%;" value="${member.comaddrdetail }">    
+						</div>
                   </c:if>
                   <div align="right">
 	                  <input type="submit" class="btn btn-primary" value="수정하기" onclick="return check();">
@@ -126,4 +156,6 @@
          </div>
       </div>
    </div>
+   
+<%@ include file="./searchAddr.jsp" %>
 <%@ include file="../page/mybottom.jsp"%>

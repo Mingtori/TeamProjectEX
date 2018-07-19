@@ -37,9 +37,20 @@ public class MemberSearchPWController {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter writer = response.getWriter();
 		if(pw != null){
+			String name = member.getMemname() + "님의 비밀번호입니다.";
+			String msg = "비밀번호 : " + pw + "<br>감사합니다. "; 
+
+			writer.println("<script src='https://smtpjs.com/v2/smtp.js'></script>");
 			writer.println("<script>");
-			writer.println("alert('" + "비밀번호 : " + pw + "')");
-			writer.println("location.href='login.me'");
+			writer.println("Email.send('jihee88s@naver.com',");
+			writer.println("'" + member.getMememail() + "',");
+			writer.println("'" + name + "',");
+			writer.println("'" + msg + "',");
+			writer.println("'smtp.elasticemail.com',");
+			writer.println("'jihee88s@naver.com',");
+			writer.println("'c799cbfc-c6da-46a7-bb33-2ee2df827953');");
+			writer.println("alert('해당 이메일로 전송했습니다');");
+			writer.println("location.href='login.me';");
 			writer.println("</script>");
 			writer.flush();
 		}else{

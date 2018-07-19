@@ -34,15 +34,11 @@ public class ProductDetailController {
 
 	@RequestMapping(value = command, method = RequestMethod.GET)
 	public String doActionGet(@RequestParam(value="prodid", required = true) int prodid 
-			,@RequestParam(value="pageNumber", required = false) int pageNumber
-			,@RequestParam(value="boardcateid", required = true) String boardcateid
+			,@RequestParam(value="pageNumber") int pageNumber
 			,Model model) {
-		
 		Product bean = productdao.GetProductDetail(prodid);
 		model.addAttribute("product", bean);
 		model.addAttribute("pageNumber", pageNumber);
-		model.addAttribute("boardcateid", boardcateid);
-		
 		
 		// 후기게시판 가져오기
 		Map<String, Object> map = new HashMap<String, Object>();

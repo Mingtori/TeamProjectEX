@@ -23,6 +23,9 @@
 		a{
 			color:black;
 		}
+		.fas {
+	       margin-bottom:10px;
+	      }
 	</style>
 </head>
 <body>
@@ -34,8 +37,14 @@
 				<div class="jumbotron">
 				<div class="intro-lead-in font-black">회원가입</div>
 					<form action="login.me" method="post">
-						<a href="register.me?what=nomal">일반회원</a>
-						<a href="register.me?what=seller">판매자</a>
+						<div class="row">
+			                  <div class="col-sm-2 offset-4" >
+			                     <a href="register.me?type=nomal"><i class="fas fa-user-lock fa-7x"></i><br><font size="5em">일반회원</font></a>
+			                  </div>
+			                  <div class="col-sm-2">
+			                     <a href="register.me?type=seller"><i class="fas fa-user-tie fa-7x"></i><br><font size="5em">판매자</font></a>
+			                  </div>
+			               </div>
 					</form>
 				</div>
 			</div>

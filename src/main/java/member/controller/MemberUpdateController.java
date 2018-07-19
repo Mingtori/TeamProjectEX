@@ -32,11 +32,33 @@ public class MemberUpdateController {
 			@RequestParam(value="memid", required=false) String memid){
 		System.out.println(this.getClass() + " get");
 		Member loginfo, member; 
-		if(memid == null){	// 본인 회원수정
+		if(memid == null){	
 			loginfo = (Member) session.getAttribute("loginfo");
 			return "beforeUpdate";
-		}else{		// 관리자가 회원수정
+		}else{		
 			member = memberDao.getMemberJoinCG(memid);
+			String address = member.getMemaddr();
+			if(address.indexOf("(") != -1){
+				String mempost = address.substring(1,6);
+				String memaddr = address.substring(address.indexOf(")")+1, address.indexOf("/"));
+				String memaddrdetail = address.substring(address.indexOf("/")+1);
+				System.out.println(mempost + "/" + memaddr + "/" + memaddrdetail);
+				member.setMempost(mempost);
+				member.setMemaddr(memaddr);
+				member.setMemaddrdetail(memaddrdetail);
+			}
+			if(member.getComaddr() != null){
+				address = member.getComaddr();
+				if(address.indexOf("(") != -1){
+					String compost = address.substring(1,6);
+					String comaddr = address.substring(address.indexOf(")")+1, address.indexOf("/"));
+					String comaddrdetail = address.substring(address.indexOf("/")+1);
+					System.out.println(compost + "/" + comaddr + "/" + comaddrdetail);
+					member.setCompost(compost);
+					member.setComaddr(comaddr);
+					member.setComaddrdetail(comaddrdetail);
+				}
+			}
 		}
 		System.out.println(member.getMemid());
 		model.addAttribute("member", member);
@@ -49,6 +71,10 @@ public class MemberUpdateController {
 		member.setMememail(member.getMememail1()+"@"+member.getMememail2());
 		if(!member.getMemid().equals("admin")){
 			member.setMemphone(member.getMemphone1()+"-"+member.getMemphone2()+"-"+member.getMemphone3());
+			String memaddr = "(" + member.getMempost()+")"+ member.getMemaddr()+ "/"+ member.getMemaddrdetail();
+			member.setMemaddr(memaddr);
+			String comaddr = "(" + member.getCompost()+")"+ member.getComaddr()+ "/"+ member.getComaddrdetail();
+			member.setComaddr(comaddr);
 		}
 		System.out.println(member.getComid());
 		memberDao.updateMember(member);

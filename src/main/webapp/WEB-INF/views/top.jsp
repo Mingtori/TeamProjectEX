@@ -36,8 +36,10 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/agency.min.css"
 	rel="stylesheet">
+	
+
 <style>
-.dropdown-menu{
+#dropdown-menu{
 	background-color:transparent;
 	border:none;
 }
@@ -69,7 +71,7 @@
 						<a class="dropdown-toggle nav-link js-scroll-trigger" href="#" id="contact" data-toggle="dropdown" aria-expanded="true">contact
 						    <span class="caret"></span>
 						</a>
-						<ul class="dropdown-menu" role="menu" aria-labelledby="contact">
+						<ul class="dropdown-menu" id="dropdown-menu" role="menu" aria-labelledby="contact">
 						  <li role="presentation"><a role="menuitem" tabindex="-1" href="notice.bd?boardcateid=a01">Notice</a></li>
 						  <li role="presentation"><a role="menuitem" tabindex="-1" href="notice.bd?boardcateid=a02">QnA</a></li>
 						</ul>
@@ -81,7 +83,7 @@
 					<a class="dropdown-toggle nav-link js-scroll-trigger" id="mypage" data-toggle="dropdown" aria-expanded="true" href="mypage.pg">My Page
 						<span class="caret"></span>
 					</a>
-					<ul class="dropdown-menu" role="menu" aria-labelledby="mypage">
+					<ul class="dropdown-menu" id="dropdown-menu" role="menu" aria-labelledby="mypage">
 						<c:if test="${loginfo.gradeid == 0 }">
 							<!-- 관리자일경우 -->
 							<li role="presentation"><a role="menuitem" tabindex="-1" href="memberlist.me">회원관리목록</a></li>

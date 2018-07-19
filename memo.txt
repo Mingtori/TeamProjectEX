@@ -51,7 +51,7 @@ drop sequence productseq;
   
 create sequence productseq
   increment by 1
-  start with 0
+  start with 1
   minvalue 0
   maxvalue 10000
   nocache;
@@ -80,7 +80,7 @@ CREATE TABLE members (
 	memid VARCHAR2(15) NOT NULL, /* 회원ID */
 	mempw VARCHAR2(10) NOT NULL, /* 비밀번호 */
 	memname VARCHAR2(10) NOT NULL, /* 이름 */
-	memaddr VARCHAR2(40), /* 주소 */
+	memaddr VARCHAR2(80), /* 주소 */
 	memphone VARCHAR2(13), /* 전화번호 */
 	mememail VARCHAR2(20) NOT NULL, /* 이메일 */
 	mempermit VARCHAR2(10) DEFAULT '승인', /* 가입승인 */
@@ -115,7 +115,7 @@ ALTER TABLE memgrade
 /* products */
 CREATE TABLE products (
 	prodid NUMBER NOT NULL, /* 상품ID */
-	prodname VARCHAR2(50) NOT NULL, /* 상품명 */
+	prodname VARCHAR2(100) NOT NULL, /* 상품명 */
 	prodcateid NUMBER NOT NULL, /* 카테고리ID */
 	prodimage VARCHAR2(50) NOT NULL, /* 이미지 */
 	prodprice NUMBER NOT NULL, /* 가격 */
@@ -167,11 +167,11 @@ ALTER TABLE selllist
 /* boards */
 CREATE TABLE boards (
 	boardid NUMBER NOT NULL, /* 게시글ID */
-	boardsubject VARCHAR2(50) NOT NULL, /* 제목 */
+	boardsubject VARCHAR2(150) NOT NULL, /* 제목 */
 	memid VARCHAR2(15) NOT NULL, /* 회원ID */
 	boardcateid VARCHAR2(5) NOT NULL, /* 카테고리ID */
 	prodid NUMBER, /* 상품ID */
-	boardcontent VARCHAR2(500) NOT NULL, /* 내용 */
+	boardcontent VARCHAR2(1000) NOT NULL, /* 내용 */
 	ref NUMBER DEFAULT 0, /* ref */
 	restep NUMBER DEFAULT 0, /* restep */
 	relevel NUMBER DEFAULT 0, /* relevel */
@@ -230,7 +230,7 @@ ALTER TABLE orders
 CREATE TABLE company (
 	comid NUMBER NOT NULL, /* 회사ID */
 	comname VARCHAR2(25) NOT NULL UNIQUE, /* 회사이름 */
-	comaddr VARCHAR2(50) NOT NULL /* 회사주소 */
+	comaddr VARCHAR2(80) NOT NULL /* 회사주소 */
 );
 
 ALTER TABLE company
@@ -351,12 +351,6 @@ values(0,'게시판용','0','0',0,0,sysdate,sysdate,sysdate,'0',' ');
 insert into members(memid,mempw,memname,mememail,mempermit,gradeid)
 values('admin','1234','관리자','admin@gmail.com','',0);		
 insert into members
-values('seller1', '1234', '판매자1', '서울특별시 마포구 신촌로 176','010-1111-1111','seller1@gmail.com','승인',2,1);
-insert into members
-values('seller2', '1234', '판매자2', '인천광역시 남구 인하로','010-2222-2222','seller2@gmail.com','승인',2,2);
-insert into members
-values('seller3', '1234', '판매자3', '경기도 고양시','010-3333-3333','seller3@gmail.com','승인',2,3);
-insert into members
 values('buyer1', '1234', '구매자1', '부산광역시 동구','010-4444-4444','buyer1@naver.com','승인',1,null);
 insert into members
 values('buyer2', '1234', '구매자2', '부산광역시 동구','010-5555-5555','buyer2@naver.com','승인',1,null);
@@ -431,7 +425,7 @@ values ( productseq.nextval
 				, sysdate
 				, '18/09/12'
 				, '18/09/14'
-				, '● 국토교통부 7대 신산업을 포함한 최신 공간정보기술 소개 및 공간정보 산업 비즈니스 성과 교류 도모 ● 공간정보산업 대표 기업과 기관의 관련 제품 전시 및 체험을 통한 글로벌 산업동향 이해
+				, ' 국토교통부 7대 신산업을 포함한 최신 공간정보기술 소개 및 공간정보 산업 비즈니스 성과 교류 도모  공간정보산업 대표 기업과 기관의 관련 제품 전시 및 체험을 통한 글로벌 산업동향 이해
           GIS, BIM, 드론 및 위성, 레이저스캐너, 라이다, 모바일맵핑, 스마트시티, 측량, UAV 등'
 				, '코엑스 D2홀' );
 insert into products
@@ -439,7 +433,7 @@ values ( productseq.nextval
 				, '2018 대한민국 세게여성발명대회 및 여성발명품박람회(여성발명왕EXPO)'
 				, '0'
 				, 'inventor.jpg'
-				, 0
+				, 5000
 				, '1000'
 				, sysdate
 				, '18/07/28'
@@ -456,14 +450,9 @@ values ( productseq.nextval
 				, sysdate
 				, '18/08/11'
 				, '18/08/13'
-				, '□ 세계 3대 나노기술 전문전시회 
-          ㅇ 나노기술 연구개발 및 상용화에 특화된 국내유일, 세계 3대 나노융합 국제행사입니다. 또한 나노기반의 미래융합기술을 주도하는 국제교류의 장으로서 마이크로/나노시스템, 레이저기술, 첨단세라믹, 고기능소재, 스마트센서 등 첨단기술분야를 총망라하여 총 6개 전시회를 합동개최하고 있습니다. 
-          
-          □ 트렌드 & 이슈 
-          ㅇ 최신 나노기술 연구성과를 한눈에 확인할 수 있는 기회의 장입니다. 나노코리아 기조강연, 심포지엄, 전문세션 등을 통해 첨단 나노기술의 현주소와 미래 트렌드를 확인할 수 있으며, 전문 산업화세션을 통해 나노기술의 상용화 현황과 국내외 유명 기업들의 미래개발 로드맵을 한눈에 볼 수 있는 첨단기술 전문 전시회입니다. 
-          
-          □ 실질적인 비즈니스 성과창출 
-          ㅇ 주요참관객은 최신 나노기술과 신기술 솔루션의 도입을 통해 기업의 신사업과 제품혁신, 국가 R&D프로젝트 기획 및 수행, 신규 파트너 발굴을 희망하는 최종·중간 결정권자입니다. 전체 참관객의 85%가 바이어로 구성되어 있으며, 이중 50% 이상이 최종·중간결정권자 이상으로 나타나 전문 비즈니스 성격에 부합하고 있습니다.'
+				, ' 세계 3대 나노기술 전문전시회 
+           나노기술 연구개발 및 상용화에 특화된 국내유일, 세계 3대 나노융합 국제행사입니다. 또한 나노기반의 미래융합기술을 주도하는 국제교류의 장으로서 마이크로/나노시스템, 레이저기술, 첨단세라믹, 고기능소재, 스마트센서 등 첨단기술분야를 총망라하여 총 6개 전시회를 합동개최하고 있습니다. 
+          트렌드 이슈 '
 				, '장소 전시홀 7 (제2전시장) , 전시홀 8A (제2전시장)' );  
 insert into products
 values ( productseq.nextval
@@ -482,7 +471,7 @@ values ( productseq.nextval
 				, '‘The Loop’ - 텍스타일 디자인 展'
 				, '0'
 				, 'the_loop.jpg'
-				, 0
+				, 7000
 				, '1000'
 				, sysdate
 				, '18/08/29'
@@ -494,7 +483,7 @@ values ( productseq.nextval
 				, '이미 아직'
 				, '0'
 				, 'already_not_yet.jpg'
-				, 0
+				, 9000
 				, '1000'
 				, sysdate
 				, '18/08/10'
@@ -506,7 +495,7 @@ values ( productseq.nextval
 				, '신미식 작가 x 윤쌍웅 작가 기증 작품전'
 				, '0'
 				, 'shin.jpg'
-				, 0
+				, 8500
 				, '1000'
 				, sysdate
 				, '18/08/01'

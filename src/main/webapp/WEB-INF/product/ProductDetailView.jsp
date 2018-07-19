@@ -64,6 +64,35 @@ dt, dd {
 h5{
 	text-align:left;
 }
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    color: #555;
+    cursor: default;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+}
+.nav-tabs>li>a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+}
+
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+
+a.active.show {
+	border-bottom-color: transparent;
+	background-color:white;
+}
+ul.nav.nav-tabs {
+	border-bottom:1px solid gray;
+	margin-bottom:10px;
+}
 </style>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -206,9 +235,19 @@ h5{
 	function gotoList() {
 		location.href = "${pageContext.request.contextPath}/list.prd?pageNumber=${pageNumber}";
 	}
+	
+	 function updateForm(prodid,boardsubject,boardid,pageNumber,content){
+	      $("#modal-title").text('문의 수정');
+	      $("#boardid").val(boardid);
+	      $("label[id=boardsubject]").html('<b>' + boardsubject);
+	      $("input[name=prodid]").val(prodid);
+	      $("input[name=boardsubject]").val(boardsubject);
+	      $("#editcontent").html(content);
+	      $("#boardModal").modal();
+	   }
 </script>
 </head>
-<body>
+<body onload="geocode();">
 	<section class="bg-light">
 	<div class="container">
 		<div class="jumbotron" align="center">
@@ -322,184 +361,230 @@ h5{
 				</div>
 			</div>
 			<hr>
-			<!-- 후기게시판 -->
+			
+			<div class="row">
+				<div class="col-sm-8 offset-sm-2">
+					<div role="tabpanel">
+					  <!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+					  <li role="presentation"><a href="#notice" class="active show" id="notice-tab" aria-controls="notice" role="tab" data-toggle="tab" aria-expanded="true"><b>공지사항</b></a></li>
+					  <li role="presentation"><a href="#review" id="review-tab" aria-controls="review" role="tab" data-toggle="tab" aria-expanded="false"><b>관람후기</b></a></li>
+					  <li role="presentation"><a href="#qna" id="qna-tab"  aria-controls="qna" role="tab" data-toggle="tab" aria-expanded="false"><b>문의하기</b></a></li>
+					</ul>
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane fade in active show" id="notice" aria-labelledby="notice-tab">
+						<!-- 공지사항 -->
+							<form action="insert.bd" method="post">
+								<fieldset>
+									<input type="hidden" name="boardcateid" value="p01"> <input
+										type="hidden" name="prodid" value="${ product.prodid}">
+									<input type="hidden" name="memid" value="${loginfo.memid }">
+									<input type="hidden" name="prodname" value="${product.prodname }">
+									<div class="form-group form-inline">
+										<c:if test="${loginfo.memid == product.memid && loginfo != null}">
+										<div class="col-sm-1" id="reviewform">
+											<label>공지 작성</label>
+										</div>
+										<div class="col-sm-10" id="reviewform">
+											<textarea class="form-control" id="content"
+												name="boardcontent" placeholder="내용은 140자까지 작성 가능합니다."
+												maxlength="140" rows="2"></textarea>
+										</div>
+										<div class="col-sm-1" id="reviewform">
+											<button type="submit" class="btn btn-primary"
+												style="height: 60px; float: left">작성</button>
+										</div>
+										</c:if>
+									</div>
+								</fieldset>
+							</form>
+					
+							<table class="table" style="background-color: #f2f2f2">
+								<c:if test="${fn:length(noticelist) == 0}">
+									<tr>
+										<td align="center">공지사항이 없습니다.</td>
+									</tr>
+								</c:if>
+								<c:if test="${fn:length(noticelist) != 0}">
+									<c:forEach var="notice" items="${noticelist }">
+										<tr>
+											<th>${notice.boardsubject }</th>
+											<td align="right" style="font-size: small;" colspan="2"
+												id="reviewInfo">작성자 <b>${notice.memid } </b> &#124; 작성일
+												<b>${notice.boardinputdate }</b>
+												<c:if test="${loginfo.memid == product.memid && loginfo != null}">
+				                                    <button type="button" id="update_${notice.boardid}" onclick="updateForm('${notice.prodid }','${notice.boardsubject }','${notice.boardid}','${pageNumber}','${notice.boardcontent }');"><i class="far fa-edit"></i></button>
+				                                    <button type="button" id="delete_${notice.boardid}" onclick="location.href='delete.bd?boardid=${notice.boardid}&boardcateid=${notice.boardcateid }&flag=flag&prodid=${notice.prodid }'" ><i class="far fa-trash-alt"></i></button>
+				                                 </c:if>
+												</td>
+										</tr>
+										<tr>
+											<td colspan="2">${notice.boardcontent }</td>
+										</tr>
+										<tr>
+					
+										</tr>
+									</c:forEach>
+								</c:if>
+							</table>
+					  </div>
+					  <div role="tabpanel" class="tab-pane fade" id="review" aria-labelledby="review-tab">
+					  		<form action="insert.bd" method="post">
+										<fieldset>
+											<input type="hidden" name="boardcateid" value="p03"> <input
+												type="hidden" name="prodid" value="${ product.prodid}">
+									<input type="hidden" name="memid" value="${loginfo.memid }">
+									<input type="hidden" name="prodname" value="${product.prodname }">
+									<%-- <div class="form-group form-inline">
+										<c:if test="${loginfo != null }">
+										<div class="col-sm-1" id="reviewform">
+											<label>관람평 작성</label>
+										</div>
+										<div class="col-sm-10" id="reviewform">
+											<textarea class="form-control" id="content"
+												name="boardcontent" placeholder="내용은 140자까지 작성 가능합니다."
+												maxlength="140" rows="2"></textarea>
+										</div>
+										<div class="col-sm-1" id="reviewform">
+											<button type="submit" class="btn btn-primary"
+												style="height: 60px; float: left">작성</button>
+										</div>
+										</c:if>
+										<c:if test="${loginfo == null }">
+											<h5 align="center">로그인 후에 이용하실 수 있습니다.</h5>
+										</c:if>
+									</div> --%>
+								</fieldset>
+							</form>
+					
+							<table class="table" style="background-color: #f2f2f2">
+								<c:if test="${fn:length(reviewlist) == 0}">
+									<tr>
+										<td align="center">후기가 없습니다.</td>
+									</tr>
+								</c:if>
+								<c:if test="${fn:length(reviewlist) != 0}">
+									<c:forEach var="review" items="${reviewlist }">
+										<tr>
+											<th>${review.boardsubject }</th>
+											<td align="right" style="font-size: small;" colspan="2"
+												id="reviewInfo">작성자 <b>${review.memid } </b> &#124; 작성일
+												<b>${review.boardinputdate }</b>
+												<c:if test="${review.memid eq loginfo.memid }">
+				                                    <button type="button" id="update_${review.boardid}" onclick="updateForm('${review.prodid }','${review.boardsubject }','${review.boardid}','${pageNumber}','${review.boardcontent }');"><i class="far fa-edit"></i></button>
+				                                    <button type="button" id="delete_${review.boardid}" onclick="location.href='delete.bd?boardid=${review.boardid}&boardcateid=${review.boardcateid }&flag=flag&prodid=${review.prodid }'" ><i class="far fa-trash-alt"></i></button>
+				                                 </c:if>
+												</td>
+										</tr>
+										<tr>
+											<td colspan="2">${review.boardcontent }</td>
+										</tr>
+										<tr>
+					
+										</tr>
+									</c:forEach>
+								</c:if>
+										</table>
+					</div>
+					   <div role="tabpanel" class="tab-pane fade" id="qna" aria-labelledby="qna-tab">
+					   	<!-- 문의하기 -->
+							<form action="insert.bd" method="post">
+								<fieldset>
+									<input type="hidden" name="boardcateid" value="p02"> <input
+										type="hidden" name="prodid" value="${ product.prodid}">
+									<input type="hidden" name="memid" value="${loginfo.memid }">
+									<input type="hidden" name="prodname" value="${product.prodname }">
+									<div class="form-group form-inline">
+										<c:if test="${loginfo != null }">
+										<div class="col-sm-1" id="reviewform">
+											<label>문의 작성</label>
+										</div>
+										<div class="col-sm-10" id="reviewform">
+											<textarea class="form-control" id="content"
+												name="boardcontent" placeholder="내용은 140자까지 작성 가능합니다."
+												maxlength="140" rows="2"></textarea>
+										</div>
+										<div class="col-sm-1" id="reviewform">
+											<button type="submit" class="btn btn-primary"
+												style="height: 60px; float: left">작성</button>
+										</div>
+										</c:if>
+										<c:if test="${loginfo == null }">
+											<h5 align="center">로그인 후에 이용하실 수 있습니다.</h5>
+										</c:if>
+									</div>
+								</fieldset>
+							</form>
+					
+							<table class="table" style="background-color: #f2f2f2">
+								<c:if test="${fn:length(qnalist) == 0}">
+									<tr>
+										<td align="center">문의가 없습니다.</td>
+									</tr>
+								</c:if>
+								<c:if test="${fn:length(qnalist) != 0}">
+									<c:forEach var="qna" items="${qnalist }">
+										<tr>
+											<th>${qna.boardsubject }</th>
+											<td align="right" style="font-size: small;" colspan="2"
+												id="reviewInfo">작성자 <b>${qna.memid } </b> &#124; 작성일
+												<b>${qna.boardinputdate }</b>
+												<c:if test="${qna.memid eq loginfo.memid }">
+				                                    <button type="button" id="update_${qna.boardid}" onclick="updateForm('${qna.prodid }','${qna.boardsubject }','${qna.boardid}','${pageNumber}','${qna.boardcontent }');"><i class="far fa-edit"></i></button>
+				                                    <button type="button" id="delete_${qna.boardid}" onclick="location.href='delete.bd?boardid=${qna.boardid}&boardcateid=${qna.boardcateid }&flag=flag&prodid=${qna.prodid }'" ><i class="far fa-trash-alt"></i></button>
+				                                 </c:if>
+												</td>
+										</tr>
+										<tr>
+											<td colspan="2">${qna.boardcontent }</td>
+										</tr>
+										<tr>
+					
+										</tr>
+									</c:forEach>
+								</c:if>
+									</table>
+					  </div>
+					</div>
+					</div>
+			
+			<hr>
 			<div>
-				<button type="button" class="btn btn-default btn-lg"
-					data-toggle="collapse" data-target="#notice">공지사항</button>
-				<button type="button" class="btn btn-default btn-lg"
-					data-toggle="collapse" data-target="#review">관람후기</button>
-				<button type="button" class="btn btn-default btn-lg"
-					data-toggle="collapse" data-target="#qna">문의하기</button>
-
-				<!-- 관람후기 -->
-				<div id="review" class="row collapse">
-					<div class="col-sm-8 offset-sm-2">
-						<form action="insert.bd" id="review" method="post">
-							<fieldset>
-								<input type="hidden" name="boardcateid" value="p03"> <input
-									type="hidden" name="prodid" value="${ product.prodid}">
-								<input type="hidden" name="memid" value="${loginfo.memid }">
-								<input type="hidden" name="prodname" value="${product.prodname }">
-									<h5>관람평</h5>
-								<div class="form-group form-inline">
-									<c:if test="${loginfo != null }">
-									<div class="col-sm-1" id="reviewform">
-										<label>관람평 작성</label>
-									</div>
-									<div class="col-sm-10" id="reviewform">
-										<textarea class="form-control" id="content"
-											name="boardcontent" placeholder="내용은 140자까지 작성 가능합니다."
-											maxlength="140" rows="2"></textarea>
-									</div>
-									<div class="col-sm-1" id="reviewform">
-										<button type="submit" class="btn btn-primary"
-											style="height: 60px; float: left">작성</button>
-									</div>
-									</c:if>
-									<c:if test="${loginfo == null }">
-										<h5 align="center">로그인 후에 이용하실 수 있습니다.</h5>
-									</c:if>
-								</div>
-							</fieldset>
-						</form>
-
-						<table class="table" style="background-color: #f2f2f2">
-							<c:if test="${fn:length(reviewlist) == 0}">
-								<tr>
-									<td align="center">후기가 없습니다.</td>
-								</tr>
-							</c:if>
-							<c:if test="${fn:length(reviewlist) != 0}">
-								<c:forEach var="review" items="${reviewlist }">
-									<tr>
-										<th>${review.boardsubject }</th>
-										<td align="right" style="font-size: small;" colspan="2"
-											id="reviewInfo">작성자 <b>${review.memid } </b> &#124; 작성일
-											<b>${review.boardinputdate }</b></td>
-									</tr>
-									<tr>
-										<td colspan="2">${review.boardcontent }</td>
-									</tr>
-									<tr>
-
-									</tr>
-								</c:forEach>
-							</c:if>
-						</table>
-					</div>
-				</div>
-
-				<!-- 문의하기 -->
-				<div id="qna" class="row collapse">
-					<div class="col-sm-8 offset-sm-2">
-						<form action="insert.bd" id="review" method="post">
-							<fieldset>
-								<input type="hidden" name="boardcateid" value="p02"> <input
-									type="hidden" name="prodid" value="${ product.prodid}">
-								<input type="hidden" name="memid" value="${loginfo.memid }">
-								<input type="hidden" name="prodname" value="${product.prodname }">
-									<h5>문의하기</h5>
-								<div class="form-group form-inline">
-									<c:if test="${loginfo != null }">
-									<div class="col-sm-1" id="reviewform">
-										<label>문의 작성</label>
-									</div>
-									<div class="col-sm-10" id="reviewform">
-										<textarea class="form-control" id="content"
-											name="boardcontent" placeholder="내용은 140자까지 작성 가능합니다."
-											maxlength="140" rows="2"></textarea>
-									</div>
-									<div class="col-sm-1" id="reviewform">
-										<button type="submit" class="btn btn-primary"
-											style="height: 60px; float: left">작성</button>
-									</div>
-									</c:if>
-									<c:if test="${loginfo == null }">
-										<h5 align="center">로그인 후에 이용하실 수 있습니다.</h5>
-									</c:if>
-								</div>
-							</fieldset>
-						</form>
-
-						<table class="table" style="background-color: #f2f2f2">
-							<c:if test="${fn:length(qnalist) == 0}">
-								<tr>
-									<td align="center">문의가 없습니다.</td>
-								</tr>
-							</c:if>
-							<c:if test="${fn:length(qnalist) != 0}">
-								<c:forEach var="qna" items="${qnalist }">
-									<tr>
-										<th>${qna.boardsubject }</th>
-										<td align="right" style="font-size: small;" colspan="2"
-											id="reviewInfo">작성자 <b>${qna.memid } </b> &#124; 작성일
-											<b>${qna.boardinputdate }</b></td>
-									</tr>
-									<tr>
-										<td colspan="2">${qna.boardcontent }</td>
-									</tr>
-									<tr>
-
-									</tr>
-								</c:forEach>
-							</c:if>
-						</table>
-					</div>
-				</div>
-
-				<!-- 공지사항 -->
-				<div id="notice" class="row collapse">
-					<div class="col-sm-8 offset-sm-2">
-						<form action="insert.bd" id="review" method="post">
-							<fieldset>
-								<input type="hidden" name="boardcateid" value="p01"> <input
-									type="hidden" name="prodid" value="${ product.prodid}">
-								<input type="hidden" name="memid" value="${loginfo.memid }">
-								<input type="hidden" name="prodname" value="${product.prodname }">
-									<h5>공지사항</h5>
-								<div class="form-group form-inline">
-									<c:if test="${loginfo.memid == product.memid && loginfo != null}">
-									<div class="col-sm-1" id="reviewform">
-										<label>공지 작성</label>
-									</div>
-									<div class="col-sm-10" id="reviewform">
-										<textarea class="form-control" id="content"
-											name="boardcontent" placeholder="내용은 140자까지 작성 가능합니다."
-											maxlength="140" rows="2"></textarea>
-									</div>
-									<div class="col-sm-1" id="reviewform">
-										<button type="submit" class="btn btn-primary"
-											style="height: 60px; float: left">작성</button>
-									</div>
-									</c:if>
-								</div>
-							</fieldset>
-						</form>
-
-						<table class="table" style="background-color: #f2f2f2">
-							<c:if test="${fn:length(noticelist) == 0}">
-								<tr>
-									<td align="center">공지사항이 없습니다.</td>
-								</tr>
-							</c:if>
-							<c:if test="${fn:length(noticelist) != 0}">
-								<c:forEach var="notice" items="${noticelist }">
-									<tr>
-										<th>${notice.boardsubject }</th>
-										<td align="right" style="font-size: small;" colspan="2"
-											id="reviewInfo">작성자 <b>${notice.memid } </b> &#124; 작성일
-											<b>${notice.boardinputdate }</b></td>
-									</tr>
-									<tr>
-										<td colspan="2">${notice.boardcontent }</td>
-									</tr>
-									<tr>
-
-									</tr>
-								</c:forEach>
-							</c:if>
-						</table>
-					</div>
+				<h5>위치</h5>
+				<div id="googleMap" style="width:500px;height:380px;"></div>
+				<script>
+			      var map;
+			      function initMap() {
+			    	  
+			      }
+			      function geocode(){
+			      		var address = '${product.memplace}';
+			      		var geocoder = new google.maps.Geocoder();
+			      		geocoder.geocode({'address':address,'partialmatch':true}, geocodeResult);
+			      	}
+			      	
+			      	function geocodeResult(results, status){
+			      		if(status == 'OK' && results.length>0){
+			      			var lat = results[0].geometry.location.lat();
+			      			var lng = results[0].geometry.location.lng()
+			      		}else{
+			      			alert("error");
+			      		}
+			      		
+			      		var uluru = {'lat': lat, 'lng': lng};
+				          var map = new google.maps.Map(document.getElementById('googleMap'), {
+				            zoom: 15,
+				            center: uluru
+				          });
+				          var marker = new google.maps.Marker({
+				            position: uluru,
+				            map: map
+				          });
+			      	}
+			    </script>
+			    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmj9FUZX2-wuXkYBXAHSgTU6erKygdkgQ" async defer></script>
+			</div>
 				</div>
 			</div>
 		</div>
@@ -527,6 +612,45 @@ h5{
 			</div>
 		</div>
 	</div>
+	
+	   <!-- board Modal -->
+      <div id="boardModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+      
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-title" align="center"></h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form action="update.bd" method="post">
+            <div class="modal-body">
+               <input type="hidden" id="boardid" name="boardid"/>
+               <input type="hidden" name="prodid"/>
+               <input type="hidden" id="boardsubject" name="boardsubject"/>
+               <input type="hidden" name="flag" value="modal"/>
+               <input type="hidden" id="pageNumber" name="pageNumber" value="0"/>
+               <div class="row">
+	               	<label style="margin-left:15px" id="boardsubject"></label>
+               </div>
+               <div class="row">
+                  <div class="col-sm-1">
+                     <label for="boardcontent">내용</label>
+                  </div>
+                  <div class="col-sm-11">
+                     <textarea rows="5" style="width:100%" id="editcontent" name="boardcontent">
+                     </textarea>
+                  </div>
+               </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" id="update" >수정</button>   
+            </div>
+            </form>
+          </div>
+      
+        </div>
+      </div>
 </body>
 </html>
 <%@ include file="../views/bottom.jsp"%>

@@ -39,14 +39,12 @@
 		SELECT * FROM members
 		WHERE
 		memname=#{memname} and mememail=#{mememail}
-		WHERE memname=#{memname} and mememail=#{mememail}
 	</select>
 
 	<select id="getMemberByPw" resultType="string" parameterType="MyMember">
 		SELECT mempw FROM members
 		WHERE mememail=#{mememail} and memid=#{memid}
 		and memname=#{memname}
-		WHERE mememail=#{mememail} and memid=#{memid} and memname=#{memname}
 	</select>
 	
 	<select id="getMemberList" resultType="MyMember" parameterType="hashmap">

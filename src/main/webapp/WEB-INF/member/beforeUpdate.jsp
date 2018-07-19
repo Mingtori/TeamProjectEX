@@ -8,8 +8,8 @@
    text-align: left;
 }
 .jumbotron {
-   background-color: #F2F2F2;
    background-color: rgba(242, 242, 242, 0.8);
+   color:black; 
 }
 </style>
 <script>
