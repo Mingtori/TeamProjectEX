@@ -65,7 +65,7 @@ ul.nav.nav-tabs {
 					<!-- 관리자일경우 -->
 					<c:if test="${loginfo.gradeid == 0 }">
 						<li role="presentation"><a href="memberlist.me">회원관리목록</a></li>
-						<li role="presentation"><a href="listSeller.prd?memid=${loginfo.memid }"">상품관리목록</a></li>
+						<li role="presentation"><a href="listSeller.prd?memid=${loginfo.memid }">상품관리목록</a></li>
 					</c:if>
 					<!-- 일반 사용자일경우 -->
 					<c:if test="${loginfo.gradeid == 1 }">

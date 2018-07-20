@@ -21,9 +21,11 @@ td a {
 			<input class="btn btn-default" type = "submit" value = "검색"/> 
 		</form>
 	</div>
+	<c:if test="${loginfo.memid != 'admin' }">
 	<div align="right">
 		<a href = "insert.prd"><input class="btn btn-primary" type = "button" value = "추가"></a>
 	</div> 
+	</c:if>
 	<table class="table">
 			<c:forEach items="${sellist }" var="product">
 			<tr>
@@ -48,10 +50,12 @@ td a {
 				</tr>
 				<tr>
 					<td align="right">
-						<a
+					<c:if test="${loginfo.memid != 'admin' }">
+					<a
 						href="update.prd?prodid=${product.prodid }&pageNumber=1&seller=true">
 						<button class="btn btn-default">수정</button>
 					</a>
+					</c:if>
 					<a
 						href="delete.prd?prodid=${product.prodid }&pageNumber=1&seller=true">
 						<button class="btn btn-default">삭제</button></a>

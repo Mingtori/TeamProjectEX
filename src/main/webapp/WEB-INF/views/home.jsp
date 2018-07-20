@@ -138,7 +138,7 @@
         </div>
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
-            <p class="large text-muted">오늘 점심메뉴 공릉 닭한마리</p>
+            <p class="large text-muted">끝났다</p>
           </div>
         </div>
       </div>
